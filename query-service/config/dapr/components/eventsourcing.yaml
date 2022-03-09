@@ -1,0 +1,16 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: eventsourcing
+spec:
+  type: eventsourcing.mongodb
+  version: v1
+  metadata:
+  - name: host
+    value: 192.168.64.4:27017
+  - name: databaseName
+    value: "example-query-service"
+  - name: username
+    value: "dapr"
+  - name: password
+    value: "123456"

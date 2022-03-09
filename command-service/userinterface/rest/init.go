@@ -12,11 +12,11 @@ func Init(port int) {
 	app := iris.New()
 	app.Use(before)
 	event_handler.NewSubscribeController(app)
-	mvc.Configure(app.Party("/api/v1.0"), registerMvcController)
+	mvc.Configure(app.Party("/api/v1.0"), register)
 	_ = app.Run(iris.Addr(fmt.Sprintf(":%d", port)))
 }
 
-func registerMvcController(app *mvc.Application) {
+func register(app *mvc.Application) {
 	app.Handle(controller.NewUserController())
 }
 

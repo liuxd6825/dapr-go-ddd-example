@@ -3,15 +3,9 @@
 #### 介绍
 基于go语言的dapr的DDD sdk
 
-#### 软件架构
-软件架构说明
-
-
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
+#### 调试 
+1.  -app-port 9020 -dapr-http-port 9021 -dapr-grpc-port 9022 -app-id query-example --enable-metrics=false -config /Users/lxd/go/src/github.com/liuxd6825/dapr-go-ddd-example/query-service/config/dapr/config.yaml -components-path /Users/lxd/go/src/github.com/liuxd6825/dapr-go-ddd-example/query-service/config/dapr/components
+2.  -app-port 9010 -dapr-http-port 9011 -app-id cmd-example -dapr-grpc-port 9012 --enable-metrics=false -config /Users/lxd/go/src/github.com/liuxd6825/dapr-go-ddd-example/query-service/config/dapr/config.yaml  -components-path /Users/lxd/go/src/github.com/liuxd6825/dapr-go-ddd-example/command-service/config/dapr/components
 
 #### 使用说明
 

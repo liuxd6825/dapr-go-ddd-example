@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	eventStorage := ddd.NewDaprEventStorage("localhost", 3501, "pubsub")
+	eventStorage := ddd.NewDaprEventStorage("localhost", 9021, "pubsub")
 	ddd.Init(eventStorage)
-	rest.Init(5001)
+	rest.Init(9020)
 }
