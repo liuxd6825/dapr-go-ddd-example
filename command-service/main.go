@@ -6,7 +6,10 @@ import (
 )
 
 func main() {
-	eventStorage := ddd.NewDaprEventStorage("localhost", 9011, "pubsub")
-	ddd.Init(eventStorage)
+	eventStorage, err := ddd.NewDaprEventStorage("localhost", 9011, ddd.PubsubName("pubsub"))
+	if err != nil {
+		panic(err)
+	}
+	ddd.RegisterEventStorage(eventStorage)
 	rest.Init(9010)
 }

@@ -3,17 +3,17 @@ package appservice
 import (
 	"context"
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/command/user_commands"
-	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/domainservice"
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/model"
+	domain_service "github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/service"
 )
 
 type UserAppService struct {
-	userDomainService *domainservice.UserDomainService
+	userDomainService *domain_service.UserDomainService
 }
 
 func NewUserAppService() *UserAppService {
 	return &UserAppService{
-		userDomainService: &domainservice.UserDomainService{},
+		userDomainService: &domain_service.UserDomainService{},
 	}
 }
 

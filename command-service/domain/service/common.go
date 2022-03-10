@@ -1,3 +1,3 @@
-package domainservice
+package service
 
 // var validate = validator.New()

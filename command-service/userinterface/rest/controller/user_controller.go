@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/application/appservice"
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/command/user_commands"

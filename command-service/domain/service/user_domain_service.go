@@ -1,7 +1,8 @@
-package domainservice
+package service
 
 import (
 	"context"
+	"github.com/go-playground/validator/v10"
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/command/user_commands"
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/model"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
@@ -9,6 +10,8 @@ import (
 
 type UserDomainService struct {
 }
+
+var validate = validator.New()
 
 func (s *UserDomainService) CreateUser(ctx context.Context, cmd *user_commands.UserCreateCommand) (*model.UserAggregate, error) {
 	if err := validate.Struct(cmd); err != nil {

@@ -3,7 +3,6 @@ package model
 import (
 	"context"
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/command/user_commands"
-	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/event"
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/event/user_events"
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/factory/user_factory"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
@@ -29,13 +28,13 @@ func (a *UserAggregate) OnCommand(ctx context.Context, domainCmd ddd.DomainComma
 	switch any.(type) {
 	case *user_commands.UserCreateCommand:
 		cmd := any.(*user_commands.UserCreateCommand)
-		return ddd.Apply(ctx, event.PubsubTypeDefault.ToString(), a, user_factory.NewCreateEvent(cmd), metadata)
+		return ddd.Apply(ctx, a, user_factory.NewCreateEvent(cmd), ddd.ApplyMetadata(metadata))
 	case *user_commands.UserUpdateCommand:
 		cmd := any.(*user_commands.UserUpdateCommand)
-		return ddd.Apply(ctx, event.PubsubTypeDefault.ToString(), a, user_factory.NewUpdateEvent(cmd), metadata)
+		return ddd.Apply(ctx, a, user_factory.NewUpdateEvent(cmd), ddd.ApplyMetadata(metadata))
 	case *user_commands.UserDeleteCommand:
 		cmd := any.(*user_commands.UserDeleteCommand)
-		return ddd.Apply(ctx, event.PubsubTypeDefault.ToString(), a, user_factory.NewDeleteEvent(cmd), metadata)
+		return ddd.Apply(ctx, a, user_factory.NewDeleteEvent(cmd), ddd.ApplyMetadata(metadata))
 	}
 	return nil
 }
