@@ -3,6 +3,7 @@ package user_factory
 import (
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/command/user_commands"
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/event/user_events"
+	"github.com/liuxd6825/dapr-go-ddd-example/common/common_user_event"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
 )
 
@@ -41,11 +42,11 @@ func NewDeleteEvent(cmd *user_commands.UserDeleteCommand) *user_events.UserDelet
 
 func NewEvent(eventType string) ddd.DomainEvent {
 	switch eventType {
-	case user_events.UserEventType_UserCreateEvent.String():
+	case common_user_event.UserCreateEventType.String():
 		return &user_events.UserCreateEvent{}
-	case user_events.UserEventType_UserUpdateEvent.String():
+	case common_user_event.UserUpdateEventType.String():
 		return &user_events.UserUpdateEvent{}
-	case user_events.UserEventType_UserDeleteEvent.String():
+	case common_user_event.UserDeleteEventType.String():
 		return &user_events.UserDeleteEvent{}
 	}
 	return nil

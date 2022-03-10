@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
@@ -19,10 +18,8 @@ func main() {
 }
 
 func registerSubscribe(app *iris.Application) {
-	app.Handle("GET", "/dapr/subscribe", func(context *context.Context) {
-		data, _ := json.Marshal(ddd.GetSubscribes())
-		_, _ = context.Write(data)
-		context.ContentType("application/json")
+	app.Get("dapr/subscribe", func(context *context.Context) {
+		_, _ = context.JSON(ddd.GetSubscribes())
 	})
 	handler.Register(app)
 }
@@ -36,7 +33,6 @@ func registerEventStorage(host string, port int, pubsubName string) {
 }
 
 func registerHttpServer(app *iris.Application) {
-
 	userinterface.RegisterMvcController(app)
 }
 

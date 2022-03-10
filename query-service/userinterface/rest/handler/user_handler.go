@@ -3,6 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"github.com/kataras/iris/v12"
+	"github.com/kataras/iris/v12/context"
 	"github.com/liuxd6825/dapr-go-ddd-example/common/common_user_event"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/queryhandler"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
@@ -23,18 +24,19 @@ func NewUserHandler(app *iris.Application) *UserHandler {
 }
 
 func (h *UserHandler) GetSubscribes() []ddd.Subscribe {
+	pubsubName := ddd.GetEventStorage().GetPubsubName()
 	return []ddd.Subscribe{
-		{PubsubName: "", Topic: common_user_event.UserCreateEventType.String(), Route: "/users/user-create-event", Handle: h.onEvent},
-		{PubsubName: "", Topic: common_user_event.UserUpdateEventType.String(), Route: "/users/user-update-event", Handle: h.onEvent},
-		{PubsubName: "", Topic: common_user_event.UserDeleteEventType.String(), Route: "/users/user-delete-event", Handle: h.onEvent},
+		{PubsubName: pubsubName, Topic: common_user_event.UserCreateEventType.String(), Route: "/users/user-create-event"},
+		{PubsubName: pubsubName, Topic: common_user_event.UserUpdateEventType.String(), Route: "/users/user-update-event"},
+		{PubsubName: pubsubName, Topic: common_user_event.UserDeleteEventType.String(), Route: "/users/user-delete-event"},
 	}
 }
 
-func (h *UserHandler) RegisterSubscribe(subscribe ddd.Subscribe) {
-	h.app.Handle("POST", subscribe.Route, subscribe.Handle.(iris.Handler))
+func (h *UserHandler) RegisterSubscribe(subItem ddd.Subscribe) {
+	h.app.Handle("POST", subItem.Route, h.onEventHandler)
 }
 
-func (h *UserHandler) onEvent(ctx iris.Context) {
+func (h *UserHandler) onEventHandler(ctx *context.Context) {
 	data, _ := ctx.GetBody()
 	eventRecord := ddd.EventRecord{}
 	err := json.Unmarshal(data, &eventRecord)

@@ -1,5 +1,7 @@
 package user_events
 
+import "github.com/liuxd6825/dapr-go-ddd-example/common/common_user_event"
+
 type UserDeleteEvent struct {
 	Id        string `json:"id"`
 	TenantId  string `json:"tenantId"`
@@ -11,7 +13,7 @@ func (e *UserDeleteEvent) GetEventId() string {
 	return e.EventId
 }
 func (e *UserDeleteEvent) GetEventType() string {
-	return UserEventType_UserDeleteEvent.String()
+	return common_user_event.UserDeleteEventType.String()
 }
 func (e *UserDeleteEvent) GetEventRevision() string {
 	return "1.0"
