@@ -23,17 +23,22 @@ func NewUserHandler(app *iris.Application) *UserHandler {
 	return ctrl
 }
 
-func (h *UserHandler) GetSubscribes() []ddd.Subscribe {
-	pubsubName := ddd.GetEventStorage().GetPubsubName()
-	return []ddd.Subscribe{
+func (h *UserHandler) GetSubscribes() (*[]ddd.Subscribe, error) {
+	es, err := ddd.GetEventStorage("")
+	if err != nil {
+		return nil, err
+	}
+	pubsubName := es.GetPubsubName()
+	return &[]ddd.Subscribe{
 		{PubsubName: pubsubName, Topic: common_user_event.UserCreateEventType.String(), Route: "/users/user-create-event"},
 		{PubsubName: pubsubName, Topic: common_user_event.UserUpdateEventType.String(), Route: "/users/user-update-event"},
 		{PubsubName: pubsubName, Topic: common_user_event.UserDeleteEventType.String(), Route: "/users/user-delete-event"},
-	}
+	}, nil
 }
 
-func (h *UserHandler) RegisterSubscribe(subItem ddd.Subscribe) {
+func (h *UserHandler) RegisterSubscribe(subItem ddd.Subscribe) error {
 	h.app.Handle("POST", subItem.Route, h.onEventHandler)
+	return nil
 }
 
 func (h *UserHandler) onEventHandler(ctx *context.Context) {
@@ -43,5 +48,5 @@ func (h *UserHandler) onEventHandler(ctx *context.Context) {
 	if err != nil {
 		ctx.SetErr(err)
 	}
-	err = h.eventHandler.OnEvent(&eventRecord)
+	err = h.eventHandler.OnEvent(ctx, &eventRecord)
 }
