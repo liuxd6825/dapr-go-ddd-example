@@ -12,14 +12,13 @@ type UserCreateCommand struct {
 }
 
 func (c *UserCreateCommand) NewDomainEvent() ddd.DomainEvent {
-	return &user_events.UserCreateEvent{
+	return &user_events.UserCreateEventV1{
 		EventId:   c.CommandId,
 		CommandId: c.CommandId,
 		Id:        c.Data.Id,
 		TenantId:  c.Data.TenantId,
 		Code:      c.Data.Code,
-		UserId:    c.Data.UserId,
-		UserName:  c.Data.UserName,
+		UserName:  c.Data.Name,
 	}
 }
 

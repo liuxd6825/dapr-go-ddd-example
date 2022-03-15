@@ -42,15 +42,15 @@ func (a *UserAggregate) OnCommand(ctx context.Context, domainCmd ddd.DomainComma
 func (a *UserAggregate) OnSourceEvent(ctx context.Context, domainEvent ddd.DomainEvent) error {
 	any := domainEvent.(interface{})
 	switch any.(type) {
-	case *user_events.UserCreateEvent:
-		e, _ := any.(*user_events.UserCreateEvent)
-		return a.onUserCreateEvent(e)
+	case *user_events.UserCreateEventV1:
+		e, _ := any.(*user_events.UserCreateEventV1)
+		return a.OnUserCreateEventV1_0(ctx, e)
 	case *user_events.UserUpdateEvent:
 		e, _ := any.(*user_events.UserUpdateEvent)
-		return a.onUserUpdateEvent(e)
+		return a.OnUserUpdateEventV1_0(ctx, e)
 	case user_events.UserDeleteEvent:
 		e, _ := any.(*user_events.UserDeleteEvent)
-		return a.onUserDeleteEvent(e)
+		return a.OnUserDeleteEventV1_0(ctx, e)
 	}
 	return nil
 }
@@ -59,7 +59,15 @@ func NewUserAggregate() *UserAggregate {
 	return &UserAggregate{}
 }
 
-func (a *UserAggregate) onUserCreateEvent(event *user_events.UserCreateEvent) error {
+func (a *UserAggregate) OnUserCreateEventV1_0(ctx context.Context, event *user_events.UserCreateEventV1) error {
+	a.UserName = event.UserName
+	a.Id = event.Id
+	a.TenantId = event.TenantId
+	a.Code = event.Code
+	return nil
+}
+
+func (a *UserAggregate) OnUserUpdateEventV1_0(ctx context.Context, event *user_events.UserUpdateEvent) error {
 	a.UserId = event.UserId
 	a.UserName = event.UserName
 	a.Id = event.Id
@@ -68,16 +76,7 @@ func (a *UserAggregate) onUserCreateEvent(event *user_events.UserCreateEvent) er
 	return nil
 }
 
-func (a *UserAggregate) onUserUpdateEvent(event *user_events.UserUpdateEvent) error {
-	a.UserId = event.UserId
-	a.UserName = event.UserName
-	a.Id = event.Id
-	a.TenantId = event.TenantId
-	a.Code = event.Code
-	return nil
-}
-
-func (a *UserAggregate) onUserDeleteEvent(event *user_events.UserDeleteEvent) error {
+func (a *UserAggregate) OnUserDeleteEventV1_0(ctx context.Context, event *user_events.UserDeleteEvent) error {
 	a.Id = event.Id
 	a.TenantId = event.TenantId
 	a.IsDelete = true

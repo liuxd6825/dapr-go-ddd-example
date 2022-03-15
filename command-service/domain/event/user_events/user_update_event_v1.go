@@ -1,6 +1,6 @@
 package user_events
 
-import "github.com/liuxd6825/dapr-go-ddd-example/common/common_user_event"
+import "github.com/liuxd6825/dapr-go-ddd-example/common/event_type"
 
 type UserUpdateEvent struct {
 	TenantId  string `json:"tenantId"`
@@ -12,12 +12,16 @@ type UserUpdateEvent struct {
 	UserName  string `json:"userName"`
 }
 
+func NewUserUpdateEvent() *UserUpdateEvent {
+	return &UserUpdateEvent{}
+}
+
 func (e *UserUpdateEvent) GetEventId() string {
 	return e.EventId
 }
 
 func (e *UserUpdateEvent) GetEventType() string {
-	return common_user_event.UserUpdateEventType.String()
+	return event_type.UserUpdateEventType.String()
 }
 
 func (e *UserUpdateEvent) GetEventRevision() string {

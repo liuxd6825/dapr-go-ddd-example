@@ -18,8 +18,7 @@ func (c *UserUpdateCommand) NewDomainEvent() ddd.DomainEvent {
 		Id:       c.Data.Id,
 		TenantId: c.Data.TenantId,
 		Code:     c.Data.Code,
-		UserId:   c.Data.UserId,
-		UserName: c.Data.UserName,
+		UserName: c.Data.Name,
 	}
 }
 
@@ -47,10 +46,7 @@ func (c *UserUpdateCommand) Validate() error {
 	if c.Data.Code == "" {
 		errs.AppendField("data.code", "不能为空")
 	}
-	if c.Data.UserId == "" {
-		errs.AppendField("data.userId", "不能为空")
-	}
-	if c.Data.UserName == "" {
+	if c.Data.Name == "" {
 		errs.AppendField("data.userName", "不能为空")
 	}
 	return errs.GetError()

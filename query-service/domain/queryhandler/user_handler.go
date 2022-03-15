@@ -2,8 +2,6 @@ package queryhandler
 
 import (
 	"context"
-	"errors"
-	"github.com/liuxd6825/dapr-go-ddd-example/common/common_user_event"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/event/user_events"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/projection"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/queryservice"
@@ -21,45 +19,25 @@ func NewUserQueryHandler() ddd.QueryEventHandler {
 	}
 }
 
-func (u *userQueryHandler) doEventHandler(record *ddd.EventRecord, eventType common_user_event.UserEventType, success func(v interface{}) error) error {
-	err := ddd.DoEvent(record.EventData, user_events.NewUserDomainEvent(eventType)).OnSuccess(success).OnError(func(err error) {
-		println(err)
-	}).Error()
-	return err
-}
-
-func (u *userQueryHandler) OnEvent(ctx context.Context, record *ddd.EventRecord) (err error) {
-	switch record.EventType {
-	case common_user_event.UserCreateEventType.String():
-		err = u.doEventHandler(record, common_user_event.UserCreateEventType, func(v interface{}) error {
-			return u.onCreateEvent(ctx, v.(user_events.UserCreateEvent))
-		})
-		break
-	case common_user_event.UserUpdateEventType.String():
-		err = u.doEventHandler(record, common_user_event.UserUpdateEventType, func(v interface{}) error {
-			return u.onUpdateEvent(ctx, v.(user_events.UserUpdateEvent))
-		})
-		break
-	case common_user_event.UserUpdateEventType.String():
-		err = u.doEventHandler(record, common_user_event.UserUpdateEventType, func(v interface{}) error {
-			return u.onUpdateEvent(ctx, v.(user_events.UserUpdateEvent))
-		})
-		break
-	default:
-		err = errors.New("")
-	}
-	return err
-}
-
-func (u *userQueryHandler) onCreateEvent(ctx context.Context, event user_events.UserCreateEvent) error {
+func (u *userQueryHandler) OnUserCreateEventV1_0(ctx context.Context, event *user_events.UserCreateEventV1) error {
 	user := projection.UserView{
+		Id:       event.UserId,
 		TenantId: event.TenantId,
-		Id:       event.Id,
+		UserName: event.UserName,
 	}
 	return u.service.Create(ctx, &user)
 }
 
-func (u *userQueryHandler) onUpdateEvent(ctx context.Context, event user_events.UserUpdateEvent) error {
+func (u *userQueryHandler) OnUserCreateEventV2_0(ctx context.Context, event *user_events.UserCreateEventV2) error {
+	user := projection.UserView{
+		TenantId: event.TenantId,
+		Id:       event.Data.Id,
+		UserName: event.Data.UserName,
+	}
+	return u.service.Create(ctx, &user)
+}
+
+func (u *userQueryHandler) OnUserUpdateEventV1_0(ctx context.Context, event *user_events.UserUpdateEvent) error {
 	user := projection.UserView{
 		TenantId: event.TenantId,
 		Id:       event.Id,
@@ -67,7 +45,7 @@ func (u *userQueryHandler) onUpdateEvent(ctx context.Context, event user_events.
 	return u.service.Update(ctx, &user)
 }
 
-func (u userQueryHandler) onDeleteEvent(ctx context.Context, event user_events.UserDeleteEvent) error {
+func (u userQueryHandler) OnUserDeleteEventV1_0(ctx context.Context, event *user_events.UserDeleteEvent) error {
 	user := projection.UserView{
 		TenantId: event.TenantId,
 		Id:       event.Id,

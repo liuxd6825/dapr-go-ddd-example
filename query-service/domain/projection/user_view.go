@@ -1,8 +1,10 @@
 package projection
 
 type UserView struct {
-	TenantId string
-	Id       string
+	Id       string `json:"id"`
+	TenantId string `json:"tenantId"`
+	Code     string `json:"code"`
+	UserName string `json:"userName"`
 }
 
 func (u *UserView) GetTenantId() string {

@@ -1,4 +1,4 @@
-package common_user_event
+package event_type
 
 type UserEventType int32
 
@@ -11,11 +11,11 @@ const (
 func (p UserEventType) String() string {
 	switch p {
 	case UserCreateEventType:
-		return "ddd-example.user-create-event"
+		return "ddd-example.UserCreateEvent"
 	case UserUpdateEventType:
-		return "ddd-example.user-update-event"
+		return "ddd-example.UserUpdateEvent"
 	case UserDeleteEventType:
-		return "ddd-example.user-delete-event"
+		return "ddd-example.UserDeleteEvent"
 	default:
 		return "UNKNOWN"
 	}

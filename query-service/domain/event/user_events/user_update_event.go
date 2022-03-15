@@ -6,3 +6,7 @@ type UserUpdateEvent struct {
 	EventId   string `json:"eventId"`
 	CommandId string `json:"commandId"`
 }
+
+func NewUserUpdateEvent() *UserUpdateEvent {
+	return &UserUpdateEvent{}
+}

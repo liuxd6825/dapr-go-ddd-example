@@ -6,3 +6,7 @@ type UserDeleteEvent struct {
 	EventId   string `json:"eventId"`
 	CommandId string `json:"commandId"`
 }
+
+func NewUserDeleteEvent() *UserDeleteEvent {
+	return &UserDeleteEvent{}
+}
