@@ -1,10 +1,11 @@
 package user_events
 
 type UserUpdateEvent struct {
-	Id        string `json:"id"`
 	TenantId  string `json:"tenantId"`
 	EventId   string `json:"eventId"`
 	CommandId string `json:"commandId"`
+	Id        string `json:"id"`
+	Name      string `json:"name"`
 }
 
 func NewUserUpdateEvent() *UserUpdateEvent {

@@ -16,7 +16,7 @@ type UserRepository struct {
 func NewUserRepository() repository.UserViewRepository {
 	coll := GetMongoDB().NewCollection("users")
 	return &UserRepository{
-		BaseRepository: ddd_mongodb.NewBaseRepository(&UserViewBuilder{}, coll),
+		BaseRepository: ddd_mongodb.NewBaseRepository(&userViewBuilder{}, coll),
 	}
 }
 
@@ -49,15 +49,15 @@ func (u *UserRepository) FindById(ctx context.Context, tenantId string, id strin
 }
 
 func (u *UserRepository) DeleteById(ctx context.Context, tenantId string, id string) error {
-	return nil
+	return u.BaseRepository.BaseDeleteById(ctx, tenantId, id).GetError()
 }
 
-type UserViewBuilder struct {
+type userViewBuilder struct {
 }
 
-func (b *UserViewBuilder) New() interface{} {
+func (b *userViewBuilder) New() interface{} {
 	return &projection.UserView{}
 }
-func (b *UserViewBuilder) NewList() interface{} {
+func (b *userViewBuilder) NewList() interface{} {
 	return &[]projection.UserView{}
 }
