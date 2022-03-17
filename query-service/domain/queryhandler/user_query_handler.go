@@ -19,21 +19,16 @@ func NewUserQueryHandler() ddd.QueryEventHandler {
 	}
 }
 
-func (u *UserQueryHandler) OnUserCreateEventV1_0(ctx context.Context, event *user_events.UserCreateEventV1) error {
+func (u *UserQueryHandler) OnUserCreateEventV1s0(ctx context.Context, event *user_events.UserCreateEventV1) error {
 	user := factory.NewUserView_UserCreateEventV1(event)
 	return u.service.Create(ctx, user)
 }
 
-func (u *UserQueryHandler) OnUserCreateEventV2_0(ctx context.Context, event *user_events.UserCreateEventV2) error {
-	user := factory.NewUserView_UserCreateEventV2(event)
-	return u.service.Create(ctx, user)
-}
-
-func (u *UserQueryHandler) OnUserUpdateEventV1_0(ctx context.Context, event *user_events.UserUpdateEvent) error {
+func (u *UserQueryHandler) OnUserUpdateEventV1s0(ctx context.Context, event *user_events.UserUpdateEventV1) error {
 	user := factory.NewUserView_UserUpdateEventV1(event)
 	return u.service.Update(ctx, user)
 }
 
-func (u UserQueryHandler) OnUserDeleteEventV1_0(ctx context.Context, event *user_events.UserDeleteEvent) error {
+func (u UserQueryHandler) OnUserDeleteEventV1s0(ctx context.Context, event *user_events.UserDeleteEventV1) error {
 	return u.service.DeleteById(ctx, event.TenantId, event.EventId)
 }

@@ -13,12 +13,9 @@ type UserUpdateCommand struct {
 }
 
 func (c *UserUpdateCommand) NewDomainEvent() ddd.DomainEvent {
-	return &user_events.UserUpdateEvent{
-		EventId:  c.CommandId,
-		Id:       c.Data.Id,
-		TenantId: c.Data.TenantId,
-		Code:     c.Data.Code,
-		UserName: c.Data.Name,
+	return &user_events.UserUpdateEventV1{
+		EventId: c.CommandId,
+		Data:    c.Data,
 	}
 }
 
@@ -43,10 +40,10 @@ func (c *UserUpdateCommand) Validate() error {
 	if c.Data.Id == "" {
 		errs.AppendField("data.id", "不能为空")
 	}
-	if c.Data.Code == "" {
-		errs.AppendField("data.code", "不能为空")
+	if c.Data.UserCode == "" {
+		errs.AppendField("data.userCode", "不能为空")
 	}
-	if c.Data.Name == "" {
+	if c.Data.UserName == "" {
 		errs.AppendField("data.userName", "不能为空")
 	}
 	return errs.GetError()

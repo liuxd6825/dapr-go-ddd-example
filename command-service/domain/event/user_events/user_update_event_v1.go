@@ -1,41 +1,41 @@
 package user_events
 
-import "github.com/liuxd6825/dapr-go-ddd-example/common/event_type"
+import (
+	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/fields"
+	"github.com/liuxd6825/dapr-go-ddd-example/common/event_type"
+)
 
-type UserUpdateEvent struct {
-	TenantId  string `json:"tenantId"`
-	Id        string `json:"id"`
-	EventId   string `json:"eventId"`
-	CommandId string `json:"commandId"`
-	Code      string `json:"code"`
-	UserId    string `json:"userId"`
-	UserName  string `json:"userName"`
+type UserUpdateEventV1 struct {
+	TenantId  string            `json:"tenantId"`
+	CommandId string            `json:"commandId"`
+	EventId   string            `json:"eventId"`
+	Data      fields.UserFields `json:"data"`
 }
 
-func NewUserUpdateEvent() *UserUpdateEvent {
-	return &UserUpdateEvent{}
+func NewUserUpdateEventV1() *UserUpdateEventV1 {
+	return &UserUpdateEventV1{}
 }
 
-func (e *UserUpdateEvent) GetEventId() string {
+func (e *UserUpdateEventV1) GetEventId() string {
 	return e.EventId
 }
 
-func (e *UserUpdateEvent) GetEventType() string {
+func (e *UserUpdateEventV1) GetEventType() string {
 	return event_type.UserUpdateEventType.String()
 }
 
-func (e *UserUpdateEvent) GetEventRevision() string {
+func (e *UserUpdateEventV1) GetEventRevision() string {
 	return "1.0"
 }
 
-func (e *UserUpdateEvent) GetCommandId() string {
+func (e *UserUpdateEventV1) GetCommandId() string {
 	return e.CommandId
 }
 
-func (e *UserUpdateEvent) GetTenantId() string {
+func (e *UserUpdateEventV1) GetTenantId() string {
 	return e.TenantId
 }
 
-func (e *UserUpdateEvent) GetAggregateId() string {
-	return e.Id
+func (e *UserUpdateEventV1) GetAggregateId() string {
+	return e.Data.Id
 }

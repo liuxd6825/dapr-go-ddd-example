@@ -12,7 +12,7 @@ type UserDeleteCommand struct {
 }
 
 func (c *UserDeleteCommand) NewDomainEvent() ddd.DomainEvent {
-	return &user_events.UserDeleteEvent{
+	return &user_events.UserDeleteEventV1{
 		TenantId: c.TenantId,
 		EventId:  c.CommandId,
 		Id:       c.Id,

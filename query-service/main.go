@@ -45,9 +45,6 @@ func registerSubscribe(app *iris.Application) {
 	_ = ddd.RegisterEventType(event_type.UserCreateEventType.String(), "1.0", func() interface{} {
 		return user_events.NewUserCreateEventV1()
 	})
-	_ = ddd.RegisterEventType(event_type.UserCreateEventType.String(), "2.0", func() interface{} {
-		return user_events.NewUserCreateEventV2()
-	})
 	_ = ddd.RegisterEventType(event_type.UserUpdateEventType.String(), "1.0", func() interface{} {
 		return user_events.NewUserUpdateEvent()
 	})

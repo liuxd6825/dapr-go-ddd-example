@@ -6,79 +6,56 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/event/user_events"
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/factory/user_factory"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
-	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_context"
 )
 
 type UserAggregate struct {
-	Id       string `json:"id"`
-	TenantId string `json:"tenantId"`
-	Code     string `json:"code"`
-	UserId   string `json:"userId"`
-	UserName string `json:"userName"`
-	IsDelete bool   `json:"isDelete"`
-}
-
-func (a *UserAggregate) CreateDomainEvent(ctx context.Context, eventRecord *ddd.EventRecord) ddd.DomainEvent {
-	return user_factory.NewEvent(eventRecord.EventType)
-}
-
-func (a *UserAggregate) OnCommand(ctx context.Context, domainCmd ddd.DomainCommand) error {
-	any := domainCmd.(interface{})
-	metadata := ddd_context.GetMetadataContext(ctx)
-	switch any.(type) {
-	case *user_commands.UserCreateCommand:
-		cmd := any.(*user_commands.UserCreateCommand)
-		return ddd.Apply(ctx, a, user_factory.NewCreateEvent(cmd), ddd.ApplyMetadata(metadata))
-	case *user_commands.UserUpdateCommand:
-		cmd := any.(*user_commands.UserUpdateCommand)
-		return ddd.Apply(ctx, a, user_factory.NewUpdateEvent(cmd), ddd.ApplyMetadata(metadata))
-	case *user_commands.UserDeleteCommand:
-		cmd := any.(*user_commands.UserDeleteCommand)
-		return ddd.Apply(ctx, a, user_factory.NewDeleteEvent(cmd), ddd.ApplyMetadata(metadata))
-	}
-	return nil
-}
-
-func (a *UserAggregate) OnSourceEvent(ctx context.Context, domainEvent ddd.DomainEvent) error {
-	any := domainEvent.(interface{})
-	switch any.(type) {
-	case *user_events.UserCreateEventV1:
-		e, _ := any.(*user_events.UserCreateEventV1)
-		return a.OnUserCreateEventV1_0(ctx, e)
-	case *user_events.UserUpdateEvent:
-		e, _ := any.(*user_events.UserUpdateEvent)
-		return a.OnUserUpdateEventV1_0(ctx, e)
-	case user_events.UserDeleteEvent:
-		e, _ := any.(*user_events.UserDeleteEvent)
-		return a.OnUserDeleteEventV1_0(ctx, e)
-	}
-	return nil
+	Id        string `json:"id" validate:"gt=0"`
+	TenantId  string `json:"tenantId" validate:"gt=0"`
+	UserCode  string `json:"code" validate:"gt=0"`
+	UserName  string `json:"userName" validate:"gt=0"`
+	Email     string `json:"email" validate:"gt=0"`
+	Telephone string `json:"telephone" validate:"gt=0"`
+	Address   string `json:"address" validate:"gt=0"`
+	IsDelete  bool   `json:"isDelete"`
 }
 
 func NewUserAggregate() *UserAggregate {
 	return &UserAggregate{}
 }
 
-func (a *UserAggregate) OnUserCreateEventV1_0(ctx context.Context, event *user_events.UserCreateEventV1) error {
-	a.UserName = event.UserName
-	a.Id = event.Id
+func (a *UserAggregate) UserCreateCommand(ctx context.Context, cmd *user_commands.UserCreateCommand, metadata map[string]string) error {
+	return ddd.Apply(ctx, a, user_factory.NewCreateEvent(cmd), ddd.ApplyMetadata(metadata))
+}
+
+func (a *UserAggregate) UserUpdateCommand(ctx context.Context, cmd *user_commands.UserUpdateCommand, metadata map[string]string) error {
+	return ddd.Apply(ctx, a, user_factory.NewUpdateEvent(cmd), ddd.ApplyMetadata(metadata))
+}
+
+func (a *UserAggregate) UserDeleteCommand(ctx context.Context, cmd *user_commands.UserDeleteCommand, metadata map[string]string) error {
+	return ddd.Apply(ctx, a, user_factory.NewDeleteEvent(cmd), ddd.ApplyMetadata(metadata))
+}
+
+func (a *UserAggregate) OnUserCreateEventV1s0(ctx context.Context, event *user_events.UserCreateEventV1) error {
+	a.Id = event.Data.Id
 	a.TenantId = event.TenantId
-	a.Code = event.Code
+	a.UserName = event.Data.UserName
+	a.UserCode = event.Data.UserCode
+	a.Address = event.Data.Address
+	a.Telephone = event.Data.Telephone
 	return nil
 }
 
-func (a *UserAggregate) OnUserUpdateEventV1_0(ctx context.Context, event *user_events.UserUpdateEvent) error {
-	a.UserId = event.UserId
-	a.UserName = event.UserName
-	a.Id = event.Id
+func (a *UserAggregate) OnUserUpdateEventV1s0(ctx context.Context, event *user_events.UserUpdateEventV1) error {
+	a.Id = event.Data.Id
 	a.TenantId = event.TenantId
-	a.Code = event.Code
+	a.UserName = event.Data.UserName
+	a.UserCode = event.Data.UserCode
+	a.Address = event.Data.Address
+	a.Telephone = event.Data.Telephone
 	return nil
 }
 
-func (a *UserAggregate) OnUserDeleteEventV1_0(ctx context.Context, event *user_events.UserDeleteEvent) error {
-	a.Id = event.Id
-	a.TenantId = event.TenantId
+func (a *UserAggregate) OnUserDeleteEventV1s0(ctx context.Context, event *user_events.UserDeleteEventV1) error {
 	a.IsDelete = true
 	return nil
 }
@@ -88,7 +65,7 @@ func (a *UserAggregate) GetAggregateRevision() string {
 }
 
 func (a *UserAggregate) GetAggregateType() string {
-	return "Test.UserAggregate"
+	return "ddd-example.UserAggregate"
 }
 
 func (a *UserAggregate) GetAggregateId() string {
@@ -97,8 +74,4 @@ func (a *UserAggregate) GetAggregateId() string {
 
 func (a *UserAggregate) GetTenantId() string {
 	return a.TenantId
-}
-
-func (a *UserAggregate) SetTenantId(tenantId string) {
-	a.TenantId = tenantId
 }

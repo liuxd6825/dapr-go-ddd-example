@@ -34,7 +34,6 @@ func (s *UserDomainService) UpdateUser(ctx context.Context, cmd *user_commands.U
 	if err := ddd.CommandAggregate(ctx, user, cmd); err != nil {
 		return nil, err
 	}
-
 	return user, nil
 }
 
