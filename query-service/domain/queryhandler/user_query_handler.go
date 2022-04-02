@@ -5,7 +5,6 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/event/user_events"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/factory"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/queryservice"
-	"github.com/liuxd6825/dapr-go-ddd-example/query-service/infrastructure/queryservice_impl"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
 )
 
@@ -15,17 +14,17 @@ type UserQueryHandler struct {
 
 func NewUserQueryHandler() ddd.QueryEventHandler {
 	return &UserQueryHandler{
-		service: queryservice_impl.NewUserQueryService(),
+		service: queryservice.NewUserQueryService(),
 	}
 }
 
 func (u *UserQueryHandler) OnUserCreateEventV1s0(ctx context.Context, event *user_events.UserCreateEventV1) error {
-	user := factory.NewUserView_UserCreateEventV1(event)
+	user := factory.NewUserViewByUserCreateEventV1(event)
 	return u.service.Create(ctx, user)
 }
 
 func (u *UserQueryHandler) OnUserUpdateEventV1s0(ctx context.Context, event *user_events.UserUpdateEventV1) error {
-	user := factory.NewUserView_UserUpdateEventV1(event)
+	user := factory.NewUserViewByUserUpdateEventV1(event)
 	return u.service.Update(ctx, user)
 }
 

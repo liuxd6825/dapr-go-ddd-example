@@ -5,6 +5,7 @@ import (
 	"github.com/kataras/iris/v12/mvc"
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/application/appservice"
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/command/user_commands"
+	"github.com/liuxd6825/dapr-go-ddd-sdk/rest"
 )
 
 type UserController struct {
@@ -24,32 +25,33 @@ func (m *UserController) BeforeActivation(b mvc.BeforeActivation) {
 }
 
 func (m *UserController) CreateUser(ctx iris.Context) {
-	cmd := &user_commands.UserCreateCommand{}
-	if err := ctx.ReadBody(cmd); err != nil {
-		setResponseData(ctx, nil, err)
-		return
-	}
-	if err := m.userAppService.CreateUser(NewContext(ctx), cmd); err != nil {
-		setResponseData(ctx, nil, err)
-		return
-	}
-	setResponseData(ctx, cmd, nil)
+	rest.Result(ctx, func(ctx iris.Context) (interface{}, error) {
+		cmd := &user_commands.UserCreateCommand{}
+		if err := ctx.ReadBody(cmd); err != nil {
+			return nil, err
+		}
+		if err := m.userAppService.CreateUser(NewContext(ctx), cmd); err != nil {
+			return nil, err
+		}
+		return cmd, nil
+	})
 }
 
 func (m *UserController) UpdateUser(ctx iris.Context) {
-	cmd := &user_commands.UserUpdateCommand{}
-	if err := ctx.ReadBody(cmd); err != nil {
-		setResponseData(ctx, nil, err)
-	}
-	if err := m.userAppService.UpdateUser(NewContext(ctx), cmd); err != nil {
-		setResponseData(ctx, nil, err)
-		return
-	}
-	setResponseData(ctx, cmd, nil)
+	rest.Result(ctx, func(ctx iris.Context) (interface{}, error) {
+		cmd := &user_commands.UserUpdateCommand{}
+		if err := ctx.ReadBody(cmd); err != nil {
+			return nil, err
+		}
+		if err := m.userAppService.UpdateUser(NewContext(ctx), cmd); err != nil {
+			return nil, err
+		}
+		return cmd, nil
+	})
 }
 
 func (m *UserController) GetAggregateById(ctx iris.Context, tenantId string, id string) {
-	DoGet(ctx, func(ctx iris.Context) (interface{}, bool, error) {
+	rest.ResultOneData(ctx, func(ctx iris.Context) (interface{}, bool, error) {
 		return m.userAppService.GetAggregateById(NewContext(ctx), tenantId, id)
 	})
 }

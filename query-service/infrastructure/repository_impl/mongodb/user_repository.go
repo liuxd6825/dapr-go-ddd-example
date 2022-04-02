@@ -10,18 +10,18 @@ import (
 )
 
 type UserRepository struct {
-	dr.BaseRepository
+	repos dr.Repository
 }
 
 func NewUserRepository() repository.UserViewRepository {
 	coll := GetMongoDB().NewCollection("users")
 	return &UserRepository{
-		BaseRepository: ddd_mongodb.NewBaseRepository(&userViewBuilder{}, coll),
+		repos: ddd_mongodb.NewRepository(&userViewBuilder{}, mongoDB, coll),
 	}
 }
 
 func (u *UserRepository) CreateById(ctx context.Context, user *projection.UserView) (resUser *projection.UserView, resErr error) {
-	resErr = u.BaseRepository.BaseCreate(ctx, user).OnSuccess(func(data interface{}) error {
+	resErr = u.repos.DoCreate(ctx, user).OnSuccess(func(data interface{}) error {
 		resUser = user
 		return nil
 	}).GetError()
@@ -29,27 +29,41 @@ func (u *UserRepository) CreateById(ctx context.Context, user *projection.UserVi
 }
 
 func (u *UserRepository) UpdateById(ctx context.Context, user *projection.UserView) (resUser *projection.UserView, resErr error) {
-	resErr = u.BaseRepository.BaseUpdate(ctx, user).OnSuccess(func(data interface{}) error {
+	resErr = u.repos.DoUpdate(ctx, user).OnSuccess(func(data interface{}) error {
 		resUser = user
 		return nil
 	}).GetError()
 	return
 }
 
-func (u *UserRepository) FindById(ctx context.Context, tenantId string, id string) (resUser *projection.UserView, resErr error) {
-	resErr = u.BaseRepository.BaseFindById(ctx, tenantId, id).OnSuccess(func(data interface{}) error {
-		var ok bool
+func (u *UserRepository) FindById(ctx context.Context, tenantId string, id string) (resUser *projection.UserView, ok bool, resErr error) {
+	resErr = u.repos.DoFindById(ctx, tenantId, id).OnSuccess(func(data interface{}) error {
 		resUser, ok = data.(*projection.UserView)
 		if !ok {
 			return errors.New("find result not is *projection.UserView")
 		}
+		return nil
+	}).OnNotFond(func() error {
+		ok = false
 		return nil
 	}).GetError()
 	return
 }
 
 func (u *UserRepository) DeleteById(ctx context.Context, tenantId string, id string) error {
-	return u.BaseRepository.BaseDeleteById(ctx, tenantId, id).GetError()
+	return u.repos.DoDeleteById(ctx, tenantId, id).GetError()
+}
+
+func (u *UserRepository) Search(ctx context.Context, searchQuery *dr.SearchQuery) (res *[]projection.UserView, ok bool, err error) {
+	err = u.repos.DoSearch(ctx, searchQuery).OnSuccess(func(data interface{}) error {
+		res = data.(*[]projection.UserView)
+		ok = true
+		return nil
+	}).OnNotFond(func() error {
+		ok = false
+		return nil
+	}).GetError()
+	return
 }
 
 type userViewBuilder struct {

@@ -8,7 +8,7 @@ import (
 type UserFactory struct {
 }
 
-func NewUserView_UserCreateEventV1(event *user_events.UserCreateEventV1) *projection.UserView {
+func NewUserViewByUserCreateEventV1(event *user_events.UserCreateEventV1) *projection.UserView {
 	userView := projection.UserView{
 		Id:        event.Data.Id,
 		UserName:  event.Data.UserName,
@@ -21,7 +21,7 @@ func NewUserView_UserCreateEventV1(event *user_events.UserCreateEventV1) *projec
 	return &userView
 }
 
-func NewUserView_UserUpdateEventV1(event *user_events.UserUpdateEventV1) *projection.UserView {
+func NewUserViewByUserUpdateEventV1(event *user_events.UserUpdateEventV1) *projection.UserView {
 	userView := projection.UserView{
 		Id:        event.Data.Id,
 		UserName:  event.Data.UserName,

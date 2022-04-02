@@ -1,12 +1,12 @@
 module github.com/liuxd6825/dapr-go-ddd-example
 
-go 1.17
+go 1.18
 
 require (
 	github.com/go-playground/validator/v10 v10.10.1
 	github.com/kataras/iris/v12 v12.2.0-alpha7
 	github.com/liuxd6825/dapr-go-ddd-sdk v0.0.0
-	go.mongodb.org/mongo-driver v1.8.4
+	golang.org/x/exp v0.0.0-20220325121720-054d8573a5d8
 )
 
 require (
@@ -69,6 +69,7 @@ require (
 	github.com/xdg-go/stringprep v1.0.2 // indirect
 	github.com/yosssi/ace v0.0.5 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20181117223130-1be2e3e5546d // indirect
+	go.mongodb.org/mongo-driver v1.8.4 // indirect
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292 // indirect
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd // indirect
 	golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9 // indirect

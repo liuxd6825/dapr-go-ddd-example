@@ -11,6 +11,7 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/userinterface"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_repository/ddd_mongodb"
+	"github.com/liuxd6825/dapr-go-ddd-sdk/httpclient"
 )
 
 var app *iris.Application
@@ -57,7 +58,11 @@ func registerSubscribe(app *iris.Application) {
 }
 
 func registerEventStorage(host string, port int, pubsubName string) {
-	eventStorage, err := ddd.NewDaprEventStorage(host, port, ddd.PubsubName(pubsubName))
+	hc, err := httpclient.NewHttpClient("localhost", 9011)
+	if err != nil {
+		panic(err)
+	}
+	eventStorage, err := ddd.NewDaprEventStorage(hc, ddd.PubsubName(pubsubName))
 	if err != nil {
 		panic(err)
 	}

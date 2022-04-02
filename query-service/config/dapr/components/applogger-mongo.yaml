@@ -1,15 +1,15 @@
 apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
-  name: eventsourcing
+  name: applogger
 spec:
-  type: eventsourcing.mongodb
+  type: applogger.mongodb
   version: v1
   metadata:
   - name: host
-    value: 192.168.64.4:27017
+    value: 192.168.64.8:27018
   - name: databaseName
-    value: "example-command-service"
+    value: "dapr_applog"
   - name: username
     value: "dapr"
   - name: password

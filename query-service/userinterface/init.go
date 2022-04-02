@@ -3,7 +3,7 @@ package userinterface
 import (
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
-	"github.com/liuxd6825/dapr-go-ddd-example/command-service/userinterface/rest/controller"
+	"github.com/liuxd6825/dapr-go-ddd-example/query-service/userinterface/rest/controller"
 )
 
 func RegisterMvcController(app *iris.Application) {

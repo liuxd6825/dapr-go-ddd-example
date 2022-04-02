@@ -4,16 +4,21 @@ import (
 	"context"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/projection"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/repository"
+	"github.com/liuxd6825/dapr-go-ddd-example/query-service/infrastructure/repository_impl/mongodb"
 )
 
 type UserQueryService struct {
 	repos repository.UserViewRepository
 }
 
-func NewUserQueryService(repos repository.UserViewRepository) *UserQueryService {
+func NewUserQueryService() *UserQueryService {
 	return &UserQueryService{
-		repos: repos,
+		repos: mongodb.NewUserRepository(),
 	}
+}
+
+func (u *UserQueryService) FindById(ctx context.Context, tenantId, userId string) (*projection.UserView, bool, error) {
+	return u.repos.FindById(ctx, tenantId, userId)
 }
 
 func (u *UserQueryService) Create(ctx context.Context, user *projection.UserView) error {
