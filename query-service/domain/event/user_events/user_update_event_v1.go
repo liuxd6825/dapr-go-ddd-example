@@ -12,3 +12,15 @@ type UserUpdateEventV1 struct {
 func NewUserUpdateEvent() *UserUpdateEventV1 {
 	return &UserUpdateEventV1{}
 }
+
+func (e *UserUpdateEventV1) GetTenantId() string {
+	return e.TenantId
+}
+
+func (e *UserUpdateEventV1) GetCommandId() string {
+	return e.CommandId
+}
+
+func (e *UserUpdateEventV1) GetEventId() string {
+	return e.EventId
+}

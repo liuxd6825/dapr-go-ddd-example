@@ -9,6 +9,7 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/queryhandler"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/infrastructure/repository_impl/mongodb"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/userinterface"
+	"github.com/liuxd6825/dapr-go-ddd-sdk/applog"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_repository/ddd_mongodb"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/httpclient"
@@ -62,6 +63,7 @@ func registerEventStorage(host string, port int, pubsubName string) {
 	if err != nil {
 		panic(err)
 	}
+	applog.Init(hc, "query-example")
 	eventStorage, err := ddd.NewDaprEventStorage(hc, ddd.PubsubName(pubsubName))
 	if err != nil {
 		panic(err)

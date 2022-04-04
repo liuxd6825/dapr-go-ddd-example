@@ -12,3 +12,15 @@ type UserCreateEventV1 struct {
 func NewUserCreateEventV1() *UserCreateEventV1 {
 	return &UserCreateEventV1{}
 }
+
+func (e *UserCreateEventV1) GetTenantId() string {
+	return e.TenantId
+}
+
+func (e *UserCreateEventV1) GetCommandId() string {
+	return e.CommandId
+}
+
+func (e *UserCreateEventV1) GetEventId() string {
+	return e.EventId
+}

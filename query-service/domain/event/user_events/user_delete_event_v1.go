@@ -10,3 +10,15 @@ type UserDeleteEventV1 struct {
 func NewUserDeleteEvent() *UserDeleteEventV1 {
 	return &UserDeleteEventV1{}
 }
+
+func (e *UserDeleteEventV1) GetTenantId() string {
+	return e.TenantId
+}
+
+func (e *UserDeleteEventV1) GetCommandId() string {
+	return e.CommandId
+}
+
+func (e *UserDeleteEventV1) GetEventId() string {
+	return e.EventId
+}
