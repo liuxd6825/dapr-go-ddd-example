@@ -11,15 +11,14 @@ type UserCommandAppService struct {
 	userDomainService *domain_service.UserDomainService
 }
 
-func NewUserAppService() *UserCommandAppService {
+func NewCommandUserAppService() *UserCommandAppService {
 	return &UserCommandAppService{
 		userDomainService: &domain_service.UserDomainService{},
 	}
 }
 
 func (s *UserCommandAppService) CreateUser(ctx context.Context, cmd *user_commands.UserCreateCommand) error {
-	a, err := s.userDomainService.CreateUser(ctx, cmd)
-	print(a)
+	_, err := s.userDomainService.CreateUser(ctx, cmd)
 	return err
 }
 

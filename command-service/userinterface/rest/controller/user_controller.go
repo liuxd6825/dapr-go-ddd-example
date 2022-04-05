@@ -15,7 +15,7 @@ type UserController struct {
 
 func NewUserController() *UserController {
 	return &UserController{
-		userAppService: cmdappservice.NewUserAppService(),
+		userAppService: cmdappservice.NewCommandUserAppService(),
 	}
 }
 
@@ -29,21 +29,15 @@ func (m *UserController) BeforeActivation(b mvc.BeforeActivation) {
 
 func (m *UserController) CreateUser(ctx iris.Context) {
 	cmd := &user_commands.UserCreateCommand{}
-	_, _ = rest.DoCmd(ctx, cmd, func() (interface{}, error) {
-		if err := m.userAppService.CreateUser(NewContext(ctx), cmd); err != nil {
-			return nil, err
-		}
-		return cmd, nil
+	_ = rest.DoCmd(ctx, cmd, func() error {
+		return m.userAppService.CreateUser(NewContext(ctx), cmd)
 	})
 }
 
 func (m *UserController) CreateUserAndGetUser(ctx iris.Context) {
 	cmd := &user_commands.UserCreateCommand{}
-	_, _, _ = rest.DoCmdAndQueryOne(ctx, subAppId, cmd, func() (interface{}, error) {
-		if err := m.userAppService.CreateUser(NewContext(ctx), cmd); err != nil {
-			return nil, err
-		}
-		return cmd, nil
+	_, _, _ = rest.DoCmdAndQueryOne(ctx, subAppId, cmd, func() error {
+		return m.userAppService.CreateUser(NewContext(ctx), cmd)
 	}, func() (interface{}, bool, error) {
 		return queryappservice.GetUserByUserId(ctx, cmd.GetTenantId(), cmd.Data.Id)
 	})
@@ -51,21 +45,15 @@ func (m *UserController) CreateUserAndGetUser(ctx iris.Context) {
 
 func (m *UserController) UpdateUser(ctx iris.Context) {
 	cmd := &user_commands.UserUpdateCommand{}
-	_, _ = rest.DoCmd(ctx, cmd, func() (interface{}, error) {
-		if err := m.userAppService.UpdateUser(NewContext(ctx), cmd); err != nil {
-			return nil, err
-		}
-		return cmd, nil
+	_ = rest.DoCmd(ctx, cmd, func() error {
+		return m.userAppService.UpdateUser(NewContext(ctx), cmd)
 	})
 }
 
 func (m *UserController) UpdateUserAndGetUser(ctx iris.Context) {
 	cmd := &user_commands.UserUpdateCommand{}
-	_, _, _ = rest.DoCmdAndQueryOne(ctx, subAppId, cmd, func() (interface{}, error) {
-		if err := m.userAppService.UpdateUser(NewContext(ctx), cmd); err != nil {
-			return nil, err
-		}
-		return cmd, nil
+	_, _, _ = rest.DoCmdAndQueryOne(ctx, subAppId, cmd, func() error {
+		return m.userAppService.UpdateUser(NewContext(ctx), cmd)
 	}, func() (interface{}, bool, error) {
 		return queryappservice.GetUserByUserId(ctx, cmd.GetTenantId(), cmd.Data.Id)
 	})
