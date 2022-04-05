@@ -1,4 +1,4 @@
-package appservice
+package cmdappservice
 
 import (
 	"context"
@@ -7,23 +7,23 @@ import (
 	domain_service "github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/service"
 )
 
-type UserAppService struct {
+type UserCommandAppService struct {
 	userDomainService *domain_service.UserDomainService
 }
 
-func NewUserAppService() *UserAppService {
-	return &UserAppService{
+func NewUserAppService() *UserCommandAppService {
+	return &UserCommandAppService{
 		userDomainService: &domain_service.UserDomainService{},
 	}
 }
 
-func (s *UserAppService) CreateUser(ctx context.Context, cmd *user_commands.UserCreateCommand) error {
+func (s *UserCommandAppService) CreateUser(ctx context.Context, cmd *user_commands.UserCreateCommand) error {
 	a, err := s.userDomainService.CreateUser(ctx, cmd)
 	print(a)
 	return err
 }
 
-func (s *UserAppService) UpdateUser(ctx context.Context, cmd *user_commands.UserUpdateCommand) error {
+func (s *UserCommandAppService) UpdateUser(ctx context.Context, cmd *user_commands.UserUpdateCommand) error {
 	if err := cmd.Validate(); err != nil {
 		return err
 	}
@@ -34,11 +34,11 @@ func (s *UserAppService) UpdateUser(ctx context.Context, cmd *user_commands.User
 	return err
 }
 
-func (s *UserAppService) GetAggregateById(ctx context.Context, tenantId string, id string) (*model.UserAggregate, bool, error) {
+func (s *UserCommandAppService) GetAggregateById(ctx context.Context, tenantId string, id string) (*model.UserAggregate, bool, error) {
 	return s.userDomainService.GetAggregateById(ctx, tenantId, id)
 }
 
-func (s *UserAppService) Get(ctx context.Context, cmd *user_commands.UserCreateCommand) error {
+func (s *UserCommandAppService) Get(ctx context.Context, cmd *user_commands.UserCreateCommand) error {
 	a, err := s.userDomainService.CreateUser(ctx, cmd)
 	print(a)
 	return err

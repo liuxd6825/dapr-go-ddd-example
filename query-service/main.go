@@ -28,9 +28,9 @@ func main() {
 
 func initDb() {
 	err := mongodb.Init(&ddd_mongodb.Config{
-		Host:         "192.168.64.4",
-		DatabaseName: "example-query-service",
-		UserName:     "dapr",
+		Host:         "192.168.64.8:27019",
+		DatabaseName: "query-example",
+		UserName:     "query-example",
 		Password:     "123456",
 	})
 	if err != nil {
