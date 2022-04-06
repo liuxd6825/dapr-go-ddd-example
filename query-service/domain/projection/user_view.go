@@ -1,7 +1,7 @@
 package projection
 
 type UserView struct {
-	Id        string `json:"id" bson:"id" validate:"gt=0"`
+	Id        string `json:"id" bson:"_id" validate:"gt=0"`
 	TenantId  string `json:"tenantId" bson:"tenantId" validate:"gt=0"`
 	UserCode  string `json:"code" bson:"userCode" validate:"gt=0"`
 	UserName  string `json:"userName" bson:"userName" validate:"gt=0"`

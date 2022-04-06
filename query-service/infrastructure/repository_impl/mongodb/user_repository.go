@@ -54,9 +54,9 @@ func (u *UserRepository) DeleteById(ctx context.Context, tenantId string, id str
 	return u.repos.DoDeleteById(ctx, tenantId, id).GetError()
 }
 
-func (u *UserRepository) GetList(ctx context.Context, query *dr.ListQuery) (res *[]projection.UserView, isFound bool, err error) {
-	err = u.repos.DoFindList(ctx, query).OnSuccess(func(data interface{}) error {
-		res = data.(*[]projection.UserView)
+func (u *UserRepository) FindPaging(ctx context.Context, query *dr.PagingQuery) (res *dr.FindPagingData, isFound bool, err error) {
+	err = u.repos.DoFindPaging(ctx, query).OnSuccess(func(data *dr.FindPagingData) error {
+		res = data
 		isFound = true
 		return nil
 	}).OnNotFond(func() error {
