@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/projection"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/queryservice"
+	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_repository"
 )
 
 type UserAppQueryService struct {
@@ -18,4 +19,8 @@ func NewUserAppQueryService() *UserAppQueryService {
 
 func (a *UserAppQueryService) FindById(ctx context.Context, tenantId string, userId string) (*projection.UserView, bool, error) {
 	return a.service.FindById(ctx, tenantId, userId)
+}
+
+func (a *UserAppQueryService) GetList(ctx context.Context, query *ddd_repository.ListQuery) (*[]projection.UserView, bool, error) {
+	return a.service.Search(ctx, query)
 }

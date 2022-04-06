@@ -5,6 +5,7 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/projection"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/repository"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/infrastructure/repository_impl/mongodb"
+	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_repository"
 )
 
 type UserQueryService struct {
@@ -33,4 +34,8 @@ func (u *UserQueryService) Update(ctx context.Context, user *projection.UserView
 
 func (u *UserQueryService) DeleteById(ctx context.Context, tenantId string, id string) error {
 	return u.repos.DeleteById(ctx, tenantId, id)
+}
+
+func (u *UserQueryService) Search(ctx context.Context, searchQuery *ddd_repository.ListQuery) (*[]projection.UserView, bool, error) {
+	return u.repos.GetList(ctx, searchQuery)
 }

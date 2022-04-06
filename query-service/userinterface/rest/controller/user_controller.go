@@ -23,11 +23,17 @@ func (m *UserController) BeforeActivation(b mvc.BeforeActivation) {
 }
 
 func (m *UserController) GetById(ctx iris.Context, tenantId, id string) {
-	rest.ResultOneData(ctx, func(ctx iris.Context) (interface{}, bool, error) {
+	_, _, _ = rest.DoQueryOne(ctx, func() (interface{}, bool, error) {
 		return m.appQueryService.FindById(ctx, tenantId, id)
 	})
 }
 
-func (m UserController) GetList(ctx iris.Context) {
-
+func (m *UserController) GetList(ctx iris.Context, tenantId string) {
+	_, _, _ = rest.DoQueryList(ctx, func() (interface{}, bool, error) {
+		query, err := rest.NewListQuery(ctx, tenantId)
+		if err != nil {
+			return nil, false, err
+		}
+		return m.appQueryService.GetList(ctx, query)
+	})
 }

@@ -11,12 +11,12 @@ import (
 
 func Test_UserRepository_Search(t *testing.T) {
 	initTestDB()
-	search := &ddd_repository.SearchQuery{
+	query := &ddd_repository.ListQuery{
 		TenantId: "001",
 		Filter:   "id=='001'",
 	}
 	userRepos := NewUserRepository()
-	res, ok, err := userRepos.Search(context.Background(), search)
+	res, ok, err := userRepos.GetList(context.Background(), query)
 	t.Error(err)
 	if ok {
 		println(res)

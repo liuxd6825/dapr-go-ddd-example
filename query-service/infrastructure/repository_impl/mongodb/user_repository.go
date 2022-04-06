@@ -54,13 +54,13 @@ func (u *UserRepository) DeleteById(ctx context.Context, tenantId string, id str
 	return u.repos.DoDeleteById(ctx, tenantId, id).GetError()
 }
 
-func (u *UserRepository) Search(ctx context.Context, searchQuery *dr.SearchQuery) (res *[]projection.UserView, ok bool, err error) {
-	err = u.repos.DoSearch(ctx, searchQuery).OnSuccess(func(data interface{}) error {
+func (u *UserRepository) GetList(ctx context.Context, query *dr.ListQuery) (res *[]projection.UserView, isFound bool, err error) {
+	err = u.repos.DoFindList(ctx, query).OnSuccess(func(data interface{}) error {
 		res = data.(*[]projection.UserView)
-		ok = true
+		isFound = true
 		return nil
 	}).OnNotFond(func() error {
-		ok = false
+		isFound = false
 		return nil
 	}).GetError()
 	return
