@@ -21,6 +21,6 @@ func (a *UserAppQueryService) FindById(ctx context.Context, tenantId string, use
 	return a.service.FindById(ctx, tenantId, userId)
 }
 
-func (a *UserAppQueryService) GetPagingList(ctx context.Context, query *ddd_repository.PagingQuery) (*ddd_repository.FindPagingData, bool, error) {
-	return a.service.Search(ctx, query)
+func (a *UserAppQueryService) GetPagingData(ctx context.Context, query *ddd_repository.PagingQuery) (*ddd_repository.PagingData, bool, error) {
+	return a.service.FindPagingData(ctx, query)
 }

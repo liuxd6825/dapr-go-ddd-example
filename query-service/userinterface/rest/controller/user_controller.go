@@ -19,7 +19,7 @@ func NewUserController() *UserController {
 
 func (m *UserController) BeforeActivation(b mvc.BeforeActivation) {
 	b.Handle("GET", "/tenants/{tenantId}/users/{id}", "GetById")
-	b.Handle("GET", "/tenants/{tenantId}/users", "GetPagingList")
+	b.Handle("GET", "/tenants/{tenantId}/users", "GetPagingData")
 }
 
 func (m *UserController) GetById(ctx iris.Context, tenantId, id string) {
@@ -28,12 +28,12 @@ func (m *UserController) GetById(ctx iris.Context, tenantId, id string) {
 	})
 }
 
-func (m *UserController) GetPagingList(ctx iris.Context, tenantId string) {
-	_, _, _ = rest.DoQueryList(ctx, func() (interface{}, bool, error) {
+func (m *UserController) GetPagingData(ctx iris.Context, tenantId string) {
+	_, _, _ = rest.DoQuery(ctx, func() (interface{}, bool, error) {
 		query, err := rest.NewListQuery(ctx, tenantId)
 		if err != nil {
 			return nil, false, err
 		}
-		return m.appQueryService.GetPagingList(ctx, query)
+		return m.appQueryService.GetPagingData(ctx, query)
 	})
 }

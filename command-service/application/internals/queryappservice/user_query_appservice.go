@@ -9,7 +9,7 @@ import (
 type UserView struct {
 	Id        string `json:"id" `
 	TenantId  string `json:"tenantId" `
-	UserCode  string `json:"code"`
+	UserCode  string `json:"userCode"`
 	UserName  string `json:"userName"`
 	Email     string `json:"email"`
 	Telephone string `json:"telephone"`

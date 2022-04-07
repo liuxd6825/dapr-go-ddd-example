@@ -21,7 +21,7 @@ func NewUserRepository() repository.UserViewRepository {
 }
 
 func (u *UserRepository) CreateById(ctx context.Context, user *projection.UserView) (resUser *projection.UserView, resErr error) {
-	resErr = u.repos.DoCreate(ctx, user).OnSuccess(func(data interface{}) error {
+	resErr = u.repos.Insert(ctx, user).OnSuccess(func(data interface{}) error {
 		resUser = user
 		return nil
 	}).GetError()
@@ -29,7 +29,7 @@ func (u *UserRepository) CreateById(ctx context.Context, user *projection.UserVi
 }
 
 func (u *UserRepository) UpdateById(ctx context.Context, user *projection.UserView) (resUser *projection.UserView, resErr error) {
-	resErr = u.repos.DoUpdate(ctx, user).OnSuccess(func(data interface{}) error {
+	resErr = u.repos.Update(ctx, user).OnSuccess(func(data interface{}) error {
 		resUser = user
 		return nil
 	}).GetError()
@@ -37,7 +37,7 @@ func (u *UserRepository) UpdateById(ctx context.Context, user *projection.UserVi
 }
 
 func (u *UserRepository) FindById(ctx context.Context, tenantId string, id string) (resUser *projection.UserView, ok bool, resErr error) {
-	resErr = u.repos.DoFindById(ctx, tenantId, id).OnSuccess(func(data interface{}) error {
+	resErr = u.repos.FindById(ctx, tenantId, id).OnSuccess(func(data interface{}) error {
 		resUser, ok = data.(*projection.UserView)
 		if !ok {
 			return errors.New("find result not is *projection.UserView")
@@ -51,11 +51,11 @@ func (u *UserRepository) FindById(ctx context.Context, tenantId string, id strin
 }
 
 func (u *UserRepository) DeleteById(ctx context.Context, tenantId string, id string) error {
-	return u.repos.DoDeleteById(ctx, tenantId, id).GetError()
+	return u.repos.DeleteById(ctx, tenantId, id).GetError()
 }
 
-func (u *UserRepository) FindPaging(ctx context.Context, query *dr.PagingQuery) (res *dr.FindPagingData, isFound bool, err error) {
-	err = u.repos.DoFindPaging(ctx, query).OnSuccess(func(data *dr.FindPagingData) error {
+func (u *UserRepository) FindPaging(ctx context.Context, query *dr.PagingQuery) (res *dr.PagingData, isFound bool, err error) {
+	err = u.repos.FindPagingData(ctx, query).OnSuccess(func(data *dr.PagingData) error {
 		res = data
 		isFound = true
 		return nil
