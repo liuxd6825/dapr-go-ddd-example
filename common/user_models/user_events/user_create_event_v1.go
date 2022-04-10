@@ -1,15 +1,16 @@
 package user_events
 
-import (
-	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/fields"
-	"github.com/liuxd6825/dapr-go-ddd-example/common/event_type"
-)
+import "github.com/liuxd6825/dapr-go-ddd-example/common/user_models/user_fields"
 
 type UserCreateEventV1 struct {
-	TenantId  string            `json:"tenantId"`
-	CommandId string            `json:"commandId"`
-	EventId   string            `json:"eventId"`
-	Data      fields.UserFields `json:"data"`
+	TenantId  string                 `json:"tenantId"`
+	CommandId string                 `json:"commandId"`
+	EventId   string                 `json:"eventId"`
+	Data      user_fields.UserFields `json:"data"`
+}
+
+func NewUserCreateEventV1() *UserCreateEventV1 {
+	return &UserCreateEventV1{}
 }
 
 func (e *UserCreateEventV1) GetEventId() string {
@@ -17,7 +18,7 @@ func (e *UserCreateEventV1) GetEventId() string {
 }
 
 func (e *UserCreateEventV1) GetEventType() string {
-	return event_type.UserCreateEventType.String()
+	return UserCreateEventType.String()
 }
 
 func (e *UserCreateEventV1) GetEventRevision() string {

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
-	"github.com/liuxd6825/dapr-go-ddd-example/common/event_type"
-	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/event/user_events"
+	_ "github.com/liuxd6825/dapr-go-ddd-example/common"
+	"github.com/liuxd6825/dapr-go-ddd-example/common/user_models/user_events"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/queryhandler"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/infrastructure/repository_impl/mongodb"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/userinterface"
@@ -43,17 +43,6 @@ func registerSubscribe(app *iris.Application) {
 	app.Get("dapr/subscribe", func(context *context.Context) {
 		_, _ = context.JSON(ddd.GetSubscribes())
 	})
-
-	_ = ddd.RegisterEventType(event_type.UserCreateEventType.String(), "1.0", func() interface{} {
-		return user_events.NewUserCreateEventV1()
-	})
-	_ = ddd.RegisterEventType(event_type.UserUpdateEventType.String(), "1.0", func() interface{} {
-		return user_events.NewUserUpdateEvent()
-	})
-	_ = ddd.RegisterEventType(event_type.UserDeleteEventType.String(), "1.0", func() interface{} {
-		return user_events.NewUserDeleteEvent()
-	})
-
 	// 注册User消息处理器
 	_ = ddd.RegisterSubscribeHandler(newUserSubscribeHandler())
 }
@@ -63,7 +52,7 @@ func registerEventStorage(host string, port int, pubsubName string) {
 	if err != nil {
 		panic(err)
 	}
-	applog.Init(hc, "query-example")
+	applog.Init(hc, "query-example", applog.DEBUG)
 	eventStorage, err := ddd.NewDaprEventStorage(hc, ddd.PubsubName(pubsubName))
 	if err != nil {
 		panic(err)
@@ -82,9 +71,12 @@ func start(app *iris.Application, port int) {
 
 func newUserSubscribeHandler() ddd.SubscribeHandler {
 	subscribes := []ddd.Subscribe{
-		{PubsubName: "pubsub", Topic: event_type.UserCreateEventType.String(), Route: "/users/user-create-event"},
-		{PubsubName: "pubsub", Topic: event_type.UserUpdateEventType.String(), Route: "/users/user-update-event"},
-		{PubsubName: "pubsub", Topic: event_type.UserDeleteEventType.String(), Route: "/users/user-delete-event"},
+		{PubsubName: "pubsub", Topic: user_events.UserCreateEventType.String(), Route: "/users/user-create-event"},
+		{PubsubName: "pubsub", Topic: user_events.UserUpdateEventType.String(), Route: "/users/user-update-event"},
+		{PubsubName: "pubsub", Topic: user_events.UserDeleteEventType.String(), Route: "/users/user-delete-event"},
+		{PubsubName: "pubsub", Topic: user_events.AddressCreateEventType.String(), Route: "/users/user-address-create-event"},
+		{PubsubName: "pubsub", Topic: user_events.AddressUpdateEventType.String(), Route: "/users/user-address-update-event"},
+		{PubsubName: "pubsub", Topic: user_events.AddressDeleteEventType.String(), Route: "/users/user-address-delete-event"},
 	}
 	return ddd.NewSubscribeHandler(subscribes, queryhandler.NewUserQueryHandler(), subscribeHandler)
 }

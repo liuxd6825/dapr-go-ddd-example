@@ -1,7 +1,7 @@
 package user_commands
 
 import (
-	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/event/user_events"
+	"github.com/liuxd6825/dapr-go-ddd-example/common/user_models/user_events"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
 )
 
@@ -19,8 +19,8 @@ func (c *UserDeleteCommand) NewDomainEvent() ddd.DomainEvent {
 	}
 }
 
-func (c *UserDeleteCommand) GetAggregateId() string {
-	return c.Id
+func (c *UserDeleteCommand) GetAggregateId() ddd.AggregateId {
+	return ddd.NewAggregateId(c.Id)
 }
 
 func (c *UserDeleteCommand) GetCommandId() string {

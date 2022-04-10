@@ -1,4 +1,4 @@
-package fields
+package user_fields
 
 type UserFields struct {
 	Id        string `json:"id" validate:"gt=0"`

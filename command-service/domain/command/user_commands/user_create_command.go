@@ -1,14 +1,14 @@
 package user_commands
 
 import (
-	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/event/user_events"
-	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/fields"
+	"github.com/liuxd6825/dapr-go-ddd-example/common/user_models/user_events"
+	"github.com/liuxd6825/dapr-go-ddd-example/common/user_models/user_fields"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
 )
 
 type UserCreateCommand struct {
-	ddd.BaseDomainCommand
-	Data fields.UserFields `json:"data"`
+	ddd.BaseCommand
+	Data user_fields.UserFields `json:"data"`
 }
 
 func (c *UserCreateCommand) NewDomainEvent() ddd.DomainEvent {
@@ -19,8 +19,8 @@ func (c *UserCreateCommand) NewDomainEvent() ddd.DomainEvent {
 	}
 }
 
-func (c *UserCreateCommand) GetAggregateId() string {
-	return c.Data.Id
+func (c *UserCreateCommand) GetAggregateId() ddd.AggregateId {
+	return ddd.NewAggregateId(c.Data.Id)
 }
 
 func (c *UserCreateCommand) GetCommandId() string {

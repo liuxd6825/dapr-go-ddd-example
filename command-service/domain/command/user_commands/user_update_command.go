@@ -1,15 +1,15 @@
 package user_commands
 
 import (
-	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/event/user_events"
-	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/fields"
+	"github.com/liuxd6825/dapr-go-ddd-example/common/user_models/user_events"
+	"github.com/liuxd6825/dapr-go-ddd-example/common/user_models/user_fields"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_errors"
 )
 
 type UserUpdateCommand struct {
-	ddd.BaseDomainCommand
-	Data fields.UserFields `json:"data"`
+	ddd.BaseCommand
+	Data user_fields.UserFields `json:"data"`
 }
 
 func (c *UserUpdateCommand) NewDomainEvent() ddd.DomainEvent {
@@ -19,8 +19,8 @@ func (c *UserUpdateCommand) NewDomainEvent() ddd.DomainEvent {
 	}
 }
 
-func (c *UserUpdateCommand) GetAggregateId() string {
-	return c.Data.Id
+func (c *UserUpdateCommand) GetAggregateId() ddd.AggregateId {
+	return ddd.NewAggregateId(c.Data.Id)
 }
 
 func (c *UserUpdateCommand) GetCommandId() string {
@@ -33,7 +33,7 @@ func (c *UserUpdateCommand) GetTenantId() string {
 
 func (c *UserUpdateCommand) Validate() error {
 	errs := ddd_errors.NewVerifyError()
-	c.BaseDomainCommand.ValidateError(errs)
+	c.BaseCommand.ValidateError(errs)
 	if c.Data.TenantId == "" {
 		errs.AppendField("data.tenantId", "不能为空")
 	}
