@@ -17,25 +17,26 @@ type UserQueryHandler struct {
 func NewUserQueryHandler() ddd.QueryEventHandler {
 	return &UserQueryHandler{
 		userService: queryservice.NewUserQueryService(),
+		addrService: queryservice.NewAddressQueryService(),
 	}
 }
 
-func (u *UserQueryHandler) OnAddressCreateEventV1s0(ctx context.Context, event *user_events.AddressCreateEventV1) error {
-	return applog.DoEventLog(ctx, u, event, "OnAddressCreateEventV1s0", func() error {
+func (u *UserQueryHandler) OnUserAddressCreateEventV1s0(ctx context.Context, event *user_events.AddressCreateEventV1) error {
+	return applog.DoEventLog(ctx, u, event, "OnUserAddressCreateEventV1s0", func() error {
 		addr := user_factory.NewAddressViewByUserCreateEventV1(event)
 		return u.addrService.Create(ctx, addr)
 	})
 }
 
-func (u *UserQueryHandler) OnAddressUpdateEventV1s0(ctx context.Context, event *user_events.AddressUpdateEventV1) error {
-	return applog.DoEventLog(ctx, u, event, "OnAddressUpdateEventV1s0", func() error {
+func (u *UserQueryHandler) OnUserAddressUpdateEventV1s0(ctx context.Context, event *user_events.AddressUpdateEventV1) error {
+	return applog.DoEventLog(ctx, u, event, "OnUserAddressUpdateEventV1s0", func() error {
 		addr := user_factory.NewAddressViewByUserUpdateEventV1(event)
 		return u.addrService.Create(ctx, addr)
 	})
 }
 
-func (u *UserQueryHandler) OnAddressDeleteEventV1s0(ctx context.Context, event *user_events.AddressDeleteEventV1) error {
-	return applog.DoEventLog(ctx, u, event, "OnAddressDeleteEventV1s0", func() error {
+func (u *UserQueryHandler) OnUserAddressDeleteEventV1s0(ctx context.Context, event *user_events.AddressDeleteEventV1) error {
+	return applog.DoEventLog(ctx, u, event, "OnUserAddressDeleteEventV1s0", func() error {
 		return u.addrService.DeleteById(ctx, event.TenantId, event.AddressId)
 	})
 }
