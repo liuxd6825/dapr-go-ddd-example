@@ -14,7 +14,7 @@ type UserRepository struct {
 }
 
 func NewUserRepository() repository.UserViewRepository {
-	coll := GetMongoDB().NewCollection("users")
+	coll := GetMongoDB().GetCollection("users")
 	return &UserRepository{
 		repos: ddd_mongodb.NewRepository(&userViewBuilder{}, mongoDB, coll),
 	}
@@ -55,7 +55,7 @@ func (u *UserRepository) DeleteById(ctx context.Context, tenantId string, id str
 }
 
 func (u *UserRepository) FindPaging(ctx context.Context, query *dr.PagingQuery) (res *dr.PagingData, isFound bool, err error) {
-	err = u.repos.FindPagingData(ctx, query).OnSuccess(func(data *dr.PagingData) error {
+	err = u.repos.FindPaging(ctx, query).OnSuccess(func(data *dr.PagingData) error {
 		res = data
 		isFound = true
 		return nil
@@ -69,9 +69,10 @@ func (u *UserRepository) FindPaging(ctx context.Context, query *dr.PagingQuery) 
 type userViewBuilder struct {
 }
 
-func (b *userViewBuilder) New() interface{} {
+func (b *userViewBuilder) NewOne() interface{} {
 	return &projection.UserView{}
 }
+
 func (b *userViewBuilder) NewList() interface{} {
 	return &[]projection.UserView{}
 }
