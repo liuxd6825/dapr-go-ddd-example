@@ -16,7 +16,7 @@ type AddressRepository struct {
 func NewAddressRepository() repository.AddressViewRepository {
 	coll := GetMongoDB().GetCollection("address")
 	return &AddressRepository{
-		repos: ddd_mongodb.NewRepository(&addressViewBuilder{}, mongoDB, coll),
+		repos: ddd_mongodb.NewRepository(&addressViewBuilder{}, GetMongoDB(), coll),
 	}
 }
 
