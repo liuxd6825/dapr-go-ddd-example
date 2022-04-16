@@ -17,8 +17,8 @@ type UserQueryHandler struct {
 	addrService *queryservice.AddressQueryService
 }
 
-func NewUserSubscribeHandler() *rest.RegisterSubscribe {
-	subscribes := []ddd.Subscribe{
+func NewUserSubscribeHandler() rest.RegisterSubscribe {
+	subscribes := &[]ddd.Subscribe{
 		{PubsubName: "pubsub", Topic: user_events.UserCreateEventType.String(), Route: "/users/user-create-event"},
 		{PubsubName: "pubsub", Topic: user_events.UserUpdateEventType.String(), Route: "/users/user-update-event"},
 		{PubsubName: "pubsub", Topic: user_events.UserDeleteEventType.String(), Route: "/users/user-delete-event"},
@@ -26,10 +26,7 @@ func NewUserSubscribeHandler() *rest.RegisterSubscribe {
 		{PubsubName: "pubsub", Topic: user_events.AddressUpdateEventType.String(), Route: "/users/user-address-update-event"},
 		{PubsubName: "pubsub", Topic: user_events.AddressDeleteEventType.String(), Route: "/users/user-address-delete-event"},
 	}
-	return &rest.RegisterSubscribe{
-		Subscribes: subscribes,
-		Handler:    NewUserQueryHandler(),
-	}
+	return rest.NewRegisterSubscribe(subscribes, NewUserQueryHandler())
 }
 
 func NewUserQueryHandler() ddd.QueryEventHandler {

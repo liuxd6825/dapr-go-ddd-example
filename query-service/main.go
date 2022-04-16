@@ -30,10 +30,8 @@ func main() {
 	esMap[eventStorage.GetPubsubName()] = eventStorage
 
 	// 注册消息监听器
-	handlers := func() *[]rest.RegisterSubscribe {
-		return &[]rest.RegisterSubscribe{
-			*queryhandler.NewUserSubscribeHandler(),
-		}
+	handlers := &[]rest.RegisterSubscribe{
+		queryhandler.NewUserSubscribeHandler(),
 	}
 
 	// 注册Http控制器
