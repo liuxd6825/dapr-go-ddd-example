@@ -3,8 +3,11 @@ package queryappservice
 import (
 	"context"
 	"fmt"
-	"github.com/liuxd6825/dapr-go-ddd-sdk/daprclient"
+	infr_dapr "github.com/liuxd6825/dapr-go-ddd-example/command-service/infrastructure/idapr"
 )
+
+var appId = "query-example"
+var apiVersion = "v1.0"
 
 type UserView struct {
 	Id        string `json:"id" `
@@ -19,7 +22,7 @@ type UserView struct {
 func GetUserByUserId(ctx context.Context, tenantId, userId string) (*UserView, bool, error) {
 	resp := &UserView{}
 	methodName := fmt.Sprintf("/api/%s/tenants/%s/users/%s", apiVersion, tenantId, userId)
-	_, err := daprclient.InvokeMethod(ctx, client, appId, methodName, "get", nil, resp)
+	_, err := infr_dapr.GetClient().InvokeMethod(ctx, appId, methodName, "get", nil, resp)
 	if err != nil {
 		return nil, false, err
 	}
