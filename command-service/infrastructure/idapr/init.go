@@ -4,7 +4,7 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-sdk/daprclient"
 )
 
-var client *daprclient.DaprClient
+var client daprclient.DaprClient
 
 func init() {
 	hc, err := daprclient.NewClient("localhost", 9011, 9012)
@@ -14,6 +14,6 @@ func init() {
 	client = hc
 }
 
-func GetClient() *daprclient.DaprClient {
+func GetClient() daprclient.DaprClient {
 	return client
 }

@@ -5,7 +5,6 @@ import (
 	"errors"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/projection"
 	"github.com/liuxd6825/dapr-go-ddd-example/query-service/domain/repository"
-	_ "github.com/liuxd6825/dapr-go-ddd-example/query-service/infrastructure/db"
 	dr "github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_repository"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_repository/ddd_mongodb"
 )

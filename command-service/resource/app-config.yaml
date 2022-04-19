@@ -1,0 +1,14 @@
+env : dev
+dev :
+  app:
+    id: command-example
+    http-port: 9010
+    root-url: /api/v1.0
+  dapr:
+    host: localhost
+    http-port: 9011
+    grpc-port: 9012
+    pubsubs:
+      - "pubsub"
+  log:
+    level: debug

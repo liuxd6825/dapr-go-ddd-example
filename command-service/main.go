@@ -1,26 +1,36 @@
 package main
 
 import (
-	"github.com/liuxd6825/dapr-go-ddd-example/command-service/userinterface/rest"
+	"github.com/kataras/iris/v12"
+	"github.com/liuxd6825/dapr-go-ddd-example/command-service/userinterface/rest/controller"
+	"github.com/liuxd6825/dapr-go-ddd-example/common"
 	_ "github.com/liuxd6825/dapr-go-ddd-example/common"
-	"github.com/liuxd6825/dapr-go-ddd-sdk/applog"
-	"github.com/liuxd6825/dapr-go-ddd-sdk/daprclient"
-	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
-
-	// _ "github.com/liuxd6825/dapr-go-ddd-example/command-service/infrastructure/config"
-	_ "github.com/liuxd6825/dapr-go-ddd-example/command-service/infrastructure/idapr"
+	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 
+var app *iris.Application
+
 func main() {
-	hc, err := daprclient.NewClient("localhost", 9011, 9012)
-	if err != nil {
+	configFile := "./command-service/resource/app-config.yaml"
+	app = iris.New()
+	if err := restapp.RunWithConfig(configFile, app, subscribes, controllers, events); err != nil {
 		panic(err)
 	}
-	applog.Init(hc, "command-example", applog.DEBUG)
-	eventStorage, err := ddd.NewDaprEventStorage(hc, ddd.PubsubName("pubsub"))
-	if err != nil {
-		panic(err)
+}
+
+// 注册消息监听器
+func subscribes() *[]restapp.RegisterSubscribe {
+	return &[]restapp.RegisterSubscribe{}
+}
+
+// 注册Http控制器
+func controllers() *[]restapp.Controller {
+	return &[]restapp.Controller{
+		controller.NewUserController(),
 	}
-	ddd.RegisterEventStorage("", eventStorage)
-	rest.Init(9010)
+}
+
+// 注册Http控制器
+func events() *[]restapp.RegisterEvent {
+	return common.GetRegisterEvents()
 }

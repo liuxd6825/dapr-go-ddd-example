@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	infr_dapr "github.com/liuxd6825/dapr-go-ddd-example/command-service/infrastructure/idapr"
+	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_errors"
 )
 
 var appId = "query-example"
@@ -19,12 +20,18 @@ type UserView struct {
 	Address   string `json:"address"`
 }
 
-func GetUserByUserId(ctx context.Context, tenantId, userId string) (*UserView, bool, error) {
+func GetUserByUserId(ctx context.Context, tenantId, userId string) (res *UserView, isFound bool, err error) {
+	defer func() {
+		if e := ddd_errors.GetRecoverError(recover()); e != nil {
+			err = e
+		}
+	}()
 	resp := &UserView{}
 	methodName := fmt.Sprintf("/api/%s/tenants/%s/users/%s", apiVersion, tenantId, userId)
-	_, err := infr_dapr.GetClient().InvokeMethod(ctx, appId, methodName, "get", nil, resp)
-	if err != nil {
-		return nil, false, err
+	_, err = infr_dapr.GetClient().InvokeService(ctx, appId, methodName, "get", nil, resp)
+	if err == nil {
+		res = resp
+		isFound = true
 	}
-	return resp, true, nil
+	return res, isFound, err
 }

@@ -6,7 +6,7 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/application/internals/cmdappservice"
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/application/internals/queryappservice"
 	"github.com/liuxd6825/dapr-go-ddd-example/command-service/domain/command/user_commands"
-	"github.com/liuxd6825/dapr-go-ddd-sdk/rest"
+	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 
 type UserController struct {
@@ -35,21 +35,21 @@ func (m *UserController) BeforeActivation(b mvc.BeforeActivation) {
 }
 
 func (m *UserController) GetAggregateById(ctx iris.Context, tenantId string, id string) {
-	_, _, _ = rest.DoQueryOne(ctx, func() (interface{}, bool, error) {
+	_, _, _ = restapp.DoQueryOne(ctx, func() (interface{}, bool, error) {
 		return m.userAppService.GetAggregateById(NewContext(ctx), tenantId, id)
 	})
 }
 
 func (m *UserController) UserCreate(ctx iris.Context) {
 	cmd := &user_commands.UserCreateCommand{}
-	_ = rest.DoCmd(ctx, cmd, func() error {
+	_ = restapp.DoCmd(ctx, cmd, func() error {
 		return m.userAppService.CreateUser(NewContext(ctx), cmd)
 	})
 }
 
 func (m *UserController) UserCreateAndGetUser(ctx iris.Context) {
 	cmd := &user_commands.UserCreateCommand{}
-	_, _, _ = rest.DoCmdAndQueryOne(ctx, subAppId, cmd, func() error {
+	_, _, _ = restapp.DoCmdAndQueryOne(ctx, subAppId, cmd, func() error {
 		return m.userAppService.CreateUser(NewContext(ctx), cmd)
 	}, func() (interface{}, bool, error) {
 		return queryappservice.GetUserByUserId(ctx, cmd.GetTenantId(), cmd.Data.Id)
@@ -58,14 +58,14 @@ func (m *UserController) UserCreateAndGetUser(ctx iris.Context) {
 
 func (m *UserController) UserUpdate(ctx iris.Context) {
 	cmd := &user_commands.UserUpdateCommand{}
-	_ = rest.DoCmd(ctx, cmd, func() error {
+	_ = restapp.DoCmd(ctx, cmd, func() error {
 		return m.userAppService.UpdateUser(NewContext(ctx), cmd)
 	})
 }
 
 func (m *UserController) UserUpdateAndGetUser(ctx iris.Context) {
 	cmd := &user_commands.UserUpdateCommand{}
-	_, _, _ = rest.DoCmdAndQueryOne(ctx, subAppId, cmd, func() error {
+	_, _, _ = restapp.DoCmdAndQueryOne(ctx, subAppId, cmd, func() error {
 		return m.userAppService.UpdateUser(NewContext(ctx), cmd)
 	}, func() (interface{}, bool, error) {
 		return queryappservice.GetUserByUserId(ctx, cmd.GetTenantId(), cmd.Data.Id)
@@ -74,14 +74,14 @@ func (m *UserController) UserUpdateAndGetUser(ctx iris.Context) {
 
 func (m *UserController) AddressCreate(ctx iris.Context) {
 	cmd := &user_commands.AddressCreateCommand{}
-	_ = rest.DoCmd(ctx, cmd, func() error {
+	_ = restapp.DoCmd(ctx, cmd, func() error {
 		return m.userAppService.CreateAddress(NewContext(ctx), cmd)
 	})
 }
 
 func (m *UserController) AddressCreateAndGet(ctx iris.Context) {
 	cmd := &user_commands.AddressCreateCommand{}
-	_, _, _ = rest.DoCmdAndQueryOne(ctx, subAppId, cmd, func() error {
+	_, _, _ = restapp.DoCmdAndQueryOne(ctx, subAppId, cmd, func() error {
 		return m.userAppService.CreateAddress(NewContext(ctx), cmd)
 	}, func() (interface{}, bool, error) {
 		return queryappservice.GetUserByUserId(ctx, cmd.GetTenantId(), cmd.Data.UserId)
@@ -90,14 +90,14 @@ func (m *UserController) AddressCreateAndGet(ctx iris.Context) {
 
 func (m *UserController) AddressUpdate(ctx iris.Context) {
 	cmd := &user_commands.AddressUpdateCommand{}
-	_ = rest.DoCmd(ctx, cmd, func() error {
+	_ = restapp.DoCmd(ctx, cmd, func() error {
 		return m.userAppService.UpdateAddress(NewContext(ctx), cmd)
 	})
 }
 
 func (m *UserController) AddressUpdateAndGet(ctx iris.Context) {
 	cmd := &user_commands.AddressUpdateCommand{}
-	_, _, _ = rest.DoCmdAndQueryOne(ctx, subAppId, cmd, func() error {
+	_, _, _ = restapp.DoCmdAndQueryOne(ctx, subAppId, cmd, func() error {
 		return m.userAppService.UpdateAddress(NewContext(ctx), cmd)
 	}, func() (interface{}, bool, error) {
 		return queryappservice.GetUserByUserId(ctx, cmd.GetTenantId(), cmd.Data.UserId)
@@ -106,7 +106,7 @@ func (m *UserController) AddressUpdateAndGet(ctx iris.Context) {
 
 func (m *UserController) AddressDelete(ctx iris.Context) {
 	cmd := &user_commands.AddressDeleteCommand{}
-	_ = rest.DoCmd(ctx, cmd, func() error {
+	_ = restapp.DoCmd(ctx, cmd, func() error {
 		return m.userAppService.DeleteAddress(NewContext(ctx), cmd)
 	})
 }
