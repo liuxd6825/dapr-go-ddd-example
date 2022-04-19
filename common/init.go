@@ -27,8 +27,8 @@ func get() {
 	})
 }
 
-func GetRegisterEvents() *[]restapp.RegisterEvent {
-	return &[]restapp.RegisterEvent{
+func GetRegisterEventTypes() *[]restapp.RegisterEventType {
+	return &[]restapp.RegisterEventType{
 		{
 			EventType: user_events.UserCreateEventType.String(), Revision: "1.0", NewFunc: func() interface{} { return &user_events.UserCreateEventV1{} },
 		},

@@ -31,6 +31,6 @@ func controllers() *[]restapp.Controller {
 }
 
 // 注册Http控制器
-func events() *[]restapp.RegisterEvent {
-	return common.GetRegisterEvents()
+func events() *[]restapp.RegisterEventType {
+	return common.GetRegisterEventTypes()
 }

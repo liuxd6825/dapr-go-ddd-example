@@ -17,12 +17,12 @@ type UserQueryHandler struct {
 
 func NewUserSubscribes() restapp.RegisterSubscribe {
 	subscribes := &[]ddd.Subscribe{
-		{PubsubName: "pubsub", Topic: user_events.UserCreateEventType.String(), Route: "/users/user-create-event"},
-		{PubsubName: "pubsub", Topic: user_events.UserUpdateEventType.String(), Route: "/users/user-update-event"},
-		{PubsubName: "pubsub", Topic: user_events.UserDeleteEventType.String(), Route: "/users/user-delete-event"},
-		{PubsubName: "pubsub", Topic: user_events.AddressCreateEventType.String(), Route: "/users/user-address-create-event"},
-		{PubsubName: "pubsub", Topic: user_events.AddressUpdateEventType.String(), Route: "/users/user-address-update-event"},
-		{PubsubName: "pubsub", Topic: user_events.AddressDeleteEventType.String(), Route: "/users/user-address-delete-event"},
+		{PubsubName: "pubsub", Topic: user_events.UserCreateEventType.String(), Route: "/event/command-service/users/user-create-event"},
+		{PubsubName: "pubsub", Topic: user_events.UserUpdateEventType.String(), Route: "/event/command-service/users/user-update-event"},
+		{PubsubName: "pubsub", Topic: user_events.UserDeleteEventType.String(), Route: "/event/command-service/users/user-delete-event"},
+		{PubsubName: "pubsub", Topic: user_events.AddressCreateEventType.String(), Route: "/event/command-service/users/user-address-create-event"},
+		{PubsubName: "pubsub", Topic: user_events.AddressUpdateEventType.String(), Route: "/event/command-service/users/user-address-update-event"},
+		{PubsubName: "pubsub", Topic: user_events.AddressDeleteEventType.String(), Route: "/event/command-service/users/user-address-delete-event"},
 	}
 	return restapp.NewRegisterSubscribe(subscribes, NewUserQueryHandler())
 }
