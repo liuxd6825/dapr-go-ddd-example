@@ -22,12 +22,12 @@ dev:
 test :
   app:
     id: query-service
-    http-port: 9020
+    http-port: 8080
     root-url: /api/v1.0
   dapr:
     host: localhost
-    http-port: 9021
-    grpc-port: 9022
+    http-port: 8081
+    grpc-port: 8082
     pubsubs:
       - "pubsub"
   log:

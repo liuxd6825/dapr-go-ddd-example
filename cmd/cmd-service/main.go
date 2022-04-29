@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"github.com/kataras/iris/v12"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/userinterface/rest/controller"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/xpublic"
@@ -12,6 +13,7 @@ import (
 var app *iris.Application
 
 func main() {
+	fmt.Println("---------- cmd-service 开始启动 ----------")
 	help := flag.Bool("help", false, "参数提示。")
 	envType := flag.String("envType", "", "替换配置文件中的envType值。")
 	config := flag.String("config", "./config/cmd-config.yaml", "配置文件。")
