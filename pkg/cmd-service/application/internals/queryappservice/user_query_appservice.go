@@ -7,7 +7,7 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_errors"
 )
 
-var appId = "query-example"
+var appId = "query-service"
 var apiVersion = "v1.0"
 
 type UserView struct {
