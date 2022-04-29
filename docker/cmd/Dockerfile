@@ -10,4 +10,4 @@ EXPOSE 9010
 EXPOSE 9011
 EXPOSE 9012
 
-ENTRYPOINT [ "cmd-service" ]
+ENTRYPOINT [ "cmd-service -envType=test" ]

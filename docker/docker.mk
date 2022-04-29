@@ -96,3 +96,8 @@ else
 	$(DOCKER) buildx build --load  --build-arg PKG_FILES=cmd-service --platform $(DOCKER_IMAGE_PLATFORM) -f $(DOCKERFILE_DIR)/cmd/$(DOCKERFILE) $(BIN_PATH) -t $(APP_CMD_DOCKER_IMAGE_TAG)-$(TARGET_OS)-$(TARGET_ARCH)
 	$(DOCKER) buildx build --load  --build-arg PKG_FILES=query-service --platform $(DOCKER_IMAGE_PLATFORM) -f $(DOCKERFILE_DIR)/query/$(DOCKERFILE) $(BIN_PATH) -t $(APP_QUERY_DOCKER_IMAGE_TAG)-$(TARGET_OS)-$(TARGET_ARCH)
 endif
+
+
+docker-push:
+	docker push $(APP_CMD_DOCKER_IMAGE_TAG)-$(TARGET_OS)-$(TARGET_ARCH)
+	docker push $(APP_QUERY_DOCKER_IMAGE_TAG)-$(TARGET_OS)-$(TARGET_ARCH)

@@ -10,4 +10,4 @@ EXPOSE 9020
 EXPOSE 9021
 EXPOSE 9022
 
-ENTRYPOINT [ "query-service" ]
+ENTRYPOINT [ "query-service -envType=test" ]

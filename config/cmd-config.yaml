@@ -1,7 +1,7 @@
-env : dev
-dev :
+envType: dev
+dev:
   app:
-    id: command-example
+    id: cmd-service
     http-port: 9010
     root-url: /api/v1.0
   dapr:
@@ -12,3 +12,30 @@ dev :
       - "pubsub"
   log:
     level: debug
+test:
+  app:
+    id: cmd-service
+    http-port: 8080
+    root-url: /api/v1.0
+  dapr:
+    host: localhost
+    http-port: 8081
+    grpc-port: 8082
+    pubsubs:
+      - "pubsub"
+  log:
+    level: debug
+prod:
+  app:
+    id: cmd-service
+    http-port: 8080
+    root-url: /api/v1.0
+  dapr:
+    host: localhost
+    http-port: 8081
+    grpc-port: 8082
+    pubsubs:
+      - "pubsub"
+  log:
+    level: debug
+

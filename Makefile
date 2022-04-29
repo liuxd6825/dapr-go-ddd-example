@@ -183,6 +183,18 @@ endef
 $(foreach ITEM,$(BINARIES),$(eval $(call genArchiveBinary,$(ITEM),$(ARCHIVE_OUT_DIR))))
 
 
+install-k8s:
+	kubectl apply -f ./k8s/cmd-service.yaml
+	kubectl apply -f ./k8s/query-service.yaml
+
+
+uninstall-k8s:
+	kubectl delete -f ./k8s/cmd-service.yaml
+	kubectl delete -f ./k8s/query-service.yaml
+
+
+
+
 
 ################################################################################
 # Target: docker                                                               #

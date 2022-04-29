@@ -1,7 +1,7 @@
-env : dev
-dev :
+envType: dev
+dev:
   app:
-    id: query-example
+    id: query-service
     http-port: 9020
     root-url: /api/v1.0
   dapr:
@@ -17,5 +17,45 @@ dev :
     replica-set: mongors
     dbname: query-example
     user: query-example
+    pwd: 123456
+    max-pool-size: 20
+test :
+  app:
+    id: query-service
+    http-port: 9020
+    root-url: /api/v1.0
+  dapr:
+    host: localhost
+    http-port: 9021
+    grpc-port: 9022
+    pubsubs:
+      - "pubsub"
+  log:
+    level: debug
+  mongo:
+    host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
+    replica-set: mongors
+    dbname: query-example
+    user: query-example
+    pwd: 123456
+    max-pool-size: 20
+prod:
+  app:
+    id: query-service
+    http-port: 8080
+    root-url: /api/v1.0
+  dapr:
+    host: localhost
+    http-port: 8081
+    grpc-port: 8082
+    pubsubs:
+      - "pubsub"
+  log:
+    level: debug
+  mongo:
+    host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
+    replica-set: mongors
+    dbname: prod-query
+    user: prod-query
     pwd: 123456
     max-pool-size: 20

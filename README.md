@@ -1,7 +1,7 @@
 # dapr-go-ddd-example
 
 #### 介绍
-基于go语言的dapr的DDD sdk
+DDD示例程序。
 
 #### 调试
 
@@ -20,8 +20,10 @@
 #### 部署
 
 1. make build-linux
-2. sudo make docker-build APP_REGISTRY=liuxd APP_TAG=dapr TARGET_ARCH=arm64
-
+2. sudo make docker-build APP_REGISTRY=192.168.64.12 APP_TAG=dapr TARGET_ARCH=arm64
+3. make docker-push APP_REGISTRY=192.168.64.12 APP_TAG=dapr TARGET_ARCH=arm64
+4. docker push 192.168.64.12/cmd-service:dapr-linux-arm64
+5. make build-k8s
 
 #### 参与贡献
 

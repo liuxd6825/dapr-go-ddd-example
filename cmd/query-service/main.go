@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"github.com/kataras/iris/v12"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/domain/queryhandler"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/userinterface/rest/controller"
@@ -11,9 +12,17 @@ import (
 var app *iris.Application
 
 func main() {
-	configFile := "./config/query-config.yaml"
+	help := flag.Bool("help", false, "参数提示。")
+	envType := flag.String("envType", "", "替换配置文件中的envType值。")
+	config := flag.String("config", "./config/query-config.yaml", "配置文件。")
+	flag.Parse()
+
+	if *help {
+		return
+	}
+
 	app = iris.New()
-	if err := restapp.RunWithConfig(configFile, app, subscribes, controllers, events); err != nil {
+	if err := restapp.RunWithConfig(*envType, *config, app, subscribes, controllers, events); err != nil {
 		panic(err)
 	}
 }
