@@ -13,7 +13,7 @@ import (
 var app *iris.Application
 
 func main() {
-	fmt.Println("---------- cmd-service 开始启动 ----------")
+	fmt.Println("---------- cmd-service ----------")
 	help := flag.Bool("help", false, "参数提示。")
 	envType := flag.String("envType", "", "替换配置文件中的envType值。")
 	config := flag.String("config", "./config/cmd-config.yaml", "配置文件。")

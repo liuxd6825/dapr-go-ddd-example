@@ -91,13 +91,19 @@ ifeq ($(TARGET_ARCH),amd64)
 	$(DOCKER) build PKG_FILES=cmd-service -f $(DOCKERFILE_DIR)/cmd/$(DOCKERFILE) $(BIN_PATH) -t $(APP_CMD_DOCKER_IMAGE_TAG)-$(TARGET_OS)-$(TARGET_ARCH)
 	$(DOCKER) build PKG_FILES=query-service -f $(DOCKERFILE_DIR)/query/$(DOCKERFILE) $(BIN_PATH) -t $(APP_QUERY_DOCKER_IMAGE_TAG)-$(TARGET_OS)-$(TARGET_ARCH)
 else
-	-$(DOCKER) buildx create --use --name daprbuild
-	-$(DOCKER) run --rm --privileged multiarch/qemu-user-static --reset -p yes
-	$(DOCKER) buildx build --load  --build-arg PKG_FILES=cmd-service --platform $(DOCKER_IMAGE_PLATFORM) -f $(DOCKERFILE_DIR)/cmd/$(DOCKERFILE) $(BIN_PATH) -t $(APP_CMD_DOCKER_IMAGE_TAG)-$(TARGET_OS)-$(TARGET_ARCH)
-	$(DOCKER) buildx build --load  --build-arg PKG_FILES=query-service --platform $(DOCKER_IMAGE_PLATFORM) -f $(DOCKERFILE_DIR)/query/$(DOCKERFILE) $(BIN_PATH) -t $(APP_QUERY_DOCKER_IMAGE_TAG)-$(TARGET_OS)-$(TARGET_ARCH)
+	$(DOCKER) buildx build --load --build-arg PKG_FILES=cmd-service --platform $(DOCKER_IMAGE_PLATFORM) -f $(DOCKERFILE_DIR)/cmd/$(DOCKERFILE) $(BIN_PATH) -t $(APP_CMD_DOCKER_IMAGE_TAG)-$(TARGET_OS)-$(TARGET_ARCH)
+	$(DOCKER) buildx build --load --build-arg PKG_FILES=query-service --platform $(DOCKER_IMAGE_PLATFORM) -f $(DOCKERFILE_DIR)/query/$(DOCKERFILE) $(BIN_PATH) -t $(APP_QUERY_DOCKER_IMAGE_TAG)-$(TARGET_OS)-$(TARGET_ARCH)
 endif
 
 
 docker-push:
 	docker push $(APP_CMD_DOCKER_IMAGE_TAG)-$(TARGET_OS)-$(TARGET_ARCH)
 	docker push $(APP_QUERY_DOCKER_IMAGE_TAG)-$(TARGET_OS)-$(TARGET_ARCH)
+
+
+docker-rmi:
+	docker images|grep none|awk '{print $3}'|xargs docker rmi
+	docker rmi -f cmd-service
+	docker rmi -f query-service
+
+

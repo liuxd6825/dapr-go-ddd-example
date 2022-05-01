@@ -22,8 +22,9 @@ DDD示例程序。
 1. make build-linux
 2. sudo make docker-build APP_REGISTRY=192.168.64.12 APP_TAG=dapr TARGET_ARCH=arm64
 3. make docker-push APP_REGISTRY=192.168.64.12 APP_TAG=dapr TARGET_ARCH=arm64
-4. docker push 192.168.64.12/cmd-service:dapr-linux-arm64
-5. make build-k8s
+4. make uninstall-k8s //如果已经安装，先执行卸载命令。
+5. make install-k8s
+
 
 #### 参与贡献
 

@@ -2,12 +2,14 @@
 
 FROM gcr.io/distroless/static:nonroot
 ARG PKG_FILES
-WORKDIR /
-COPY /config     /
-COPY /$PKG_FILES /
 
-EXPOSE 9020
-EXPOSE 9021
-EXPOSE 9022
+COPY /config /app/config
+COPY /*  /app/
 
-ENTRYPOINT [ "query-service -envType=test" ]
+WORKDIR /app
+
+EXPOSE 8080
+EXPOSE 8081
+EXPOSE 8082
+
+ENTRYPOINT [ "./query-service","-envType","test"]

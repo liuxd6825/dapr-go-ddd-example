@@ -49,7 +49,7 @@ func (m *UserController) UserCreate(ctx iris.Context) {
 
 func (m *UserController) UserCreateAndGetUser(ctx iris.Context) {
 	cmd := &user_commands2.UserCreateCommand{}
-	_, _, _ = restapp.DoCmdAndQueryOne(ctx, subAppId, cmd, func() error {
+	_, _, _ = restapp.DoCmdAndQueryOne(ctx, subAppId(), cmd, func() error {
 		return m.userAppService.CreateUser(NewContext(ctx), cmd)
 	}, func() (interface{}, bool, error) {
 		return queryappservice.GetUserByUserId(ctx, cmd.GetTenantId(), cmd.Data.Id)
@@ -65,7 +65,7 @@ func (m *UserController) UserUpdate(ctx iris.Context) {
 
 func (m *UserController) UserUpdateAndGetUser(ctx iris.Context) {
 	cmd := &user_commands2.UserUpdateCommand{}
-	_, _, _ = restapp.DoCmdAndQueryOne(ctx, subAppId, cmd, func() error {
+	_, _, _ = restapp.DoCmdAndQueryOne(ctx, subAppId(), cmd, func() error {
 		return m.userAppService.UpdateUser(NewContext(ctx), cmd)
 	}, func() (interface{}, bool, error) {
 		return queryappservice.GetUserByUserId(ctx, cmd.GetTenantId(), cmd.Data.Id)
@@ -81,7 +81,7 @@ func (m *UserController) AddressCreate(ctx iris.Context) {
 
 func (m *UserController) AddressCreateAndGet(ctx iris.Context) {
 	cmd := &user_commands2.AddressCreateCommand{}
-	_, _, _ = restapp.DoCmdAndQueryOne(ctx, subAppId, cmd, func() error {
+	_, _, _ = restapp.DoCmdAndQueryOne(ctx, subAppId(), cmd, func() error {
 		return m.userAppService.CreateAddress(NewContext(ctx), cmd)
 	}, func() (interface{}, bool, error) {
 		return queryappservice.GetUserByUserId(ctx, cmd.GetTenantId(), cmd.Data.UserId)
@@ -97,7 +97,7 @@ func (m *UserController) AddressUpdate(ctx iris.Context) {
 
 func (m *UserController) AddressUpdateAndGet(ctx iris.Context) {
 	cmd := &user_commands2.AddressUpdateCommand{}
-	_, _, _ = restapp.DoCmdAndQueryOne(ctx, subAppId, cmd, func() error {
+	_, _, _ = restapp.DoCmdAndQueryOne(ctx, subAppId(), cmd, func() error {
 		return m.userAppService.UpdateAddress(NewContext(ctx), cmd)
 	}, func() (interface{}, bool, error) {
 		return queryappservice.GetUserByUserId(ctx, cmd.GetTenantId(), cmd.Data.UserId)
@@ -109,4 +109,8 @@ func (m *UserController) AddressDelete(ctx iris.Context) {
 	_ = restapp.DoCmd(ctx, cmd, func() error {
 		return m.userAppService.DeleteAddress(NewContext(ctx), cmd)
 	})
+}
+
+func subAppId() string {
+	return queryappservice.AppId()
 }

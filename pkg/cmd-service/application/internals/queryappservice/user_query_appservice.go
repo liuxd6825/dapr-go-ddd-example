@@ -3,8 +3,8 @@ package queryappservice
 import (
 	"context"
 	"fmt"
-	infr_dapr "github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/infrastructure/idapr"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_errors"
+	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 
 var appId = "query-service"
@@ -20,6 +20,10 @@ type UserView struct {
 	Address   string `json:"address"`
 }
 
+func AppId() string {
+	return appId
+}
+
 func GetUserByUserId(ctx context.Context, tenantId, userId string) (res *UserView, isFound bool, err error) {
 	defer func() {
 		if e := ddd_errors.GetRecoverError(recover()); e != nil {
@@ -28,7 +32,7 @@ func GetUserByUserId(ctx context.Context, tenantId, userId string) (res *UserVie
 	}()
 	resp := &UserView{}
 	methodName := fmt.Sprintf("/api/%s/tenants/%s/users/%s", apiVersion, tenantId, userId)
-	_, err = infr_dapr.GetClient().InvokeService(ctx, appId, methodName, "get", nil, resp)
+	_, err = restapp.GetDaprClient().InvokeService(ctx, appId, methodName, "get", nil, resp)
 	if err == nil {
 		res = resp
 		isFound = true
