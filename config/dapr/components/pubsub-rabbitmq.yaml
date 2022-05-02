@@ -2,6 +2,7 @@ apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
   name: pubsub-rabbitmq
+  namespace: dapr-system
 spec:
   type: pubsub.rabbitmq
   version: v1

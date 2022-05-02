@@ -2,25 +2,28 @@ kind: Service
 apiVersion: v1
 metadata:
   name: cmd-service
-  namespace: dapr-ddd-example
+  namespace: dapr-system
   labels:
     app: cmd-service
 spec:
+  type: NodePort
   selector:
     app: cmd-service
   ports:
-    - port: 80
+    - port: 8080
       targetPort: 8080
+      nodePort: 30001
 
 ---
 kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: cmd-service
-  namespace: dapr-ddd-example
+  namespace: dapr-system
   labels:
     app: cmd-service
 spec:
+
   replicas: 1
   selector:
     matchLabels:
@@ -34,6 +37,7 @@ spec:
         dapr.io/app-id: "cmd-service"
         dapr.io/app-port: "8080"
     spec:
+      # hostNetwork: true
       containers:
         - name: cmd-service
           image: 192.168.64.12/cmd-service:dapr-linux-arm64
@@ -45,7 +49,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: cmd-service-ingress
-  namespace: dapr-ddd-example
+  namespace: dapr-system
 spec:
   rules:
   - http:
@@ -56,4 +60,4 @@ spec:
           service:
             name: cmd-service
             port:
-              number: 80
+              number: 8080

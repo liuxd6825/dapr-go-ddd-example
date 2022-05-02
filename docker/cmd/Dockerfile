@@ -1,6 +1,6 @@
 # current directory must be ./dist
 
-FROM gcr.io/distroless/static:nonroot
+FROM scratch
 ARG PKG_FILES
 
 COPY /config /app/config
@@ -9,7 +9,7 @@ COPY /*  /app/
 WORKDIR /app
 
 EXPOSE 8080
-EXPOSE 8081
-EXPOSE 8082
+EXPOSE 3500
+EXPOSE 50001
 
 ENTRYPOINT [ "./cmd-service","-envType", "test" ]

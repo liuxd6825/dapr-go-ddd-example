@@ -1,13 +1,13 @@
-env-type: dev
+envType: dev
 dev:
   app:
     id: cmd-service
-    http-port: 9010
-    root-url: /api/v1.0
+    httpPort: 9010
+    rootUrl: /api/v1.0
   dapr:
     host: localhost
-    http-port: 9011
-    grpc-port: 9012
+    httpPort: 9011
+    grpcPort: 9012
     pubsubs:
       - "pubsub"
   log:
@@ -15,12 +15,12 @@ dev:
 test:
   app:
     id: cmd-service
-    http-port: 8080
-    root-url: /api/v1.0
+    httpPort: 8080
+    rootUrl: /api/v1.0
   dapr:
-    host: 127.0.0.1
-    http-port: 3500
-    grpc-port: 50001
+    host: localhost
+    #httpPort: 3500
+    #grpc-port: 50001
     pubsubs:
       - "pubsub"
   log:
@@ -28,12 +28,12 @@ test:
 prod:
   app:
     id: cmd-service
-    http-port: 8080
-    root-url: /api/v1.0
+    httpPort: 8080
+    rootUrl: /api/v1.0
   dapr:
-    host: 127.0.0.1
-    http-port: 3500
-    grpc-port: 50001
+    host: localhost
+    #httpPort: 3500
+    #grpc-port: 50001
     pubsubs:
       - "pubsub"
   log:

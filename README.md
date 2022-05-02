@@ -18,12 +18,30 @@ DDD示例程序。
 
 
 #### 部署
+1. 部署Dapr component 文件到k8s上，注册dapr应用与component需要在同一个namespace上。\
+   kubectl apply ./config/components/pubsub.yaml\
+   kubectl apply ./config/components/applogger-mongo.yaml \
+   kubectl apply ./config/components/eventstorage-mongo.yaml \
 
-1. make build-linux
-2. sudo make docker-build APP_REGISTRY=192.168.64.12 APP_TAG=dapr TARGET_ARCH=arm64
-3. make docker-push APP_REGISTRY=192.168.64.12 APP_TAG=dapr TARGET_ARCH=arm64
-4. make uninstall-k8s //如果已经安装，先执行卸载命令。
-5. make install-k8s
+
+3. 编译二进制文件\
+   make build-linux
+
+
+4. 生成docker images\
+   sudo make docker-build APP_REGISTRY=192.168.64.12 APP_TAG=dapr TARGET_ARCH=arm64
+
+
+5. 推送images到私仓中\
+   make docker-push APP_REGISTRY=192.168.64.12 APP_TAG=dapr TARGET_ARCH=arm64
+
+   
+7. 如果已安装过，卸载已有的k8s安装\
+   make uninstall-k8s
+
+
+8. 安装项目到 k8s\
+   make install-k8s
 
 
 #### 参与贡献
