@@ -23,7 +23,6 @@ metadata:
   labels:
     app: cmd-service
 spec:
-
   replicas: 1
   selector:
     matchLabels:
@@ -42,7 +41,7 @@ spec:
         - name: cmd-service
           image: 192.168.64.12/cmd-service:dapr-linux-arm64
           ports:
-            - containerPort: 8080
+          - containerPort: 8080
 
 ---
 apiVersion: networking.k8s.io/v1

@@ -72,6 +72,7 @@ func (a *UserAggregate) OnUserCreateEventV1s0(ctx context.Context, event *user_e
 	a.UserName = event.Data.UserName
 	a.UserCode = event.Data.UserCode
 	a.Telephone = event.Data.Telephone
+	a.Email = event.Data.Email
 	return nil
 }
 
@@ -81,6 +82,7 @@ func (a *UserAggregate) OnUserUpdateEventV1s0(ctx context.Context, event *user_e
 	a.UserName = event.Data.UserName
 	a.UserCode = event.Data.UserCode
 	a.Telephone = event.Data.Telephone
+	a.Email = event.Data.Email
 	return nil
 }
 

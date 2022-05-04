@@ -18,7 +18,7 @@ require (
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/aymerick/raymond v2.0.3-0.20180322193309-b565731e1464+incompatible // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
-	github.com/dapr/dapr v1.6.0 // indirect
+	github.com/dapr/dapr v1.7.1 // indirect
 	github.com/dapr/go-sdk v1.3.1 // indirect
 	github.com/eknkc/amber v0.0.0-20171010120322-cdade1c07385 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
@@ -52,6 +52,7 @@ require (
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mediocregopher/radix/v3 v3.6.0 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.18 // indirect
+	github.com/minio/highwayhash v1.0.2 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/nats-io/jwt/v2 v2.2.1-0.20220113022732-58e87895b296 // indirect
@@ -86,5 +87,9 @@ require (
 	gopkg.in/ini.v1 v1.66.4 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
+
+replace github.com/dapr/go-sdk => ../../dapr/go-sdk
+
+replace github.com/dapr/dapr => ../../dapr/dapr
 
 replace github.com/liuxd6825/dapr-go-ddd-sdk => ../dapr-go-ddd-sdk
