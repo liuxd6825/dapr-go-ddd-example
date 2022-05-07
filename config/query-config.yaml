@@ -1,61 +1,62 @@
 envType: dev
-dev:
-  app:
-    id: query-service
-    httpPort: 9020
-    rootUrl: /api/v1.0
-  dapr:
-    host: localhost
-    httpPort: 9021
-    grpcPort: 9022
-    pubsubs:
-      - "pubsub"
-  log:
-    level: debug
-  mongo:
-    host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
-    replicaSet: mongors
-    dbname: query-example
-    user: query-example
-    pwd: 123456
-    maxPoolSize: 20
-test :
-  app:
-    id: query-service
-    httpPort: 8080
-    rootUrl: /api/v1.0
-  dapr:
-    host: localhost
-    #httpPort: 3500
-    #grpcPort: 50001
-    pubsubs:
-      - "pubsub"
-  log:
-    level: debug
-  mongo:
-    host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
-    replicaSet: mongors
-    dbname: query-example
-    user: query-example
-    pwd: 123456
-    maxPoolSize: 20
-prod:
-  app:
-    id: query-service
-    httpPort: 8080
-    rootUrl: /api/v1.0
-  dapr:
-    host: localhost
-    #httpPort: 3500
-    #grpcPort: 50001
-    pubsubs:
-      - "pubsub"
-  log:
-    level: debug
-  mongo:
-    host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
-    replicaSet: mongors
-    dbname: prod-query
-    user: prod-query
-    pwd: 123456
-    maxPoolSize: 20
+envs:
+  dev:
+    app:
+      id: query-service
+      httpPort: 9020
+      rootUrl: /api/v1.0
+    dapr:
+      host: localhost
+      httpPort: 9021
+      grpcPort: 9022
+      pubsubs:
+        - "pubsub"
+    log:
+      level: debug
+    mongo:
+      host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
+      replicaSet: mongors
+      dbname: query-example
+      user: query-example
+      pwd: 123456
+      maxPoolSize: 20
+  test :
+    app:
+      id: query-service
+      httpPort: 8080
+      rootUrl: /api/v1.0
+    dapr:
+      host: localhost
+      #httpPort: 3500
+      #grpcPort: 50001
+      pubsubs:
+        - "pubsub"
+    log:
+      level: debug
+    mongo:
+      host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
+      replicaSet: mongors
+      dbname: query-example
+      user: query-example
+      pwd: 123456
+      maxPoolSize: 20
+  prod:
+    app:
+      id: query-service
+      httpPort: 8080
+      rootUrl: /api/v1.0
+    dapr:
+      host: localhost
+      #httpPort: 3500
+      #grpcPort: 50001
+      pubsubs:
+        - "pubsub"
+    log:
+      level: debug
+    mongo:
+      host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
+      replicaSet: mongors
+      dbname: prod-query
+      user: prod-query
+      pwd: 123456
+      maxPoolSize: 20
