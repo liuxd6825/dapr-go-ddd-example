@@ -1,7 +1,7 @@
 package user_commands
 
 import (
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/xpublic/user_models/user_events"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/event/user_events"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
 )
 

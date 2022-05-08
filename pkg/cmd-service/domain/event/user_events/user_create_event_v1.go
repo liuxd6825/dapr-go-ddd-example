@@ -1,7 +1,7 @@
 package user_events
 
 import (
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/xpublic/user_models/user_fields"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/fields/user_fields"
 )
 
 type UserCreateEventV1 struct {

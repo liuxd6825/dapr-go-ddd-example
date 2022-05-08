@@ -3,8 +3,8 @@ package model
 import (
 	"context"
 	user_commands2 "github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/command/user_commands"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/event/user_events"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/factory/user_factory"
-	user_events2 "github.com/liuxd6825/dapr-go-ddd-example/pkg/xpublic/user_models/user_events"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
 )
 
@@ -49,24 +49,24 @@ func (a *UserAggregate) UserDeleteCommand(ctx context.Context, cmd *user_command
 	return ddd.Apply(ctx, a, user_factory.NewDeleteEvent(cmd), ddd.ApplyOptions{}.SetMetadata(metadata))
 }
 
-func (a *UserAggregate) OnUserAddressCreateEventV1s0(ctx context.Context, event *user_events2.AddressCreateEventV1) (err error) {
+func (a *UserAggregate) OnUserAddressCreateEventV1s0(ctx context.Context, event *user_events.AddressCreateEventV1) (err error) {
 	fields := &event.Data
 	a.Addresses[fields.Id] = NewAddressValue(fields)
 	return nil
 }
 
-func (a *UserAggregate) OnUserAddressUpdateEventV1s0(ctx context.Context, event *user_events2.AddressUpdateEventV1) error {
+func (a *UserAggregate) OnUserAddressUpdateEventV1s0(ctx context.Context, event *user_events.AddressUpdateEventV1) error {
 	fields := &event.Data
 	a.Addresses[fields.Id] = NewAddressValue(fields)
 	return nil
 }
 
-func (a *UserAggregate) OnUserAddressDeleteEventV1s0(ctx context.Context, event *user_events2.AddressDeleteEventV1) error {
+func (a *UserAggregate) OnUserAddressDeleteEventV1s0(ctx context.Context, event *user_events.AddressDeleteEventV1) error {
 	delete(a.Addresses, event.AddressId)
 	return nil
 }
 
-func (a *UserAggregate) OnUserCreateEventV1s0(ctx context.Context, event *user_events2.UserCreateEventV1) error {
+func (a *UserAggregate) OnUserCreateEventV1s0(ctx context.Context, event *user_events.UserCreateEventV1) error {
 	a.Id = event.Data.Id
 	a.TenantId = event.TenantId
 	a.UserName = event.Data.UserName
@@ -76,7 +76,7 @@ func (a *UserAggregate) OnUserCreateEventV1s0(ctx context.Context, event *user_e
 	return nil
 }
 
-func (a *UserAggregate) OnUserUpdateEventV1s0(ctx context.Context, event *user_events2.UserUpdateEventV1) error {
+func (a *UserAggregate) OnUserUpdateEventV1s0(ctx context.Context, event *user_events.UserUpdateEventV1) error {
 	a.Id = event.Data.Id
 	a.TenantId = event.TenantId
 	a.UserName = event.Data.UserName
@@ -86,7 +86,7 @@ func (a *UserAggregate) OnUserUpdateEventV1s0(ctx context.Context, event *user_e
 	return nil
 }
 
-func (a *UserAggregate) OnUserDeleteEventV1s0(ctx context.Context, event *user_events2.UserDeleteEventV1) error {
+func (a *UserAggregate) OnUserDeleteEventV1s0(ctx context.Context, event *user_events.UserDeleteEventV1) error {
 	a.IsDelete = true
 	return nil
 }
