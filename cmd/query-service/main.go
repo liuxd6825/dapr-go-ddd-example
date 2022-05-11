@@ -4,9 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"github.com/kataras/iris/v12"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/event"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/domain/queryhandler"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/userinterface/rest/controller"
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/xpublic"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 
@@ -45,5 +45,5 @@ func controllers() *[]restapp.Controller {
 
 // 注册Http控制器
 func events() *[]restapp.RegisterEventType {
-	return xpublic.GetRegisterEventTypes()
+	return event.GetRegisterEventTypes()
 }
