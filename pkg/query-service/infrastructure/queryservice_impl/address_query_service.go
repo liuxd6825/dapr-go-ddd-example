@@ -36,6 +36,6 @@ func (u *AddressQueryService) DeleteById(ctx context.Context, tenantId string, i
 	return u.repos.DeleteById(ctx, tenantId, id)
 }
 
-func (u *AddressQueryService) FindPagingData(ctx context.Context, query *ddd_repository.PagingQuery) (*ddd_repository.PagingData, bool, error) {
-	return u.repos.FindPaging(ctx, query)
+func (u *AddressQueryService) FindPagingData(ctx context.Context, query *ddd_repository.PagingQuery) (*ddd_repository.FindPagingResult[*projection.AddressView], bool, error) {
+	return u.repos.FindPaging(ctx, query).Result()
 }

@@ -11,5 +11,5 @@ type AddressViewRepository interface {
 	UpdateById(ctx context.Context, addr *projection.AddressView) (*projection.AddressView, error)
 	DeleteById(ctx context.Context, tenantId string, id string) error
 	FindById(ctx context.Context, tenantId string, id string) (*projection.AddressView, bool, error)
-	FindPaging(ctx context.Context, query *ddd_repository.PagingQuery) (res *ddd_repository.PagingData, isFound bool, err error)
+	FindPaging(ctx context.Context, query *ddd_repository.PagingQuery) *ddd_repository.FindPagingResult[*projection.AddressView]
 }

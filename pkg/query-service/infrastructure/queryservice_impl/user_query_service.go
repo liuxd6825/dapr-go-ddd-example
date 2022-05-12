@@ -36,6 +36,6 @@ func (u *UserQueryService) DeleteById(ctx context.Context, tenantId string, id s
 	return u.repos.DeleteById(ctx, tenantId, id)
 }
 
-func (u *UserQueryService) FindPagingData(ctx context.Context, query *ddd_repository.PagingQuery) (*ddd_repository.PagingData, bool, error) {
-	return u.repos.FindPaging(ctx, query)
+func (u *UserQueryService) FindPagingData(ctx context.Context, query *ddd_repository.PagingQuery) (*ddd_repository.FindPagingResult[*projection.UserView], bool, error) {
+	return u.repos.FindPaging(ctx, query).Result()
 }

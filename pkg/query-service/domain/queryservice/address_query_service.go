@@ -12,7 +12,7 @@ type AddressQueryService interface {
 	Create(ctx context.Context, user *projection.AddressView) error
 	Update(ctx context.Context, user *projection.AddressView) error
 	DeleteById(ctx context.Context, tenantId string, id string) error
-	FindPagingData(ctx context.Context, query *ddd_repository.PagingQuery) (*ddd_repository.PagingData, bool, error)
+	FindPagingData(ctx context.Context, query *ddd_repository.PagingQuery) (*ddd_repository.FindPagingResult[*projection.AddressView], bool, error)
 }
 
 func NewAddressQueryService() AddressQueryService {

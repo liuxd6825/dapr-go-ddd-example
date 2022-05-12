@@ -12,7 +12,7 @@ type UserQueryService interface {
 	Create(ctx context.Context, user *projection.UserView) error
 	Update(ctx context.Context, user *projection.UserView) error
 	DeleteById(ctx context.Context, tenantId string, id string) error
-	FindPagingData(ctx context.Context, query *ddd_repository.PagingQuery) (*ddd_repository.PagingData, bool, error)
+	FindPagingData(ctx context.Context, query *ddd_repository.PagingQuery) (*ddd_repository.FindPagingResult[*projection.UserView], bool, error)
 }
 
 func NewUserQueryService() UserQueryService {
