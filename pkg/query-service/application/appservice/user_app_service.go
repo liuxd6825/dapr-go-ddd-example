@@ -8,7 +8,7 @@ import (
 )
 
 type UserAppQueryService struct {
-	service *queryservice.UserQueryService
+	service queryservice.UserQueryService
 }
 
 func NewUserAppQueryService() *UserAppQueryService {

@@ -4,14 +4,14 @@ import (
 	"context"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/event/user_events"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/domain/factory/user_factory"
-	queryservice2 "github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/domain/queryservice"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/domain/queryservice"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 
 type UserQueryHandler struct {
-	userService *queryservice2.UserQueryService
-	addrService *queryservice2.AddressQueryService
+	userService queryservice.UserQueryService
+	addrService queryservice.AddressQueryService
 	restapp.BaseQueryHandler
 }
 
@@ -29,8 +29,8 @@ func NewUserSubscribes() restapp.RegisterSubscribe {
 
 func NewUserQueryHandler() ddd.QueryEventHandler {
 	return &UserQueryHandler{
-		userService: queryservice2.NewUserQueryService(),
-		addrService: queryservice2.NewAddressQueryService(),
+		userService: queryservice.NewUserQueryService(),
+		addrService: queryservice.NewAddressQueryService(),
 	}
 }
 
