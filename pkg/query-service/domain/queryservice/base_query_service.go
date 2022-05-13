@@ -11,7 +11,7 @@ type BaseQueryService[T ddd.Entity] interface {
 	Create(ctx context.Context, user T) error
 	Update(ctx context.Context, user T) error
 	DeleteById(ctx context.Context, tenantId string, id string) error
-	FindPagingData(ctx context.Context, query *ddd_repository.PagingQuery) (*ddd_repository.FindPagingResult[T], bool, error)
+	FindPagingData(ctx context.Context, query *ddd_repository.FindPagingQuery) (*ddd_repository.FindPagingResult[T], bool, error)
 }
 
 type BaseQueryService2Impl[T ddd.Entity] struct {
@@ -31,6 +31,6 @@ func (s *BaseQueryService2Impl[T]) Update(ctx context.Context, user T) error {
 func (s *BaseQueryService2Impl[T]) DeleteById(ctx context.Context, tenantId string, id string) error {
 	return nil
 }
-func (s *BaseQueryService2Impl[T]) FindPagingData(ctx context.Context, query *ddd_repository.PagingQuery) (*ddd_repository.FindPagingResult[T], bool, error) {
+func (s *BaseQueryService2Impl[T]) FindPagingData(ctx context.Context, query *ddd_repository.FindPagingQuery) (*ddd_repository.FindPagingResult[T], bool, error) {
 	return nil, false, nil
 }

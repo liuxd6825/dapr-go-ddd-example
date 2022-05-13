@@ -2,48 +2,59 @@ package mongodb
 
 import (
 	"context"
-	"fmt"
+	"github.com/google/uuid"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/domain/projection"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_repository"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_repository/ddd_mongodb"
-	"golang.org/x/exp/constraints"
 	"testing"
 )
 
+func Test_UserRepository_Inserts(t *testing.T) {
+	mogodb := newMongoDb()
+	userRepos := NewUserRepository(NewRepositoryOptions().SetMongoDB(mogodb))
+	id := uuid.New().String()
+	userView := &projection.UserView{
+		Id:        id,
+		TenantId:  "001",
+		UserName:  "test_user",
+		UserCode:  id,
+		Email:     "test@163.com",
+		Telephone: "1222",
+		Address:   "address",
+	}
+	res, err := userRepos.CreateById(context.Background(), userView)
+	if err != nil {
+		t.Error(err)
+	} else {
+		println(res)
+	}
+}
+
 func Test_UserRepository_Search(t *testing.T) {
-	initTestDB()
-	query := &ddd_repository.ListQuery{
+	mogodb := newMongoDb()
+	query := &ddd_repository.FindPagingQuery{
 		TenantId: "001",
 		Filter:   "id=='001'",
 	}
-	userRepos := NewUserRepository()
-	res, ok, err := userRepos.GetList(context.Background(), query)
+	userRepos := NewUserRepository(NewRepositoryOptions().SetMongoDB(mogodb))
+	res, ok, err := userRepos.FindPaging(context.Background(), query).Result()
 	t.Error(err)
 	if ok {
 		println(res)
 	}
 }
 
-func initTestDB() {
-	err := Init(&ddd_mongodb.Config{
-		Host:         "192.168.64.4",
-		DatabaseName: "example-query-service",
-		UserName:     "dapr",
+func newMongoDb() *ddd_mongodb.MongoDB {
+	mongoDb, err := ddd_mongodb.NewMongoDB(&ddd_mongodb.Config{
+		Host:         "192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020",
+		ReplicaSet:   "mongors",
+		DatabaseName: "query-example",
+		UserName:     "query-example",
 		Password:     "123456",
+		MaxPoolSize:  20,
 	})
 	if err != nil {
 		panic(err)
 	}
-}
-
-func Sum[V constraints.Float | constraints.Integer](m ...V) V {
-	var s V
-	for _, v := range m {
-		s += v
-	}
-	return s
-}
-
-func Test_Sum(t *testing.T) {
-	fmt.Println(Sum([]int64{1, 2, 3, 4, 5, 6}...))
-
+	return mongoDb
 }
