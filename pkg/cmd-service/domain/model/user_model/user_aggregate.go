@@ -1,8 +1,8 @@
-package model
+package user_model
 
 import (
 	"context"
-	user_commands2 "github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/command/user_commands"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/command/user_commands"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/event/user_events"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/factory/user_factory"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
@@ -25,27 +25,27 @@ func NewUserAggregate() *UserAggregate {
 	}
 }
 
-func (a *UserAggregate) AddressCreateCommand(ctx context.Context, cmd *user_commands2.AddressCreateCommand, metadata *map[string]string) error {
+func (a *UserAggregate) AddressCreateCommand(ctx context.Context, cmd *user_commands.AddressCreateCommand, metadata *map[string]string) error {
 	return ddd.Apply(ctx, a, user_factory.NewAddressCreateEvent(cmd), ddd.ApplyOptions{}.SetMetadata(metadata))
 }
 
-func (a *UserAggregate) AddressUpdateCommand(ctx context.Context, cmd *user_commands2.AddressUpdateCommand, metadata *map[string]string) error {
+func (a *UserAggregate) AddressUpdateCommand(ctx context.Context, cmd *user_commands.AddressUpdateCommand, metadata *map[string]string) error {
 	return ddd.Apply(ctx, a, user_factory.NewAddressUpdateEvent(cmd), ddd.ApplyOptions{}.SetMetadata(metadata))
 }
 
-func (a *UserAggregate) AddressDeleteCommand(ctx context.Context, cmd *user_commands2.AddressDeleteCommand, metadata *map[string]string) error {
+func (a *UserAggregate) AddressDeleteCommand(ctx context.Context, cmd *user_commands.AddressDeleteCommand, metadata *map[string]string) error {
 	return ddd.Apply(ctx, a, user_factory.NewAddressDeleteEvent(cmd), ddd.ApplyOptions{}.SetMetadata(metadata))
 }
 
-func (a *UserAggregate) UserCreateCommand(ctx context.Context, cmd *user_commands2.UserCreateCommand, metadata *map[string]string) error {
+func (a *UserAggregate) UserCreateCommand(ctx context.Context, cmd *user_commands.UserCreateCommand, metadata *map[string]string) error {
 	return ddd.Apply(ctx, a, user_factory.NewCreateEvent(cmd), ddd.ApplyOptions{}.SetMetadata(metadata))
 }
 
-func (a *UserAggregate) UserUpdateCommand(ctx context.Context, cmd *user_commands2.UserUpdateCommand, metadata *map[string]string) error {
+func (a *UserAggregate) UserUpdateCommand(ctx context.Context, cmd *user_commands.UserUpdateCommand, metadata *map[string]string) error {
 	return ddd.Apply(ctx, a, user_factory.NewUpdateEvent(cmd), ddd.ApplyOptions{}.SetMetadata(metadata))
 }
 
-func (a *UserAggregate) UserDeleteCommand(ctx context.Context, cmd *user_commands2.UserDeleteCommand, metadata *map[string]string) error {
+func (a *UserAggregate) UserDeleteCommand(ctx context.Context, cmd *user_commands.UserDeleteCommand, metadata *map[string]string) error {
 	return ddd.Apply(ctx, a, user_factory.NewDeleteEvent(cmd), ddd.ApplyOptions{}.SetMetadata(metadata))
 }
 

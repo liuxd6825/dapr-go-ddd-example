@@ -4,8 +4,13 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 
-func GetRegisterEventTypes() *[]restapp.RegisterEventType {
-	return &[]restapp.RegisterEventType{
+//
+// GetRegisterEventTypes
+// @Description: 获取聚合根注册事件类型
+// @return []restapp.RegisterEventType
+//
+func GetRegisterEventTypes() []restapp.RegisterEventType {
+	return []restapp.RegisterEventType{
 		{
 			EventType: UserCreateEventType.String(),
 			Revision:  (&UserCreateEventV1{}).GetEventRevision(),

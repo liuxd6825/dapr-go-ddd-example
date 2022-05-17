@@ -6,6 +6,10 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
 )
 
+//
+// UserCreateCommand
+// @Description:
+//
 type UserCreateCommand struct {
 	ddd.BaseCommand
 	Data user_fields.UserFields `json:"data"`

@@ -3,7 +3,7 @@ package cmdappservice
 import (
 	"context"
 	user_commands2 "github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/command/user_commands"
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/model"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/model/user_model"
 	domain_service "github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/service"
 )
 
@@ -59,6 +59,6 @@ func (s *UserCommandAppService) DeleteAddress(ctx context.Context, cmd *user_com
 	return err
 }
 
-func (s *UserCommandAppService) GetAggregateById(ctx context.Context, tenantId string, id string) (*model.UserAggregate, bool, error) {
+func (s *UserCommandAppService) GetAggregateById(ctx context.Context, tenantId string, id string) (*user_model.UserAggregate, bool, error) {
 	return s.userDomainService.GetAggregateById(ctx, tenantId, id)
 }

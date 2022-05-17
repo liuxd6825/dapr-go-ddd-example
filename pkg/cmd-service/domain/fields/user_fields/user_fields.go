@@ -1,5 +1,9 @@
 package user_fields
 
+//
+// UserFields
+// @Description:
+//
 type UserFields struct {
 	Id        string `json:"id" validate:"gt=0"`
 	TenantId  string `json:"tenantId" validate:"gt=0"`
