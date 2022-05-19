@@ -10,6 +10,10 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 
+//
+// UserController
+// @Description:
+//
 type UserController struct {
 	userAppService *cmdappservice.UserCommandAppService
 	queryAppId     string
