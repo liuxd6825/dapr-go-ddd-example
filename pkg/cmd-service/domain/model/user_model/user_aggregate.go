@@ -8,6 +8,10 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
 )
 
+//
+// UserAggregate
+// @Description:
+//
 type UserAggregate struct {
 	Id        string                   `json:"id" validate:"gt=0"`
 	TenantId  string                   `json:"tenantId" validate:"gt=0"`

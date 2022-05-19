@@ -1,11 +1,12 @@
 package controller
 
 import (
+	"context"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/application/internals/cmdappservice"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/application/internals/queryappservice"
-	user_commands2 "github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/command/user_commands"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/command/user_commands"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 
@@ -19,7 +20,7 @@ func NewUserController() *UserController {
 	}
 }
 
-func (m *UserController) BeforeActivation(b mvc.BeforeActivation) {
+func (c *UserController) BeforeActivation(b mvc.BeforeActivation) {
 	b.Handle("GET", "/tenants/{tenantId}/users/aggregate/{id}", "GetAggregateById")
 
 	b.Handle("POST", "/tenants/{tenantId}/users", "UserCreate")
@@ -34,83 +35,87 @@ func (m *UserController) BeforeActivation(b mvc.BeforeActivation) {
 	b.Handle("DELETE", "/tenants/{tenantId}/users/addresses", "AddressDelete")
 }
 
-func (m *UserController) GetAggregateById(ctx iris.Context, tenantId string, id string) {
+func (c *UserController) GetAggregateById(ctx iris.Context, tenantId string, id string) {
 	_, _, _ = restapp.DoQueryOne(ctx, func() (interface{}, bool, error) {
-		return m.userAppService.GetAggregateById(NewContext(ctx), tenantId, id)
+		return c.userAppService.GetAggregateById(NewContext(ctx), tenantId, id)
 	})
 }
 
-func (m *UserController) UserCreate(ctx iris.Context) {
-	cmd := &user_commands2.UserCreateCommand{}
+func (c *UserController) UserCreate(ctx iris.Context) {
+	cmd := &user_commands.UserCreateCommand{}
 	_ = restapp.DoCmd(ctx, cmd, func() error {
-		return m.userAppService.CreateUser(NewContext(ctx), cmd)
+		return c.userAppService.CreateUser(NewContext(ctx), cmd)
 	})
 }
 
-func (m *UserController) UserCreateAndGetUser(ctx iris.Context) {
-	cmd := &user_commands2.UserCreateCommand{}
+func (c *UserController) UserCreateAndGetUser(ctx iris.Context) {
+	cmd := &user_commands.UserCreateCommand{}
 	_, _, _ = restapp.DoCmdAndQueryOne(ctx, subAppId(), cmd, func() error {
-		return m.userAppService.CreateUser(NewContext(ctx), cmd)
+		return c.userAppService.CreateUser(NewContext(ctx), cmd)
 	}, func() (interface{}, bool, error) {
-		return queryappservice.GetUserByUserId(ctx, cmd.GetTenantId(), cmd.Data.Id)
+		return c.getUserById(ctx, cmd.GetTenantId(), cmd.Data.Id)
 	})
 }
 
-func (m *UserController) UserUpdate(ctx iris.Context) {
-	cmd := &user_commands2.UserUpdateCommand{}
+func (c *UserController) UserUpdate(ctx iris.Context) {
+	cmd := &user_commands.UserUpdateCommand{}
 	_ = restapp.DoCmd(ctx, cmd, func() error {
-		return m.userAppService.UpdateUser(NewContext(ctx), cmd)
+		return c.userAppService.UpdateUser(NewContext(ctx), cmd)
 	})
 }
 
-func (m *UserController) UserUpdateAndGetUser(ctx iris.Context) {
-	cmd := &user_commands2.UserUpdateCommand{}
+func (c *UserController) UserUpdateAndGetUser(ctx iris.Context) {
+	cmd := &user_commands.UserUpdateCommand{}
 	_, _, _ = restapp.DoCmdAndQueryOne(ctx, subAppId(), cmd, func() error {
-		return m.userAppService.UpdateUser(NewContext(ctx), cmd)
+		return c.userAppService.UpdateUser(NewContext(ctx), cmd)
 	}, func() (interface{}, bool, error) {
-		return queryappservice.GetUserByUserId(ctx, cmd.GetTenantId(), cmd.Data.Id)
+		return c.getUserById(ctx, cmd.GetTenantId(), cmd.Data.Id)
 	})
 }
 
-func (m *UserController) AddressCreate(ctx iris.Context) {
-	cmd := &user_commands2.AddressCreateCommand{}
+func (c *UserController) AddressCreate(ctx iris.Context) {
+	cmd := &user_commands.AddressCreateCommand{}
 	_ = restapp.DoCmd(ctx, cmd, func() error {
-		return m.userAppService.CreateAddress(NewContext(ctx), cmd)
+		return c.userAppService.CreateAddress(NewContext(ctx), cmd)
 	})
 }
 
-func (m *UserController) AddressCreateAndGet(ctx iris.Context) {
-	cmd := &user_commands2.AddressCreateCommand{}
+func (c *UserController) AddressCreateAndGet(ctx iris.Context) {
+	cmd := &user_commands.AddressCreateCommand{}
 	_, _, _ = restapp.DoCmdAndQueryOne(ctx, subAppId(), cmd, func() error {
-		return m.userAppService.CreateAddress(NewContext(ctx), cmd)
+		return c.userAppService.CreateAddress(NewContext(ctx), cmd)
 	}, func() (interface{}, bool, error) {
-		return queryappservice.GetUserByUserId(ctx, cmd.GetTenantId(), cmd.Data.UserId)
+		return c.getUserById(ctx, cmd.GetTenantId(), cmd.Data.UserId)
 	})
 }
 
-func (m *UserController) AddressUpdate(ctx iris.Context) {
-	cmd := &user_commands2.AddressUpdateCommand{}
+func (c *UserController) AddressUpdate(ctx iris.Context) {
+	cmd := &user_commands.AddressUpdateCommand{}
 	_ = restapp.DoCmd(ctx, cmd, func() error {
-		return m.userAppService.UpdateAddress(NewContext(ctx), cmd)
+		return c.userAppService.UpdateAddress(NewContext(ctx), cmd)
 	})
 }
 
-func (m *UserController) AddressUpdateAndGet(ctx iris.Context) {
-	cmd := &user_commands2.AddressUpdateCommand{}
+func (c *UserController) AddressUpdateAndGet(ctx iris.Context) {
+	cmd := &user_commands.AddressUpdateCommand{}
 	_, _, _ = restapp.DoCmdAndQueryOne(ctx, subAppId(), cmd, func() error {
-		return m.userAppService.UpdateAddress(NewContext(ctx), cmd)
+		return c.userAppService.UpdateAddress(NewContext(ctx), cmd)
 	}, func() (interface{}, bool, error) {
-		return queryappservice.GetUserByUserId(ctx, cmd.GetTenantId(), cmd.Data.UserId)
+		return c.getUserById(ctx, cmd.GetTenantId(), cmd.Data.UserId)
 	})
 }
 
-func (m *UserController) AddressDelete(ctx iris.Context) {
-	cmd := &user_commands2.AddressDeleteCommand{}
+func (c *UserController) AddressDelete(ctx iris.Context) {
+	cmd := &user_commands.AddressDeleteCommand{}
 	_ = restapp.DoCmd(ctx, cmd, func() error {
-		return m.userAppService.DeleteAddress(NewContext(ctx), cmd)
+		return c.userAppService.DeleteAddress(NewContext(ctx), cmd)
 	})
+}
+
+func (c *UserController) getUserById(ctx context.Context, tenantId, userId string) (data interface{}, isFound bool, err error) {
+	return queryappservice.GetUserQueryAppService().GetById(ctx, tenantId, userId)
 }
 
 func subAppId() string {
-	return queryappservice.AppId()
+	return queryappservice.GetUserQueryAppService().AppId()
 }

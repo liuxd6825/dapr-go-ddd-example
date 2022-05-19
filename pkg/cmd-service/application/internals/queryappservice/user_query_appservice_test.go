@@ -6,7 +6,7 @@ import (
 )
 
 func TestGetUserByUserId(t *testing.T) {
-	userView, isFound, err := GetUserByUserId(context.Background(), "001", "040501-1")
+	userView, isFound, err := GetUserQueryAppService().GetById(context.Background(), "001", "040501-1")
 	if err != nil {
 		t.Error(err)
 	} else {

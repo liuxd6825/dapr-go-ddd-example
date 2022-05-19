@@ -7,16 +7,33 @@ import (
 	domain_service "github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/service"
 )
 
+//
+// UserCommandAppService
+// @Description:
+//
 type UserCommandAppService struct {
 	userDomainService *domain_service.UserDomainService
 }
 
+//
+// NewCommandUserAppService
+// @Description:
+// @return *UserCommandAppService
+//
 func NewCommandUserAppService() *UserCommandAppService {
 	return &UserCommandAppService{
 		userDomainService: &domain_service.UserDomainService{},
 	}
 }
 
+//
+// CreateUser
+// @Description:
+// @receiver s
+// @param ctx
+// @param cmd
+// @return error
+//
 func (s *UserCommandAppService) CreateUser(ctx context.Context, cmd *user_commands2.UserCreateCommand) error {
 	_, err := s.userDomainService.UserCreate(ctx, cmd)
 	return err
