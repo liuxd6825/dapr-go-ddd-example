@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"context"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/application/appservice"
@@ -23,13 +24,13 @@ func (m *UserController) BeforeActivation(b mvc.BeforeActivation) {
 }
 
 func (m *UserController) GetById(ctx iris.Context, tenantId, id string) {
-	_, _, _ = restapp.DoQueryOne(ctx, func() (interface{}, bool, error) {
+	_, _, _ = restapp.DoQueryOne(ctx, func(ctx context.Context) (interface{}, bool, error) {
 		return m.appQueryService.FindById(ctx, tenantId, id)
 	})
 }
 
 func (m *UserController) GetPagingData(ctx iris.Context, tenantId string) {
-	_, _, _ = restapp.DoQuery(ctx, func() (interface{}, bool, error) {
+	_, _, _ = restapp.DoQuery(ctx, func(ctx context.Context) (interface{}, bool, error) {
 		query, err := restapp.NewListQuery(ctx, tenantId)
 		if err != nil {
 			return nil, false, err

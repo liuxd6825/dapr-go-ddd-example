@@ -4,6 +4,36 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 
+type UserEventType uint32
+
+const (
+	UserCreateEventType UserEventType = iota
+	UserUpdateEventType
+	UserDeleteEventType
+	AddressCreateEventType
+	AddressUpdateEventType
+	AddressDeleteEventType
+)
+
+func (p UserEventType) String() string {
+	switch p {
+	case UserCreateEventType:
+		return "ddd-example.UserCreateEvent"
+	case UserUpdateEventType:
+		return "ddd-example.UserUpdateEvent"
+	case UserDeleteEventType:
+		return "ddd-example.UserDeleteEvent"
+	case AddressCreateEventType:
+		return "ddd-example.UserAddressCreateEvent"
+	case AddressUpdateEventType:
+		return "ddd-example.UserAddressUpdateEvent"
+	case AddressDeleteEventType:
+		return "ddd-example.UserAddressDeleteEvent"
+	default:
+		return "UNKNOWN"
+	}
+}
+
 //
 // GetRegisterEventTypes
 // @Description: 获取聚合根注册事件类型

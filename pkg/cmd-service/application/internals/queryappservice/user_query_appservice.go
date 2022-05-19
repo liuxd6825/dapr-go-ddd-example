@@ -1,24 +1,17 @@
 package queryappservice
 
-import "context"
-
-type UserView struct {
-	Id        string `json:"id" `
-	TenantId  string `json:"tenantId" `
-	UserCode  string `json:"userCode"`
-	UserName  string `json:"userName"`
-	Email     string `json:"email"`
-	Telephone string `json:"telephone"`
-	Address   string `json:"address"`
-}
+import (
+	"context"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/domain/projection"
+)
 
 type UserQueryAppService interface {
-	QueryAppService[*UserView]
-	GetById(ctx context.Context, tenantId, id string) (data *UserView, isFound bool, err error)
+	QueryAppService[*projection.UserView]
+	GetById(ctx context.Context, tenantId, id string) (data *projection.UserView, isFound bool, err error)
 }
 
 type userQueryAppService struct {
-	BaseQueryAppService[*UserView]
+	BaseQueryAppService[*projection.UserView]
 }
 
 var _userQueryAppService UserQueryAppService
@@ -39,8 +32,8 @@ func newUserQueryAppService() UserQueryAppService {
 	return res
 }
 
-func (s *userQueryAppService) GetById(ctx context.Context, tenantId, id string) (data *UserView, isFound bool, err error) {
-	data = &UserView{}
+func (s *userQueryAppService) GetById(ctx context.Context, tenantId, id string) (data *projection.UserView, isFound bool, err error) {
+	data = &projection.UserView{}
 	isFound, err = s.GetData(ctx, tenantId, id, data)
 	return
 }
