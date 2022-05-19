@@ -13,19 +13,19 @@ import (
 // @Description:
 //
 type UserAggregate struct {
-	Id        string                   `json:"id" validate:"gt=0"`
-	TenantId  string                   `json:"tenantId" validate:"gt=0"`
-	UserCode  string                   `json:"code" validate:"gt=0"`
-	UserName  string                   `json:"userName" validate:"gt=0"`
-	Email     string                   `json:"email" validate:"gt=0"`
-	Telephone string                   `json:"telephone" validate:"gt=0"`
-	IsDelete  bool                     `json:"isDelete"`
-	Addresses map[string]*AddressValue `json:"addresses"`
+	Id        string                    `json:"id" validate:"gt=0"`
+	TenantId  string                    `json:"tenantId" validate:"gt=0"`
+	UserCode  string                    `json:"code" validate:"gt=0"`
+	UserName  string                    `json:"userName" validate:"gt=0"`
+	Email     string                    `json:"email" validate:"gt=0"`
+	Telephone string                    `json:"telephone" validate:"gt=0"`
+	IsDelete  bool                      `json:"isDelete"`
+	Addresses map[string]*AddressEntity `json:"addresses"`
 }
 
 func NewUserAggregate() *UserAggregate {
 	return &UserAggregate{
-		Addresses: make(map[string]*AddressValue),
+		Addresses: make(map[string]*AddressEntity),
 	}
 }
 
@@ -55,13 +55,13 @@ func (a *UserAggregate) UserDeleteCommand(ctx context.Context, cmd *user_command
 
 func (a *UserAggregate) OnUserAddressCreateEventV1s0(ctx context.Context, event *user_events.AddressCreateEventV1) (err error) {
 	fields := &event.Data
-	a.Addresses[fields.Id] = NewAddressValue(fields)
+	a.Addresses[fields.Id] = NewAddressEntity(fields)
 	return nil
 }
 
 func (a *UserAggregate) OnUserAddressUpdateEventV1s0(ctx context.Context, event *user_events.AddressUpdateEventV1) error {
 	fields := &event.Data
-	a.Addresses[fields.Id] = NewAddressValue(fields)
+	a.Addresses[fields.Id] = NewAddressEntity(fields)
 	return nil
 }
 
