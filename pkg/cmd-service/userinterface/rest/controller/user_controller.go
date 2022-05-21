@@ -19,6 +19,11 @@ type UserController struct {
 	queryAppId     string
 }
 
+//
+// NewUserController
+// @Description:
+// @return *UserController
+//
 func NewUserController() *UserController {
 	return &UserController{
 		userAppService: cmdappservice.NewCommandUserAppService(),
@@ -30,9 +35,9 @@ func (c *UserController) BeforeActivation(b mvc.BeforeActivation) {
 	b.Handle("GET", "/tenants/{tenantId}/users/aggregate/{id}", "GetAggregateById")
 
 	b.Handle("POST", "/tenants/{tenantId}/users", "UserCreate")
-	b.Handle("POST", "/tenants/{tenantId}/users:get", "UserCreateAndGetUser")
+	b.Handle("POST", "/tenants/{tenantId}/users:get", "UserCreateAndGet")
 	b.Handle("PATCH", "/tenants/{tenantId}/users", "UserUpdate")
-	b.Handle("PATCH", "/tenants/{tenantId}/users:get", "UserUpdateAndGetUser")
+	b.Handle("PATCH", "/tenants/{tenantId}/users:get", "UserUpdateAndGet")
 
 	b.Handle("POST", "/tenants/{tenantId}/users/addresses", "AddressCreate")
 	b.Handle("POST", "/tenants/{tenantId}/users/addresses:get", "AddressCreateAndGet")
@@ -41,12 +46,26 @@ func (c *UserController) BeforeActivation(b mvc.BeforeActivation) {
 	b.Handle("DELETE", "/tenants/{tenantId}/users/addresses", "AddressDelete")
 }
 
+//
+// GetAggregateById
+// @Description:
+// @receiver c
+// @param ctx
+// @param tenantId
+// @param id
+//
 func (c *UserController) GetAggregateById(ctx iris.Context, tenantId string, id string) {
 	_, _, _ = restapp.DoQueryOne(ctx, func(ctx context.Context) (interface{}, bool, error) {
 		return c.userAppService.GetAggregateById(ctx, tenantId, id)
 	})
 }
 
+//
+// UserCreate
+// @Description:
+// @receiver c
+// @param ctx
+//
 func (c *UserController) UserCreate(ctx iris.Context) {
 	cmd := &user_commands.UserCreateCommand{}
 	_ = restapp.DoCmd(ctx, cmd, func(ctx context.Context) error {
@@ -54,7 +73,13 @@ func (c *UserController) UserCreate(ctx iris.Context) {
 	})
 }
 
-func (c *UserController) UserCreateAndGetUser(ctx iris.Context) {
+//
+// UserCreateAndGet
+// @Description:
+// @receiver c
+// @param ctx
+//
+func (c *UserController) UserCreateAndGet(ctx iris.Context) {
 	cmd := &user_commands.UserCreateCommand{}
 	_, _, _ = restapp.DoCmdAndQueryOne(ctx, c.queryAppId, cmd, func(ctx context.Context) error {
 		return c.userAppService.CreateUser(ctx, cmd)
@@ -63,6 +88,12 @@ func (c *UserController) UserCreateAndGetUser(ctx iris.Context) {
 	})
 }
 
+//
+// UserUpdate
+// @Description:
+// @receiver c
+// @param ctx
+//
 func (c *UserController) UserUpdate(ctx iris.Context) {
 	cmd := &user_commands.UserUpdateCommand{}
 	_ = restapp.DoCmd(ctx, cmd, func(ctx context.Context) error {
@@ -70,7 +101,13 @@ func (c *UserController) UserUpdate(ctx iris.Context) {
 	})
 }
 
-func (c *UserController) UserUpdateAndGetUser(ctx iris.Context) {
+//
+// UserUpdateAndGet
+// @Description:
+// @receiver c
+// @param ctx
+//
+func (c *UserController) UserUpdateAndGet(ctx iris.Context) {
 	cmd := &user_commands.UserUpdateCommand{}
 	_, _, _ = restapp.DoCmdAndQueryOne(ctx, c.queryAppId, cmd, func(ctx context.Context) error {
 		return c.userAppService.UpdateUser(ctx, cmd)
@@ -79,6 +116,12 @@ func (c *UserController) UserUpdateAndGetUser(ctx iris.Context) {
 	})
 }
 
+//
+// AddressCreate
+// @Description:
+// @receiver c
+// @param ctx
+//
 func (c *UserController) AddressCreate(ctx iris.Context) {
 	cmd := &user_commands.AddressCreateCommand{}
 	_ = restapp.DoCmd(ctx, cmd, func(ctx context.Context) error {
@@ -86,6 +129,12 @@ func (c *UserController) AddressCreate(ctx iris.Context) {
 	})
 }
 
+//
+// AddressCreateAndGet
+// @Description:
+// @receiver c
+// @param ctx
+//
 func (c *UserController) AddressCreateAndGet(ctx iris.Context) {
 	cmd := &user_commands.AddressCreateCommand{}
 	_, _, _ = restapp.DoCmdAndQueryOne(ctx, c.queryAppId, cmd, func(ctx context.Context) error {
@@ -95,6 +144,12 @@ func (c *UserController) AddressCreateAndGet(ctx iris.Context) {
 	})
 }
 
+//
+// AddressUpdate
+// @Description:
+// @receiver c
+// @param ctx
+//
 func (c *UserController) AddressUpdate(ctx iris.Context) {
 	cmd := &user_commands.AddressUpdateCommand{}
 	_ = restapp.DoCmd(ctx, cmd, func(ctx context.Context) error {
@@ -102,6 +157,12 @@ func (c *UserController) AddressUpdate(ctx iris.Context) {
 	})
 }
 
+//
+// AddressUpdateAndGet
+// @Description:
+// @receiver c
+// @param ctx
+//
 func (c *UserController) AddressUpdateAndGet(ctx iris.Context) {
 	cmd := &user_commands.AddressUpdateCommand{}
 	_, _, _ = restapp.DoCmdAndQueryOne(ctx, c.queryAppId, cmd, func(ctx context.Context) error {
@@ -111,6 +172,12 @@ func (c *UserController) AddressUpdateAndGet(ctx iris.Context) {
 	})
 }
 
+//
+// AddressDelete
+// @Description:
+// @receiver c
+// @param ctx
+//
 func (c *UserController) AddressDelete(ctx iris.Context) {
 	cmd := &user_commands.AddressDeleteCommand{}
 	_ = restapp.DoCmd(ctx, cmd, func(ctx context.Context) error {
@@ -118,6 +185,17 @@ func (c *UserController) AddressDelete(ctx iris.Context) {
 	})
 }
 
+//
+// getUserById
+// @Description:
+// @receiver c
+// @param ctx
+// @param tenantId
+// @param userId
+// @return data
+// @return isFound
+// @return err
+//
 func (c *UserController) getUserById(ctx context.Context, tenantId, userId string) (data interface{}, isFound bool, err error) {
 	return queryappservice.GetUserQueryAppService().GetById(ctx, tenantId, userId)
 }

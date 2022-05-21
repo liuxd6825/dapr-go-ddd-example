@@ -4,23 +4,23 @@ import (
 	"context"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/application/appservice"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/application/internals/query_appservice"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 
 type UserController struct {
-	appQueryService *appservice.UserAppQueryService
+	appQueryService *query_appservice.UserAppQueryService
 }
 
 func NewUserController() *UserController {
 	return &UserController{
-		appQueryService: appservice.NewUserAppQueryService(),
+		appQueryService: query_appservice.NewUserAppQueryService(),
 	}
 }
 
 func (m *UserController) BeforeActivation(b mvc.BeforeActivation) {
 	b.Handle("GET", "/tenants/{tenantId}/users/{id}", "GetById")
-	b.Handle("GET", "/tenants/{tenantId}/users", "GetPagingData")
+	b.Handle("GET", "/tenants/{tenantId}/users", "FindPagingData")
 }
 
 func (m *UserController) GetById(ctx iris.Context, tenantId, id string) {
@@ -35,6 +35,6 @@ func (m *UserController) GetPagingData(ctx iris.Context, tenantId string) {
 		if err != nil {
 			return nil, false, err
 		}
-		return m.appQueryService.GetPagingData(ctx, query)
+		return m.appQueryService.FindPagingData(ctx, query)
 	})
 }
