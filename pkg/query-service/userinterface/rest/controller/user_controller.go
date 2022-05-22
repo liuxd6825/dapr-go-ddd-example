@@ -20,7 +20,7 @@ func NewUserController() *UserController {
 
 func (m *UserController) BeforeActivation(b mvc.BeforeActivation) {
 	b.Handle("GET", "/tenants/{tenantId}/users/{id}", "GetById")
-	b.Handle("GET", "/tenants/{tenantId}/users", "FindPagingData")
+	b.Handle("GET", "/tenants/{tenantId}/users", "GetPagingData")
 }
 
 func (m *UserController) GetById(ctx iris.Context, tenantId, id string) {
