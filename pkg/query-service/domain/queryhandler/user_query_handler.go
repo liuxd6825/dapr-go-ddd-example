@@ -34,26 +34,6 @@ func NewUserQueryHandler() ddd.QueryEventHandler {
 	}
 }
 
-func (h *UserQueryHandler) OnUserAddressCreateEventV1s0(ctx context.Context, event *user_events.AddressCreateEventV1) error {
-	return h.DoSession(ctx, h.GetStructName, event, func(ctx context.Context) error {
-		addr := user_factory.NewAddressViewByUserCreateEventV1(event)
-		return h.addrService.Create(ctx, addr)
-	})
-}
-
-func (h *UserQueryHandler) OnUserAddressUpdateEventV1s0(ctx context.Context, event *user_events.AddressUpdateEventV1) error {
-	return h.DoSession(ctx, h.GetStructName, event, func(ctx context.Context) error {
-		addr := user_factory.NewAddressViewByUserUpdateEventV1(event)
-		return h.addrService.Create(ctx, addr)
-	})
-}
-
-func (h *UserQueryHandler) OnUserAddressDeleteEventV1s0(ctx context.Context, event *user_events.AddressDeleteEventV1) error {
-	return h.DoSession(ctx, h.GetStructName, event, func(ctx context.Context) error {
-		return h.addrService.DeleteById(ctx, event.TenantId, event.AddressId)
-	})
-}
-
 func (h *UserQueryHandler) OnUserCreateEventV1s0(ctx context.Context, event *user_events.UserCreateEventV1) error {
 	return h.DoSession(ctx, h.GetStructName, event, func(ctx context.Context) error {
 		user := user_factory.NewUserViewByUserCreateEventV1(event)
@@ -71,6 +51,26 @@ func (h *UserQueryHandler) OnUserUpdateEventV1s0(ctx context.Context, event *use
 func (h *UserQueryHandler) OnUserDeleteEventV1s0(ctx context.Context, event *user_events.UserDeleteEventV1) error {
 	return h.DoSession(ctx, h.GetStructName, event, func(ctx context.Context) error {
 		return h.userService.DeleteById(ctx, event.TenantId, event.EventId)
+	})
+}
+
+func (h *UserQueryHandler) OnUserAddressCreateEventV1s0(ctx context.Context, event *user_events.AddressCreateEventV1) error {
+	return h.DoSession(ctx, h.GetStructName, event, func(ctx context.Context) error {
+		addr := user_factory.NewAddressViewByUserCreateEventV1(event)
+		return h.addrService.Create(ctx, addr)
+	})
+}
+
+func (h *UserQueryHandler) OnUserAddressUpdateEventV1s0(ctx context.Context, event *user_events.AddressUpdateEventV1) error {
+	return h.DoSession(ctx, h.GetStructName, event, func(ctx context.Context) error {
+		addr := user_factory.NewAddressViewByUserUpdateEventV1(event)
+		return h.addrService.Create(ctx, addr)
+	})
+}
+
+func (h *UserQueryHandler) OnUserAddressDeleteEventV1s0(ctx context.Context, event *user_events.AddressDeleteEventV1) error {
+	return h.DoSession(ctx, h.GetStructName, event, func(ctx context.Context) error {
+		return h.addrService.DeleteById(ctx, event.TenantId, event.AddressId)
 	})
 }
 

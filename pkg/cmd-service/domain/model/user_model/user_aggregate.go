@@ -23,10 +23,16 @@ type UserAggregate struct {
 	Addresses map[string]*AddressEntity `json:"addresses"`
 }
 
+const AggregateType = "ddd-example.UserAggregate"
+
 func NewUserAggregate() *UserAggregate {
 	return &UserAggregate{
 		Addresses: make(map[string]*AddressEntity),
 	}
+}
+
+func NewAggregate() ddd.Aggregate {
+	return NewUserAggregate()
 }
 
 func (a *UserAggregate) AddressCreateCommand(ctx context.Context, cmd *user_commands.AddressCreateCommand, metadata *map[string]string) error {
@@ -100,7 +106,7 @@ func (a *UserAggregate) GetAggregateRevision() string {
 }
 
 func (a *UserAggregate) GetAggregateType() string {
-	return "ddd-example.UserAggregate"
+	return AggregateType
 }
 
 func (a *UserAggregate) GetAggregateId() string {

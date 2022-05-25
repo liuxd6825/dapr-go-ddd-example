@@ -3,8 +3,8 @@ package queryappservice
 import (
 	"context"
 	"fmt"
+	"github.com/liuxd6825/dapr-go-ddd-sdk/daprclient"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_errors"
-	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 
 type GetOptions interface {
@@ -79,7 +79,7 @@ func (s *BaseQueryAppService[T]) GetData(ctx context.Context, tenantId, methodNa
 	apiVersion := *options.GetApiVersion()
 	resourceName := *options.GetResourceName()
 	methodNameUrl := fmt.Sprintf("/api/%s/tenants/%s/%s/%s", apiVersion, tenantId, resourceName, methodName)
-	_, err = restapp.GetDaprClient().InvokeService(ctx, s.appId, methodNameUrl, "get", nil, resData)
+	_, err = daprclient.GetDaprDDDClient().InvokeService(ctx, s.appId, methodNameUrl, "get", nil, resData)
 	if err == nil {
 		isFound = true
 	}
