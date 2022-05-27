@@ -20,7 +20,7 @@ func (e *AddressDeleteEventV1) GetEventType() string {
 	return AddressDeleteEventType.String()
 }
 
-func (e *AddressDeleteEventV1) GetEventRevision() string {
+func (e *AddressDeleteEventV1) GetEventVersion() string {
 	return "1.0"
 }
 

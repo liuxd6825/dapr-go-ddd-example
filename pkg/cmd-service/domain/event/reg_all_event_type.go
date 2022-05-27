@@ -11,7 +11,7 @@ import (
 // @return *[]restapp.RegisterEventType
 //
 func GetRegisterEventTypes() *[]restapp.RegisterEventType {
-	list := []restapp.RegisterEventType{}
+	var list []restapp.RegisterEventType
 	list = append(list, user_events.GetRegisterEventTypes()...)
 	return &list
 }

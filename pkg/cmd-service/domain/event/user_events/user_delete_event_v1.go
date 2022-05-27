@@ -19,7 +19,7 @@ func (e *UserDeleteEventV1) GetEventType() string {
 	return UserDeleteEventType.String()
 }
 
-func (e *UserDeleteEventV1) GetEventRevision() string {
+func (e *UserDeleteEventV1) GetEventVersion() string {
 	return "1.0"
 }
 

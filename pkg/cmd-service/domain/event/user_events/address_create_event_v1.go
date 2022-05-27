@@ -23,7 +23,7 @@ func (e *AddressCreateEventV1) GetEventType() string {
 	return AddressCreateEventType.String()
 }
 
-func (e *AddressCreateEventV1) GetEventRevision() string {
+func (e *AddressCreateEventV1) GetEventVersion() string {
 	return "1.0"
 }
 

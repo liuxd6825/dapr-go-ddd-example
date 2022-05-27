@@ -23,7 +23,7 @@ func (e *UserUpdateEventV1) GetEventType() string {
 	return UserUpdateEventType.String()
 }
 
-func (e *UserUpdateEventV1) GetEventRevision() string {
+func (e *UserUpdateEventV1) GetEventVersion() string {
 	return "1.0"
 }
 

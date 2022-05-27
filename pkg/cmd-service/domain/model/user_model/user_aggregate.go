@@ -35,28 +35,28 @@ func NewAggregate() ddd.Aggregate {
 	return NewUserAggregate()
 }
 
-func (a *UserAggregate) AddressCreateCommand(ctx context.Context, cmd *user_commands.AddressCreateCommand, metadata *map[string]string) error {
-	return ddd.Apply(ctx, a, user_factory.NewAddressCreateEvent(cmd), ddd.ApplyOptions{}.SetMetadata(metadata))
-}
-
-func (a *UserAggregate) AddressUpdateCommand(ctx context.Context, cmd *user_commands.AddressUpdateCommand, metadata *map[string]string) error {
-	return ddd.Apply(ctx, a, user_factory.NewAddressUpdateEvent(cmd), ddd.ApplyOptions{}.SetMetadata(metadata))
-}
-
-func (a *UserAggregate) AddressDeleteCommand(ctx context.Context, cmd *user_commands.AddressDeleteCommand, metadata *map[string]string) error {
-	return ddd.Apply(ctx, a, user_factory.NewAddressDeleteEvent(cmd), ddd.ApplyOptions{}.SetMetadata(metadata))
-}
-
 func (a *UserAggregate) UserCreateCommand(ctx context.Context, cmd *user_commands.UserCreateCommand, metadata *map[string]string) error {
-	return ddd.Apply(ctx, a, user_factory.NewCreateEvent(cmd), ddd.ApplyOptions{}.SetMetadata(metadata))
+	return ddd.CreateEvent(ctx, a, user_factory.NewCreateEvent(cmd), ddd.ApplyEventOptions{}.SetMetadata(metadata))
 }
 
 func (a *UserAggregate) UserUpdateCommand(ctx context.Context, cmd *user_commands.UserUpdateCommand, metadata *map[string]string) error {
-	return ddd.Apply(ctx, a, user_factory.NewUpdateEvent(cmd), ddd.ApplyOptions{}.SetMetadata(metadata))
+	return ddd.ApplyEvent(ctx, a, user_factory.NewUpdateEvent(cmd), ddd.ApplyEventOptions{}.SetMetadata(metadata))
 }
 
 func (a *UserAggregate) UserDeleteCommand(ctx context.Context, cmd *user_commands.UserDeleteCommand, metadata *map[string]string) error {
-	return ddd.Apply(ctx, a, user_factory.NewDeleteEvent(cmd), ddd.ApplyOptions{}.SetMetadata(metadata))
+	return ddd.DeleteEvent(ctx, a, user_factory.NewDeleteEvent(cmd), ddd.ApplyEventOptions{}.SetMetadata(metadata))
+}
+
+func (a *UserAggregate) AddressCreateCommand(ctx context.Context, cmd *user_commands.AddressCreateCommand, metadata *map[string]string) error {
+	return ddd.ApplyEvent(ctx, a, user_factory.NewAddressCreateEvent(cmd), ddd.ApplyEventOptions{}.SetMetadata(metadata))
+}
+
+func (a *UserAggregate) AddressUpdateCommand(ctx context.Context, cmd *user_commands.AddressUpdateCommand, metadata *map[string]string) error {
+	return ddd.ApplyEvent(ctx, a, user_factory.NewAddressUpdateEvent(cmd), ddd.ApplyEventOptions{}.SetMetadata(metadata))
+}
+
+func (a *UserAggregate) AddressDeleteCommand(ctx context.Context, cmd *user_commands.AddressDeleteCommand, metadata *map[string]string) error {
+	return ddd.ApplyEvent(ctx, a, user_factory.NewAddressDeleteEvent(cmd), ddd.ApplyEventOptions{}.SetMetadata(metadata))
 }
 
 func (a *UserAggregate) OnUserAddressCreateEventV1s0(ctx context.Context, event *user_events.AddressCreateEventV1) (err error) {
@@ -101,7 +101,7 @@ func (a *UserAggregate) OnUserDeleteEventV1s0(ctx context.Context, event *user_e
 	return nil
 }
 
-func (a *UserAggregate) GetAggregateRevision() string {
+func (a *UserAggregate) GetAggregateVersion() string {
 	return "1.0"
 }
 
