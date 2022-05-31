@@ -11,6 +11,11 @@ type UserAppQueryService struct {
 	service queryservice.UserQueryService
 }
 
+//
+// NewUserAppQueryService
+// @Description: 创建应用服务
+// @return *UserAppQueryService
+//
 func NewUserAppQueryService() *UserAppQueryService {
 	return &UserAppQueryService{
 		service: queryservice.NewUserQueryService(),
