@@ -1,4 +1,4 @@
-package queryappservice
+package internals
 
 import (
 	"context"
@@ -57,6 +57,9 @@ type QueryAppService[T any] interface {
 	AppId() string
 	ResourceName() string
 	ApiVersion() string
+	SetAppId(string)
+	SetResourceName(string)
+	SetApiVersion(string)
 }
 
 type BaseQueryAppService[T any] struct {
@@ -105,4 +108,16 @@ func (s *BaseQueryAppService[T]) ResourceName() string {
 
 func (s *BaseQueryAppService[T]) ApiVersion() string {
 	return s.apiVersion
+}
+
+func (s *BaseQueryAppService[T]) SetAppId(value string) {
+	s.appId = value
+}
+
+func (s *BaseQueryAppService[T]) SetResourceName(value string) {
+	s.resourceName = value
+}
+
+func (s *BaseQueryAppService[T]) SetApiVersion(value string) {
+	s.apiVersion = value
 }

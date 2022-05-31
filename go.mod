@@ -4,9 +4,9 @@ go 1.18
 
 require (
 	github.com/go-playground/validator/v10 v10.10.1
+	github.com/google/uuid v1.3.0
 	github.com/kataras/iris/v12 v12.2.0-alpha7
 	github.com/liuxd6825/dapr-go-ddd-sdk v0.0.0
-	golang.org/x/exp v0.0.0-20220325121720-054d8573a5d8
 )
 
 require (
@@ -18,8 +18,6 @@ require (
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/aymerick/raymond v2.0.3-0.20180322193309-b565731e1464+incompatible // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
-	github.com/dapr/dapr v1.7.1 // indirect
-	github.com/dapr/go-sdk v1.3.1 // indirect
 	github.com/eknkc/amber v0.0.0-20171010120322-cdade1c07385 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/flosch/pongo2/v4 v4.0.2 // indirect
@@ -33,7 +31,6 @@ require (
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/go-cmp v0.5.7 // indirect
-	github.com/google/uuid v1.3.0 // indirect
 	github.com/gorilla/css v1.0.0 // indirect
 	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/iris-contrib/go.uuid v2.0.0+incompatible // indirect
@@ -49,6 +46,8 @@ require (
 	github.com/kataras/tunnel v0.0.3 // indirect
 	github.com/klauspost/compress v1.14.4 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
+	github.com/liuxd6825/dapr v1.7.1 // indirect
+	github.com/liuxd6825/go-sdk v1.3.1 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mediocregopher/radix/v3 v3.6.0 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.18 // indirect
@@ -65,6 +64,7 @@ require (
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/tdewolff/minify/v2 v2.10.0 // indirect
 	github.com/tdewolff/parse/v2 v2.5.27 // indirect
+	github.com/tidwall/pretty v1.2.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
@@ -88,8 +88,10 @@ require (
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
 
-replace github.com/dapr/go-sdk => ../../dapr/go-sdk
+replace github.com/liuxd6825/go-sdk => ../go-sdk
 
-replace github.com/dapr/dapr => ../../dapr/dapr
+replace github.com/liuxd6825/dapr => ../dapr
 
 replace github.com/liuxd6825/dapr-go-ddd-sdk => ../dapr-go-ddd-sdk
+
+replace github.com/liuxd6825/components-contrib => ../components-contrib

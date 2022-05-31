@@ -1,4 +1,4 @@
-package cmdappservice
+package user_service
 
 import (
 	"context"

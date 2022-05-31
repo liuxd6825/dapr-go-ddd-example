@@ -4,8 +4,7 @@ import (
 	"context"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/application/internals/cmdappservice"
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/application/internals/queryappservice"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/application/internals/service/user_service"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/command/user_commands"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
@@ -15,7 +14,7 @@ import (
 // @Description:
 //
 type UserController struct {
-	userAppService *cmdappservice.UserCommandAppService
+	userAppService *user_service.UserCommandAppService
 	queryAppId     string
 }
 
@@ -26,8 +25,8 @@ type UserController struct {
 //
 func NewUserController() *UserController {
 	return &UserController{
-		userAppService: cmdappservice.NewCommandUserAppService(),
-		queryAppId:     queryappservice.GetUserQueryAppService().AppId(),
+		userAppService: user_service.NewCommandUserAppService(),
+		queryAppId:     user_service.GetUserQueryAppService().AppId(),
 	}
 }
 
@@ -197,5 +196,5 @@ func (c *UserController) AddressDelete(ctx iris.Context) {
 // @return err
 //
 func (c *UserController) getUserById(ctx context.Context, tenantId, userId string) (data interface{}, isFound bool, err error) {
-	return queryappservice.GetUserQueryAppService().GetById(ctx, tenantId, userId)
+	return user_service.GetUserQueryAppService().GetById(ctx, tenantId, userId)
 }

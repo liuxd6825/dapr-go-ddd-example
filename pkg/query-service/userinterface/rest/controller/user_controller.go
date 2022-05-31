@@ -2,10 +2,10 @@ package controller
 
 import (
 	"context"
-	"github.com/kataras/iris/v12"
-	"github.com/kataras/iris/v12/mvc"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/application/internals/query_appservice"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
+	"github.com/kataras/iris/v12"
+	"github.com/kataras/iris/v12/mvc"
 )
 
 type UserController struct {

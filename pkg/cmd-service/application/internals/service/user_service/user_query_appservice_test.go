@@ -1,4 +1,4 @@
-package queryappservice
+package user_service
 
 import (
 	"context"
