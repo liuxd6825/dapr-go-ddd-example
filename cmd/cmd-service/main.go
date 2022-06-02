@@ -30,9 +30,7 @@ func subscribes() *[]restapp.RegisterSubscribe {
 
 // 注册Http控制器
 func controllers() *[]restapp.Controller {
-	return &[]restapp.Controller{
-		controller.NewUserController(),
-	}
+	return controller.GetRegisterController()
 }
 
 // 注册Http控制器
