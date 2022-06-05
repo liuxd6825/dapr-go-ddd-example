@@ -6,11 +6,11 @@ import (
 )
 
 //
-// GetRegisterController
+// GetRegisterApi
 // @Description: 注册的控制器
 // @return *[]restapp.Controller
 //
-func GetRegisterController() *[]restapp.Controller {
+func GetRegisterApi() *[]restapp.Controller {
 	var list []restapp.Controller
 	list = append(list, facade.NewUserApi())
 	return &list

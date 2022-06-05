@@ -2,9 +2,9 @@ package main
 
 import (
 	"flag"
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/infrastructure/register"
+	//"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/infrastructure/register"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/application/internals/handler"
-	register2 "github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/infrastructure/register"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/infrastructure/register"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 
@@ -32,7 +32,7 @@ func subscribes() *[]restapp.RegisterSubscribe {
 
 // 注册Http控制器
 func controllers() *[]restapp.Controller {
-	return register2.GetRegisterController()
+	return register.GetRegisterApi()
 }
 
 // 注册Http控制器
