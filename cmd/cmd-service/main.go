@@ -2,9 +2,7 @@ package main
 
 import (
 	"flag"
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/event"
-	_ "github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/model"
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/userinterface/rest/controller"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/infrastructure/register"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 
@@ -30,10 +28,10 @@ func subscribes() *[]restapp.RegisterSubscribe {
 
 // 注册Http控制器
 func controllers() *[]restapp.Controller {
-	return controller.GetRegisterController()
+	return register.GetRegisterController()
 }
 
 // 注册Http控制器
 func events() *[]restapp.RegisterEventType {
-	return event.GetRegisterEventTypes()
+	return register.GetRegisterEventTypes()
 }

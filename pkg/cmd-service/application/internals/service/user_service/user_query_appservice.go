@@ -3,7 +3,7 @@ package user_service
 import (
 	"context"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/application/internals"
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/domain/projection"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/domain/user/projection"
 )
 
 type UserQueryAppService interface {
