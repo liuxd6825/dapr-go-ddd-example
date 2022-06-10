@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/application/internals/user/service/adto"
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/application/internals/user/service/assembler"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/application/internals/user/adto"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/application/internals/user/assembler"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/user/command"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/user/model"
 	domain_service "github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/user/service"
@@ -36,8 +36,8 @@ func NewCommandUserAppService() *UserCommandAppService {
 // @param cmd
 // @return error
 //
-func (s *UserCommandAppService) CreateUser(ctx context.Context, appCmd *adto.UserCreateAppCommand) error {
-	cmd, err := assembler.AssUserCreateCommand(ctx, appCmd)
+func (s *UserCommandAppService) CreateUser(ctx context.Context, cmdDto *adto.UserCreateCommandDto) error {
+	cmd, err := assembler.AssUserCreateCommand(ctx, cmdDto)
 	if err != nil {
 		return err
 	}
@@ -45,27 +45,18 @@ func (s *UserCommandAppService) CreateUser(ctx context.Context, appCmd *adto.Use
 	return err
 }
 
-func (s *UserCommandAppService) UpdateUser(ctx context.Context, appCmd *adto.UserUpdateAppCommand) error {
-	cmd, err := assembler.AssUserUpdateCommand(ctx, appCmd)
+func (s *UserCommandAppService) UpdateUser(ctx context.Context, cmdDto *adto.UserUpdateCommandDto) error {
+	cmd, err := assembler.AssUserUpdateCommand(ctx, cmdDto)
 	if err != nil {
 		return err
-	}
-	if err = cmd.Validate(); err != nil {
-		return err
-	}
-	if cmd.GetIsValidOnly() {
-		return nil
 	}
 	_, err = s.userDomainService.UserUpdate(ctx, cmd)
 	return err
 }
 
-func (s *UserCommandAppService) DeleteUser(ctx context.Context, appCmd *adto.UserDeleteAppCommand) error {
-	cmd, err := assembler.AssUserDeleteCommand(ctx, appCmd)
+func (s *UserCommandAppService) DeleteUser(ctx context.Context, cmdDto *adto.UserDeleteCommandDto) error {
+	cmd, err := assembler.AssUserDeleteCommand(ctx, cmdDto)
 	if err != nil {
-		return err
-	}
-	if err := cmd.Validate(); err != nil {
 		return err
 	}
 	_, err = s.userDomainService.UserDelete(ctx, cmd)

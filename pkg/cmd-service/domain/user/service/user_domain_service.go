@@ -5,7 +5,6 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/user/command"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/user/model"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
-	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_domain_service"
 )
 
 type UserDomainService struct {
@@ -32,7 +31,7 @@ func NewUserDomainService() *UserDomainService {
 // @return *model.UserAggregate
 // @return error
 //
-func (s *UserDomainService) UserCreate(ctx context.Context, cmd *command.UserCreateCommand, opts ...*ddd_domain_service.DoOptions) (*model.UserAggregate, error) {
+func (s *UserDomainService) UserCreate(ctx context.Context, cmd *command.UserCreateCommand, opts ...ddd.DoCommandOption) (*model.UserAggregate, error) {
 	return s.doCommand(ctx, cmd, func() error {
 		return cmd.Validate()
 	}, opts...)
@@ -47,7 +46,7 @@ func (s *UserDomainService) UserCreate(ctx context.Context, cmd *command.UserCre
 // @return *model.UserAggregate
 // @return error
 //
-func (s *UserDomainService) UserUpdate(ctx context.Context, cmd *command.UserUpdateCommand, opts ...*ddd_domain_service.DoOptions) (*model.UserAggregate, error) {
+func (s *UserDomainService) UserUpdate(ctx context.Context, cmd *command.UserUpdateCommand, opts ...ddd.DoCommandOption) (*model.UserAggregate, error) {
 	return s.doCommand(ctx, cmd, func() error {
 		return cmd.Validate()
 	}, opts...)
@@ -62,7 +61,7 @@ func (s *UserDomainService) UserUpdate(ctx context.Context, cmd *command.UserUpd
 // @return *model.UserAggregate
 // @return error
 //
-func (s *UserDomainService) UserDelete(ctx context.Context, cmd *command.UserDeleteCommand, opts ...*ddd_domain_service.DoOptions) (*model.UserAggregate, error) {
+func (s *UserDomainService) UserDelete(ctx context.Context, cmd *command.UserDeleteCommand, opts ...ddd.DoCommandOption) (*model.UserAggregate, error) {
 	return s.doCommand(ctx, cmd, func() error {
 		return cmd.Validate()
 	}, opts...)
@@ -77,8 +76,8 @@ func (s *UserDomainService) UserDelete(ctx context.Context, cmd *command.UserDel
 //  @return *model.UserAggregate
 //  @return error
 //
-func (s *UserDomainService) doCommand(ctx context.Context, cmd ddd.Command, validateFunc func() error, opts ...*ddd_domain_service.DoOptions) (*model.UserAggregate, error) {
-	options := ddd_domain_service.NewDoOptionsMerges(opts...)
+func (s *UserDomainService) doCommand(ctx context.Context, cmd ddd.Command, validateFunc func() error, opts ...ddd.DoCommandOption) (*model.UserAggregate, error) {
+	option := ddd.NewDoCommandOptionMerges(opts...)
 
 	// 进行业务检查
 	if validateFunc != nil {
@@ -90,7 +89,7 @@ func (s *UserDomainService) doCommand(ctx context.Context, cmd ddd.Command, vali
 	}
 
 	// 如果只是业务检查，则不执行领域命令，
-	validOnly := options.GetIsValidOnly()
+	validOnly := option.GetIsValidOnly()
 	if (validOnly == nil && cmd.GetIsValidOnly()) || (validOnly != nil && *validOnly == true) {
 		return nil, nil
 	}

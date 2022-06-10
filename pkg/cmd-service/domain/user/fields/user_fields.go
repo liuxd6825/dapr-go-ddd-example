@@ -16,3 +16,8 @@ type UserFields struct {
 	Address   string     `json:"address" validate:"gt=0"`
 	Birthday  *time.Time `json:"birthday"`
 }
+
+type UserDeleteByIdField struct {
+	Id       string
+	TenantId string
+}

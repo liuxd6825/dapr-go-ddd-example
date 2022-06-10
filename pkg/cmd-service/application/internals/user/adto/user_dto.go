@@ -4,12 +4,12 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/user/command"
 )
 
-type UserCreateAppCommand struct {
+type UserCreateCommandDto struct {
 	command.UserCreateCommand
 }
-type UserDeleteAppCommand struct {
+type UserDeleteCommandDto struct {
 	command.UserDeleteCommand
 }
-type UserUpdateAppCommand struct {
+type UserUpdateCommandDto struct {
 	command.UserUpdateCommand
 }

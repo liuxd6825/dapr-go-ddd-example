@@ -78,7 +78,7 @@ func (c *UserCommandApi) FindAggregateById(ctx iris.Context, tenantId string, id
 // @Failure      500  {object}  string
 // @Router       /tenants/{tenantId}/users  [post]
 func (c *UserCommandApi) UserCreate(ctx iris.Context) {
-	cmd, err := userAssembler.AssUserCreateAppCommand(ctx)
+	cmd, err := userAssembler.AssUserCreateCommandDto(ctx)
 	if err != nil {
 		restapp.SetError(ctx, err)
 		return
@@ -100,7 +100,7 @@ func (c *UserCommandApi) UserCreate(ctx iris.Context) {
 // @Failure      500  {object}  string
 // @Router       /tenants/{tenantId}/users:get  [post]
 func (c *UserCommandApi) UserCreateAndGet(ctx iris.Context) {
-	cmd, err := userAssembler.AssUserCreateAppCommand(ctx)
+	cmd, err := userAssembler.AssUserCreateCommandDto(ctx)
 	if err != nil {
 		restapp.SetError(ctx, err)
 		return
@@ -124,7 +124,7 @@ func (c *UserCommandApi) UserCreateAndGet(ctx iris.Context) {
 // @Failure      500  {object}  string
 // @Router       /tenants/{tenantId}/users:get  [patch]
 func (c *UserCommandApi) UserUpdate(ctx iris.Context) {
-	cmd, err := userAssembler.AssUserUpdateAppCommand(ctx)
+	cmd, err := userAssembler.AssUserUpdateCommandDto(ctx)
 	if err != nil {
 		restapp.SetError(ctx, err)
 		return
@@ -146,7 +146,7 @@ func (c *UserCommandApi) UserUpdate(ctx iris.Context) {
 // @Failure      500  {object}  string
 // @Router       /tenants/{tenantId}/users:get  [patch]
 func (c *UserCommandApi) UserUpdateAndGet(ctx iris.Context) {
-	cmd, err := userAssembler.AssUserUpdateAppCommand(ctx)
+	cmd, err := userAssembler.AssUserUpdateCommandDto(ctx)
 	if err != nil {
 		restapp.SetError(ctx, err)
 		return
