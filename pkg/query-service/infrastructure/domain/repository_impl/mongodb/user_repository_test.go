@@ -3,7 +3,7 @@ package mongodb
 import (
 	"context"
 	"github.com/google/uuid"
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/domain/user/projection"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/domain/user/view"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/infrastructure/base/domain/repository/mongodb"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_repository"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_repository/ddd_mongodb"
@@ -14,7 +14,7 @@ func Test_UserRepository_Inserts(t *testing.T) {
 	mogodb := newMongoDb()
 	userRepos := NewUserRepository(mongodb.NewRepositoryOptions().SetMongoDB(mogodb))
 	id := uuid.New().String()
-	userView := &projection.UserView{
+	userView := &view.UserView{
 		Id:        id,
 		TenantId:  "001",
 		UserName:  "test_user",

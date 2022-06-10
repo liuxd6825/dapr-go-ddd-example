@@ -10,54 +10,87 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 
-type UserApi struct {
+type UserQueryApi struct {
 	base.BaseApi
-	appQueryService *service.UserQueryAppService
+	queryService *service.UserQueryAppService
 }
 
 var userAssembler = assembler.User
 
-func NewUserApi() *UserApi {
-	return &UserApi{
-		appQueryService: service.NewUserQueryAppService(),
+func NewUserApi() *UserQueryApi {
+	return &UserQueryApi{
+		queryService: service.GetUserQueryAppService(),
 	}
 }
 
-func (m *UserApi) BeforeActivation(b mvc.BeforeActivation) {
+func (m *UserQueryApi) BeforeActivation(b mvc.BeforeActivation) {
 	b.Handle("GET", "/tenants/{tenantId}/users/{id}", "FindById")
 	b.Handle("GET", "/tenants/{tenantId}/users:all", "FindAll")
 	b.Handle("GET", "/tenants/{tenantId}/users", "FindPaging")
 }
 
-func (m *UserApi) FindById(ctx iris.Context, tenantId, id string) {
+// FindById godoc
+// @Summary      按ID获取用户
+// @Description  get string by ID
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        tenantId   path       int           true  "Tenant ID"
+// @Param        id         path       int           true  "User ID"
+// @Success      200        {object}   dto.UserFindByIdResponse
+// @Failure      404        {object}   string        "按ID找到数据"
+// @Failure      500        {object}   string        "应用错误"
+// @Router       /tenants/{tenantId}/users/{id} [get]
+func (m *UserQueryApi) FindById(ctx iris.Context, tenantId, id string) error {
 	req, err := userAssembler.AssFindByIdRequest(ctx)
 	if err != nil {
-		return
+		return err
 	}
-	_, _, _ = restapp.DoQueryOne(ctx, func(c context.Context) (interface{}, bool, error) {
-		v, b, e := m.appQueryService.FindById(c, req.TenantId(), req.Id())
-		return userAssembler.AssOneResponse(ctx, v, b, e)
+	_, _, err = restapp.DoQueryOne(ctx, func(c context.Context) (interface{}, bool, error) {
+		v, b, e := m.queryService.FindById(c, req.GetTenantId(), req.GetId())
+		return userAssembler.AssFindByIdResponse(ctx, v, b, e)
 	})
+	return err
 }
 
-func (m *UserApi) FindAll(ctx iris.Context, tenantId string) {
+// FindAll godoc
+// @Summary      获取所有用户
+// @Description  get string by ID
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        tenantId  path      int     true    "Tenant ID"
+// @Success      200       {object}  dto.UserFindAllResponse
+// @Failure      500       {object}  string          "应用错误"
+// @Router       /tenants/{tenantId}/users:all [get]
+func (m *UserQueryApi) FindAll(ctx iris.Context, tenantId string) {
 	req, err := userAssembler.AssFindAllRequest(ctx)
 	if err != nil {
 		return
 	}
 	_, _, _ = restapp.DoQuery(ctx, func(c context.Context) (interface{}, bool, error) {
-		fpr, b, e := m.appQueryService.FindAll(c, req.TenantId())
-		return userAssembler.AssListResponse(ctx, fpr, b, e)
+		fpr, b, e := m.queryService.FindAll(c, req.GetTenantId())
+		return userAssembler.AssFindAllResponse(ctx, fpr, b, e)
 	})
 }
 
-func (m *UserApi) FindPaging(ctx iris.Context, tenantId string) {
-	req, err := userAssembler.AssGetPagingRequest(ctx)
+// FindPaging godoc
+// @Summary      分页查询
+// @Description  分页查询
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        tenantId   path        int         true    "Tenant ID"
+// @Success      200        {object}    dto.UserFindPagingResponse
+// @Failure      500        {object}    string      "应用错误"
+// @Router       /tenants/{tenantId}/users [get]
+func (m *UserQueryApi) FindPaging(ctx iris.Context, tenantId string) {
+	req, err := userAssembler.AssFindPagingRequest(ctx)
 	if err != nil {
 		return
 	}
 	_, _, _ = restapp.DoQuery(ctx, func(c context.Context) (interface{}, bool, error) {
-		fpr, b, e := m.appQueryService.FindPaging(c, req)
+		fpr, b, e := m.queryService.FindPaging(c, req)
 		return userAssembler.AssFindPagingResponse(ctx, fpr, b, e)
 	})
 }

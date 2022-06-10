@@ -1,7 +1,7 @@
 package register
 
 import (
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/event/user_events"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/user/event"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 
@@ -12,6 +12,6 @@ import (
 //
 func GetRegisterEventTypes() *[]restapp.RegisterEventType {
 	var list []restapp.RegisterEventType
-	list = append(list, user_events.GetRegisterEventTypes()...)
+	list = append(list, event.GetRegisterEventTypes()...)
 	return &list
 }

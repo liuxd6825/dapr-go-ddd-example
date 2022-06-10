@@ -2,9 +2,9 @@ package main
 
 import (
 	"flag"
-	//"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/infrastructure/register"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/application/internals/handler"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/infrastructure/register"
+	_ "github.com/liuxd6825/dapr-go-ddd-example/swagger/query"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 

@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/infrastructure/register"
+	_ "github.com/liuxd6825/dapr-go-ddd-example/swagger/cmd"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 

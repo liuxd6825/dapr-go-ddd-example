@@ -1,12 +1,12 @@
 package user_factory
 
 import (
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/event/user_events"
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/domain/user/projection"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/user/event"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/domain/user/view"
 )
 
-func NewAddressViewByUserCreateEventV1(event *user_events.AddressCreateEventV1) *projection.AddressView {
-	addressView := projection.AddressView{
+func NewAddressViewByUserCreateEventV1(event *event.AddressCreateEventV1) *view.AddressView {
+	addressView := view.AddressView{
 		TenantId: event.Data.TenantId,
 		Id:       event.Data.Id,
 		UserId:   event.Data.UserId,
@@ -18,8 +18,8 @@ func NewAddressViewByUserCreateEventV1(event *user_events.AddressCreateEventV1) 
 	return &addressView
 }
 
-func NewAddressViewByUserUpdateEventV1(event *user_events.AddressUpdateEventV1) *projection.AddressView {
-	userView := projection.AddressView{
+func NewAddressViewByUserUpdateEventV1(event *event.AddressUpdateEventV1) *view.AddressView {
+	userView := view.AddressView{
 		TenantId: event.Data.TenantId,
 		Id:       event.Data.Id,
 		UserId:   event.Data.UserId,
@@ -31,8 +31,8 @@ func NewAddressViewByUserUpdateEventV1(event *user_events.AddressUpdateEventV1) 
 	return &userView
 }
 
-func NewUserViewByUserCreateEventV1(event *user_events.UserCreateEventV1) *projection.UserView {
-	userView := projection.UserView{
+func NewUserViewByUserCreateEventV1(event *event.UserCreateEventV1) *view.UserView {
+	userView := view.UserView{
 		Id:        event.Data.Id,
 		UserName:  event.Data.UserName,
 		UserCode:  event.Data.UserCode,
@@ -44,8 +44,8 @@ func NewUserViewByUserCreateEventV1(event *user_events.UserCreateEventV1) *proje
 	return &userView
 }
 
-func NewUserViewByUserUpdateEventV1(event *user_events.UserUpdateEventV1) *projection.UserView {
-	userView := projection.UserView{
+func NewUserViewByUserUpdateEventV1(event *event.UserUpdateEventV1) *view.UserView {
+	userView := view.UserView{
 		Id:        event.Data.Id,
 		UserName:  event.Data.UserName,
 		UserCode:  event.Data.UserCode,

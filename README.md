@@ -31,12 +31,15 @@ dapr-go-ddd 示例程序，基于liuxd6825/dapr的ddd架构开发工具包。总
 2. dapr -app-port 9020 -dapr-http-port 9021 -dapr-grpc-port 9022 -app-id query-example --enable-metrics=false -config /Users/lxd/go/src/github.com/liuxd6825/dapr-go-ddd-example/config/dapr/config.yaml -components-path /Users/lxd/go/src/github.com/liuxd6825/dapr-go-ddd-example/config/dapr/components
 3. go run ./cmd/cmd-service
 4. go run ./cmd/query-service
+ 
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1. 生成 swagger doc \
+   swag init -d ./pkg/query-service/userinterface/rest -o ./swagger/query --parseDependency --parseInternal \
+   swag init -d ./pkg/cmd-service/userinterface/rest -o ./swagger/cmd  --parseDependency   --parseInternal
+
+
 
 
 #### 部署

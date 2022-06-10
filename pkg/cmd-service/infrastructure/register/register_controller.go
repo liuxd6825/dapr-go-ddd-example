@@ -1,7 +1,7 @@
 package register
 
 import (
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/userinterface/rest/facade"
+	user_facade "github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/userinterface/rest/user/facade"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 
@@ -12,6 +12,6 @@ import (
 //
 func GetRegisterController() *[]restapp.Controller {
 	var list []restapp.Controller
-	list = append(list, facade.NewUserController())
+	list = append(list, user_facade.NewUserController())
 	return &list
 }

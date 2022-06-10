@@ -1,0 +1,199 @@
+basePath: /api/v1
+definitions:
+  dto.UserCreateRequest:
+    properties:
+      commandId:
+        type: string
+      data:
+        $ref: '#/definitions/dto.UserCreateRequestData'
+    type: object
+  dto.UserCreateRequestData:
+    properties:
+      code:
+        example: random string
+        maxLength: 16
+        minLength: 16
+        type: string
+      email:
+        example: xxx@163.com
+        type: string
+      id:
+        example: random string
+        maxLength: 16
+        minLength: 16
+        type: string
+      telephone:
+        example: "18867766829"
+        type: string
+      tenantId:
+        example: random string
+        maxLength: 16
+        minLength: 16
+        type: string
+      userName:
+        example: random string
+        maxLength: 16
+        minLength: 16
+        type: string
+    type: object
+  dto.UserUpdateRequest:
+    properties:
+      commandId:
+        type: string
+      data:
+        $ref: '#/definitions/dto.UserUpdateRequestData'
+    type: object
+  dto.UserUpdateRequestData:
+    properties:
+      code:
+        example: random string
+        maxLength: 16
+        minLength: 16
+        type: string
+      email:
+        example: xxx@163.com
+        type: string
+      id:
+        example: random string
+        maxLength: 16
+        minLength: 16
+        type: string
+      telephone:
+        example: "18867766829"
+        type: string
+      tenantId:
+        example: random string
+        maxLength: 16
+        minLength: 16
+        type: string
+      userName:
+        example: random string
+        maxLength: 16
+        minLength: 16
+        type: string
+    type: object
+host: localhost:9010
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: go-ddd-example cmd-service API
+  version: "1.0"
+paths:
+  /tenants/{tenantId}/aggregate/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 获取用户聚合根信息
+      parameters:
+      - description: 租户ID
+        in: path
+        name: tenantId
+        required: true
+        type: string
+      - description: 聚合根ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: 获取用户聚合根信息
+      tags:
+      - users
+  /tenants/{tenantId}/users:
+    post:
+      consumes:
+      - application/json
+      description: 创建用户数据
+      parameters:
+      - description: The input UserCreateRequest struct
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UserCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: 创建用户数据
+      tags:
+      - users
+  /tenants/{tenantId}/users:get:
+    patch:
+      consumes:
+      - application/json
+      description: 更新并返回用户数据
+      parameters:
+      - description: The input UserUpdateRequest struct
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UserUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: 更新并返回用户数据
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: 创建并返回用户数据
+      parameters:
+      - description: The input UserUpdateRequest struct
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UserCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: 创建并返回用户数据
+      tags:
+      - users
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"

@@ -1,0 +1,184 @@
+basePath: /api/v1
+definitions:
+  dto.UserFindAllResponseItem:
+    properties:
+      address:
+        type: string
+      createTime:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      telephone:
+        type: string
+      tenantId:
+        type: string
+      userCode:
+        type: string
+      userName:
+        type: string
+    type: object
+  dto.UserFindByIdResponse:
+    properties:
+      address:
+        type: string
+      createTime:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      telephone:
+        type: string
+      tenantId:
+        type: string
+      userCode:
+        type: string
+      userName:
+        type: string
+    type: object
+  dto.UserFindPagingResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/dto.UserFindPagingResponseItem'
+        type: array
+      filter:
+        type: string
+      pageNum:
+        type: integer
+      pageSize:
+        type: integer
+      sort:
+        type: string
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  dto.UserFindPagingResponseItem:
+    properties:
+      address:
+        type: string
+      createTime:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      telephone:
+        type: string
+      tenantId:
+        type: string
+      updateTime:
+        type: string
+      userCode:
+        type: string
+      userName:
+        type: string
+    type: object
+host: localhost:9020
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: go-ddd-example query-service API
+  version: "1.0"
+paths:
+  /tenants/{tenantId}/users:
+    get:
+      consumes:
+      - application/json
+      description: 分页查询
+      parameters:
+      - description: Tenant ID
+        in: path
+        name: tenantId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserFindPagingResponse'
+        "500":
+          description: 应用错误
+          schema:
+            type: string
+      summary: 分页查询
+      tags:
+      - users
+  /tenants/{tenantId}/users/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get string by ID
+      parameters:
+      - description: Tenant ID
+        in: path
+        name: tenantId
+        required: true
+        type: integer
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserFindByIdResponse'
+        "404":
+          description: 按ID找到数据
+          schema:
+            type: string
+        "500":
+          description: 应用错误
+          schema:
+            type: string
+      summary: 按ID获取用户
+      tags:
+      - users
+  /tenants/{tenantId}/users:all:
+    get:
+      consumes:
+      - application/json
+      description: get string by ID
+      parameters:
+      - description: Tenant ID
+        in: path
+        name: tenantId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.UserFindAllResponseItem'
+            type: array
+        "500":
+          description: 应用错误
+          schema:
+            type: string
+      summary: 获取所有用户
+      tags:
+      - users
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"
