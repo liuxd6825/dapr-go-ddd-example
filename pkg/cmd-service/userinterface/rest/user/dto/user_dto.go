@@ -1,5 +1,9 @@
 package dto
 
+import (
+	"github.com/liuxd6825/dapr-go-ddd-sdk/types"
+)
+
 // FindAggregateById
 
 type FindAggregateByIdRequest struct {
@@ -78,11 +82,12 @@ type UserDeleteByIdsResponse struct {
 // create update request data
 
 type UserRequestData struct {
-	Id        string `json:"id" validate:"gt=0" minLength:"16" maxLength:"16" example:"random string"`
-	TenantId  string `json:"tenantId" validate:"gt=0" minLength:"16" maxLength:"16" example:"random string"`
-	UserCode  string `json:"userCode" validate:"gt=0"  minLength:"16" maxLength:"16" example:"random string"`
-	UserName  string `json:"userName" validate:"gt=0"  minLength:"16" maxLength:"16" example:"random string"`
-	Email     string `json:"email" validate:"gt=0"    example:"xxx@163.com"`
-	Telephone string `json:"telephone" validate:"gt=0"  length:"11" example:"18867766829"`
-	Address   string `json:"address" validate:"gt=0"`
+	Id        string          `json:"id" validate:"gt=0" minLength:"16" maxLength:"16" example:"random string"`
+	TenantId  string          `json:"tenantId" validate:"gt=0" minLength:"16" maxLength:"16" example:"random string"`
+	UserCode  string          `json:"userCode" validate:"gt=0"  minLength:"16" maxLength:"16" example:"random string"`
+	UserName  string          `json:"userName" validate:"gt=0"  minLength:"16" maxLength:"16" example:"random string"`
+	Email     string          `json:"email" validate:"gt=0"    example:"xxx@163.com"`
+	Telephone string          `json:"telephone" validate:"gt=0"  length:"11" example:"18867766829"`
+	Address   string          `json:"address" validate:"gt=0"`
+	Birthday  *types.JSONDate `json:"birthday" validate:"gt=0"`
 }

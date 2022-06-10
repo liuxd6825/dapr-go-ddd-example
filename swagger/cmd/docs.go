@@ -198,17 +198,20 @@ const docTemplate = `{
                 },
                 "data": {
                     "$ref": "#/definitions/dto.UserCreateRequestData"
+                },
+                "isValidOnly": {
+                    "type": "boolean"
                 }
             }
         },
         "dto.UserCreateRequestData": {
             "type": "object",
             "properties": {
-                "code": {
-                    "type": "string",
-                    "maxLength": 16,
-                    "minLength": 16,
-                    "example": "random string"
+                "address": {
+                    "type": "string"
+                },
+                "birthday": {
+                    "type": "string"
                 },
                 "email": {
                     "type": "string",
@@ -225,6 +228,12 @@ const docTemplate = `{
                     "example": "18867766829"
                 },
                 "tenantId": {
+                    "type": "string",
+                    "maxLength": 16,
+                    "minLength": 16,
+                    "example": "random string"
+                },
+                "userCode": {
                     "type": "string",
                     "maxLength": 16,
                     "minLength": 16,
@@ -246,17 +255,26 @@ const docTemplate = `{
                 },
                 "data": {
                     "$ref": "#/definitions/dto.UserUpdateRequestData"
+                },
+                "isValidOnly": {
+                    "type": "boolean"
+                },
+                "updateMask": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },
         "dto.UserUpdateRequestData": {
             "type": "object",
             "properties": {
-                "code": {
-                    "type": "string",
-                    "maxLength": 16,
-                    "minLength": 16,
-                    "example": "random string"
+                "address": {
+                    "type": "string"
+                },
+                "birthday": {
+                    "type": "string"
                 },
                 "email": {
                     "type": "string",
@@ -273,6 +291,12 @@ const docTemplate = `{
                     "example": "18867766829"
                 },
                 "tenantId": {
+                    "type": "string",
+                    "maxLength": 16,
+                    "minLength": 16,
+                    "example": "random string"
+                },
+                "userCode": {
                     "type": "string",
                     "maxLength": 16,
                     "minLength": 16,

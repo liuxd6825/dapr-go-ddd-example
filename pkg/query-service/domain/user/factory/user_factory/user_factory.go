@@ -33,13 +33,14 @@ func NewAddressViewByUserUpdateEventV1(event *event.AddressUpdateEventV1) *view.
 
 func NewUserViewByUserCreateEventV1(event *event.UserCreateEventV1) *view.UserView {
 	userView := view.UserView{
-		Id:        event.Data.Id,
-		UserName:  event.Data.UserName,
-		UserCode:  event.Data.UserCode,
-		Email:     event.Data.Email,
-		Telephone: event.Data.Telephone,
-		Address:   event.Data.Address,
-		TenantId:  event.TenantId,
+		Id:         event.Data.Id,
+		UserName:   event.Data.UserName,
+		UserCode:   event.Data.UserCode,
+		Email:      event.Data.Email,
+		Telephone:  event.Data.Telephone,
+		Address:    event.Data.Address,
+		TenantId:   event.TenantId,
+		CreateTime: event.Data.Birthday,
 	}
 	return &userView
 }

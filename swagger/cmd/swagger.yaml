@@ -6,13 +6,14 @@ definitions:
         type: string
       data:
         $ref: '#/definitions/dto.UserCreateRequestData'
+      isValidOnly:
+        type: boolean
     type: object
   dto.UserCreateRequestData:
     properties:
-      code:
-        example: random string
-        maxLength: 16
-        minLength: 16
+      address:
+        type: string
+      birthday:
         type: string
       email:
         example: xxx@163.com
@@ -26,6 +27,11 @@ definitions:
         example: "18867766829"
         type: string
       tenantId:
+        example: random string
+        maxLength: 16
+        minLength: 16
+        type: string
+      userCode:
         example: random string
         maxLength: 16
         minLength: 16
@@ -42,13 +48,18 @@ definitions:
         type: string
       data:
         $ref: '#/definitions/dto.UserUpdateRequestData'
+      isValidOnly:
+        type: boolean
+      updateMask:
+        items:
+          type: string
+        type: array
     type: object
   dto.UserUpdateRequestData:
     properties:
-      code:
-        example: random string
-        maxLength: 16
-        minLength: 16
+      address:
+        type: string
+      birthday:
         type: string
       email:
         example: xxx@163.com
@@ -62,6 +73,11 @@ definitions:
         example: "18867766829"
         type: string
       tenantId:
+        example: random string
+        maxLength: 16
+        minLength: 16
+        type: string
+      userCode:
         example: random string
         maxLength: 16
         minLength: 16

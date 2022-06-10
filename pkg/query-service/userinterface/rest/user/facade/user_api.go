@@ -42,12 +42,12 @@ func (m *UserQueryApi) BeforeActivation(b mvc.BeforeActivation) {
 // @Failure      500        {object}   string        "应用错误"
 // @Router       /tenants/{tenantId}/users/{id} [get]
 func (m *UserQueryApi) FindById(ctx iris.Context, tenantId, id string) error {
-	req, err := userAssembler.AssFindByIdRequest(ctx)
+	req, err := userAssembler.AssFindByIdRequest(ctx, tenantId, id)
 	if err != nil {
 		return err
 	}
 	_, _, err = restapp.DoQueryOne(ctx, func(c context.Context) (interface{}, bool, error) {
-		v, b, e := m.queryService.FindById(c, req.GetTenantId(), req.GetId())
+		v, b, e := m.queryService.FindById(c, req.TenantId, req.Id)
 		return userAssembler.AssFindByIdResponse(ctx, v, b, e)
 	})
 	return err
@@ -69,7 +69,7 @@ func (m *UserQueryApi) FindAll(ctx iris.Context, tenantId string) {
 		return
 	}
 	_, _, _ = restapp.DoQuery(ctx, func(c context.Context) (interface{}, bool, error) {
-		fpr, b, e := m.queryService.FindAll(c, req.GetTenantId())
+		fpr, b, e := m.queryService.FindAll(c, req.TenantId)
 		return userAssembler.AssFindAllResponse(ctx, fpr, b, e)
 	})
 }
@@ -85,7 +85,7 @@ func (m *UserQueryApi) FindAll(ctx iris.Context, tenantId string) {
 // @Failure      500        {object}    string      "应用错误"
 // @Router       /tenants/{tenantId}/users [get]
 func (m *UserQueryApi) FindPaging(ctx iris.Context, tenantId string) {
-	req, err := userAssembler.AssFindPagingRequest(ctx)
+	req, err := userAssembler.AssFindPagingRequest(ctx, tenantId)
 	if err != nil {
 		return
 	}

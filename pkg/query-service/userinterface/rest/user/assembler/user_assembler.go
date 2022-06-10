@@ -8,7 +8,6 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_repository"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/mapper"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
-	"time"
 )
 
 type userAssembler struct {
@@ -17,14 +16,12 @@ type userAssembler struct {
 
 var User = &userAssembler{}
 
-func (a *userAssembler) AssFindByIdRequest(ctx iris.Context) (*dto.UserFindByIdRequest, error) {
-	res := &dto.UserFindByIdRequest{}
-	err := a.SetFindByIdRequest(ctx, res)
-	if err != nil {
-		restapp.SetError(ctx, err)
-		return nil, err
+func (a *userAssembler) AssFindByIdRequest(ctx iris.Context, tenantId, id string) (*dto.UserFindByIdRequest, error) {
+	request := dto.UserFindByIdRequest{
+		TenantId: tenantId,
+		Id:       id,
 	}
-	return res, nil
+	return &request, nil
 }
 
 func (a *userAssembler) AssFindByIdResponse(ctx iris.Context, v *view.UserView, isFound bool, findErr error) (*dto.UserFindByIdResponse, bool, error) {
@@ -40,14 +37,14 @@ func (a *userAssembler) AssFindByIdResponse(ctx iris.Context, v *view.UserView, 
 	return res, true, nil
 }
 
-func (a *userAssembler) AssFindPagingRequest(ctx iris.Context) (*dto.UserFindPagingRequest, error) {
-	res := &dto.UserFindPagingRequest{}
-	err := a.SetFindPagingRequest(ctx, res)
-	if err != nil {
-		restapp.SetError(ctx, err)
+func (a *userAssembler) AssFindPagingRequest(ctx iris.Context, tenantId string) (ddd_repository.FindPagingQuery, error) {
+	var request dto.UserFindPagingRequest
+	query := a.GetFindPagingQuery(ctx)
+	if err := mapper.Mapper(query, &request); err != nil {
 		return nil, err
 	}
-	return res, nil
+	ddd_repository.NewFindPagingQuery()
+	return &request, nil
 }
 
 func (a *userAssembler) AssFindPagingResponse(ctx iris.Context, v *ddd_repository.FindPagingResult[*view.UserView], isFound bool, findErr error) (*dto.UserFindPagingResponse, bool, error) {
@@ -55,40 +52,24 @@ func (a *userAssembler) AssFindPagingResponse(ctx iris.Context, v *ddd_repositor
 		return nil, isFound, findErr
 	}
 
-	var data []*dto.UserFindPagingResponseItem
-	for i, item := range *v.Data {
-		if i < 5 {
-			now := time.Now()
-			item.CreateTime = &now
-		}
-	}
-	err := mapper.Mapper(v.Data, &data)
+	var response dto.UserFindPagingResponse
+	err := mapper.Mapper(v, &response)
 
-	res := &dto.UserFindPagingResponse{
-		TotalPages: v.TotalPages,
-		TotalRows:  v.TotalRows,
-		Filter:     v.Filter,
-		Sort:       v.Sort,
-		PageNum:    v.PageNum,
-		PageSize:   v.PageSize,
-		Data:       &data,
-	}
 	if err != nil {
 		restapp.SetError(ctx, err)
 		return nil, false, err
 	}
 
-	return res, isFound, nil
+	return &response, isFound, nil
 }
 
 func (a *userAssembler) AssFindAllRequest(ctx iris.Context) (*dto.UserFindAllRequest, error) {
-	res := &dto.UserFindAllRequest{}
-	err := a.SetFindAllRequest(ctx, res)
-	if err != nil {
-		restapp.SetError(ctx, err)
+	var request dto.UserFindAllRequest
+	query := a.GetFindAllQuery(ctx)
+	if err := mapper.Mapper(query, &request); err != nil {
 		return nil, err
 	}
-	return res, nil
+	return &request, nil
 }
 
 func (a *userAssembler) AssFindAllResponse(ctx iris.Context, vList *[]*view.UserView, isFound bool, findErr error) (*dto.UserFindAllResponse, bool, error) {
