@@ -56,8 +56,8 @@ func NewDeleteEvent(cmd *command.UserDeleteCommand) *event.UserDeleteEventV1 {
 	return &event.UserDeleteEventV1{
 		CommandId: cmd.CommandId,
 		EventId:   cmd.CommandId,
-		Id:        cmd.Id,
-		TenantId:  cmd.TenantId,
+		Id:        cmd.Data.Id,
+		TenantId:  cmd.Data.TenantId,
 	}
 }
 

@@ -2,7 +2,7 @@ package assembler
 
 import (
 	"github.com/kataras/iris/v12"
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/application/internals/user/adto"
+	adto "github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/application/internals/user/dto"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/infrastructure/utils"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/userinterface/rest/user/dto"
 )

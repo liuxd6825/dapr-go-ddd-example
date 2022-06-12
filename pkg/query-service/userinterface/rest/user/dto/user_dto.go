@@ -6,29 +6,17 @@ import (
 )
 
 //
-// UserFindByIdRequest
-// @Description:  请求内容
-//
-type UserFindByIdRequest struct {
-	TenantId string
-	Id       string
-}
-
-//
 // UserFindByIdResponse
-// @Description:  请求内容
+// @Description: 按Id查询的响应体
 //
 type UserFindByIdResponse struct {
 	UserDto
 }
 
 //
-// UserFindAllRequest
-// @Description:
+// UserFindAllResponse
+// @Description: 查询所有的响应体
 //
-type UserFindAllRequest struct {
-	TenantId string
-}
 
 type UserFindAllResponse []*UserFindAllResponseItem
 
@@ -37,35 +25,20 @@ type UserFindAllResponseItem struct {
 }
 
 //
-// UserFindPagingRequest
-// @Description:
-//
-type UserFindPagingRequest struct {
-	base.FindPagingQuery
-}
-
-//
 // UserFindPagingResponse
-// @Description:
+// @Description: 分页查询的响应体
 //
 type UserFindPagingResponse struct {
-	Data       *[]*UserFindPagingResponseItem `json:"data"`
-	TotalRows  int64                          `json:"totalRows"`
-	TotalPages int64                          `json:"totalPages"`
-	PageNum    int64                          `json:"pageNum"`
-	PageSize   int64                          `json:"pageSize"`
-	Filter     string                         `json:"filter"`
-	Sort       string                         `json:"sort"`
+	base.FindPagingResponse[*UserFindPagingResponseItem]
 }
 
 type UserFindPagingResponseItem struct {
-	UpdateTime *types.JSONTime `json:"updateTime"`
 	UserDto
 }
 
 //
 // UserDto
-// @Description:   请求业务数据
+// @Description:   响应业务数据
 //
 type UserDto struct {
 	Id         string          `json:"id"`

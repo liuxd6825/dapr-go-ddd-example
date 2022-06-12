@@ -1,6 +1,7 @@
-package utils
+package assembler
 
 import (
+	"errors"
 	"github.com/kataras/iris/v12"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/infrastructure/base/userinterface/rest/dto"
 )
@@ -8,39 +9,63 @@ import (
 type BaseAssembler struct {
 }
 
-func (a *BaseAssembler) GetTenantId(ctx iris.Context) string {
-	return ctx.Params().GetStringDefault("tenantId", "")
-}
-
-func (a *BaseAssembler) GetFindByIdQuery(ctx iris.Context) *dto.FindByIdQuery {
-	tenantId := a.GetTenantId(ctx)
-	id := ctx.URLParamDefault("id", "")
-	return &dto.FindByIdQuery{
+func (a *BaseAssembler) AssFindByIdRequest(ctx iris.Context) (*dto.FindByIdRequest, error) {
+	tenantId, err := a.GetTenantId(ctx)
+	if err != nil {
+		return nil, err
+	}
+	id, err := a.GetId(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &dto.FindByIdRequest{
 		TenantId: tenantId,
 		Id:       id,
-	}
+	}, nil
 }
 
-func (a *BaseAssembler) GetFindAllQuery(ctx iris.Context) *dto.FindAllQuery {
-	tenantId := a.GetTenantId(ctx)
-	return &dto.FindAllQuery{
+func (a *BaseAssembler) AssFindAllRequest(ctx iris.Context) (*dto.FindAllRequest, error) {
+	tenantId, err := a.GetTenantId(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &dto.FindAllRequest{
 		TenantId: tenantId,
-	}
+	}, nil
 }
 
-func (a *BaseAssembler) GetFindPagingQuery(ctx iris.Context) *dto.FindPagingQuery {
-	tenantId := a.GetTenantId(ctx)
+func (a *BaseAssembler) AssFindPagingRequest(ctx iris.Context) (*dto.FindPagingRequest, error) {
+	tenantId, err := a.GetTenantId(ctx)
+	if err != nil {
+		return nil, err
+	}
 	pageNum := ctx.URLParamInt64Default("page-num", 0)
 	pageSize := ctx.URLParamInt64Default("page-size", 20)
 	filter := ctx.URLParamDefault("filter", "")
 	sort := ctx.URLParamDefault("sort", "")
 	fields := ctx.URLParamDefault("fields", "")
-	return &dto.FindPagingQuery{
+	return &dto.FindPagingRequest{
 		TenantId: tenantId,
 		PageNum:  pageNum,
 		PageSize: pageSize,
 		Filter:   filter,
 		Sort:     sort,
 		Fields:   fields,
+	}, nil
+}
+
+func (a *BaseAssembler) GetTenantId(ctx iris.Context) (string, error) {
+	return a.GetIdParam(ctx, "tenantId")
+}
+
+func (a *BaseAssembler) GetId(ctx iris.Context) (string, error) {
+	return a.GetIdParam(ctx, "id")
+}
+
+func (a *BaseAssembler) GetIdParam(ctx iris.Context, name string) (string, error) {
+	id := ctx.Params().GetStringDefault(name, "")
+	if id == "" {
+		return "", errors.New(name + " is not empty")
 	}
+	return id, nil
 }

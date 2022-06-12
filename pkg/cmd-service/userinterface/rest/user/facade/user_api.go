@@ -15,8 +15,7 @@ import (
 // @Description:
 //
 type UserCommandApi struct {
-	userAppService *service.UserCommandAppService
-	queryAppId     string
+	service *service.UserCommandAppService
 }
 
 var userAssembler = assembler.User
@@ -28,8 +27,7 @@ var userAssembler = assembler.User
 //
 func NewUserController() *UserCommandApi {
 	return &UserCommandApi{
-		userAppService: service.NewCommandUserAppService(),
-		queryAppId:     service.GetUserQueryAppService().AppId(),
+		service: service.NewCommandUserAppService(),
 	}
 }
 
@@ -62,7 +60,7 @@ func (c *UserCommandApi) BeforeActivation(b mvc.BeforeActivation) {
 // @Router       /tenants/{tenantId}/aggregate/{id} [get]
 func (c *UserCommandApi) FindAggregateById(ctx iris.Context, tenantId string, id string) {
 	_, _, _ = restapp.DoQueryOne(ctx, func(ctx context.Context) (interface{}, bool, error) {
-		return c.userAppService.GetAggregateById(ctx, tenantId, id)
+		return c.service.GetAggregateById(ctx, tenantId, id)
 	})
 }
 
@@ -84,7 +82,7 @@ func (c *UserCommandApi) UserCreate(ctx iris.Context) {
 		return
 	}
 	_ = restapp.DoCmd(ctx, func(ctx context.Context) error {
-		return c.userAppService.CreateUser(ctx, cmd)
+		return c.service.CreateUser(ctx, cmd)
 	})
 }
 
@@ -105,10 +103,10 @@ func (c *UserCommandApi) UserCreateAndGet(ctx iris.Context) {
 		restapp.SetError(ctx, err)
 		return
 	}
-	_, _, _ = restapp.DoCmdAndQueryOne(ctx, c.queryAppId, cmd, func(ctx context.Context) error {
-		return c.userAppService.CreateUser(ctx, cmd)
+	_, _, _ = restapp.DoCmdAndQueryOne(ctx, c.service.QueryAppId, cmd, func(ctx context.Context) error {
+		return c.service.CreateUser(ctx, cmd)
 	}, func(ctx context.Context) (interface{}, bool, error) {
-		return c.getById(ctx, cmd.GetTenantId(), cmd.Data.Id)
+		return c.service.QueryById(ctx, cmd.GetTenantId(), cmd.Data.Id)
 	})
 }
 
@@ -130,7 +128,7 @@ func (c *UserCommandApi) UserUpdate(ctx iris.Context) {
 		return
 	}
 	_ = restapp.DoCmd(ctx, func(ctx context.Context) error {
-		return c.userAppService.UpdateUser(ctx, cmd)
+		return c.service.UpdateUser(ctx, cmd)
 	})
 }
 
@@ -151,52 +149,48 @@ func (c *UserCommandApi) UserUpdateAndGet(ctx iris.Context) {
 		restapp.SetError(ctx, err)
 		return
 	}
-	_, _, _ = restapp.DoCmdAndQueryOne(ctx, c.queryAppId, cmd, func(ctx context.Context) error {
-		return c.userAppService.UpdateUser(ctx, cmd)
+	_, _, _ = restapp.DoCmdAndQueryOne(ctx, c.service.QueryAppId, cmd, func(ctx context.Context) error {
+		return c.service.UpdateUser(ctx, cmd)
 	}, func(ctx context.Context) (interface{}, bool, error) {
-		return c.getById(ctx, cmd.GetTenantId(), cmd.Data.Id)
+		return c.service.QueryById(ctx, cmd.GetTenantId(), cmd.Data.Id)
 	})
 }
 
 func (c *UserCommandApi) AddressCreate(ctx iris.Context) {
 	cmd := &command.AddressCreateCommand{}
 	_ = restapp.DoCmd(ctx, func(ctx context.Context) error {
-		return c.userAppService.CreateAddress(ctx, cmd)
+		return c.service.CreateAddress(ctx, cmd)
 	})
 }
 
 func (c *UserCommandApi) AddressCreateAndGet(ctx iris.Context) {
 	cmd := &command.AddressCreateCommand{}
-	_, _, _ = restapp.DoCmdAndQueryOne(ctx, c.queryAppId, cmd, func(ctx context.Context) error {
-		return c.userAppService.CreateAddress(ctx, cmd)
+	_, _, _ = restapp.DoCmdAndQueryOne(ctx, c.service.QueryAppId, cmd, func(ctx context.Context) error {
+		return c.service.CreateAddress(ctx, cmd)
 	}, func(ctx context.Context) (interface{}, bool, error) {
-		return c.getById(ctx, cmd.GetTenantId(), cmd.Data.UserId)
+		return c.service.QueryById(ctx, cmd.GetTenantId(), cmd.Data.UserId)
 	})
 }
 
 func (c *UserCommandApi) AddressUpdate(ctx iris.Context) {
 	cmd := &command.AddressUpdateCommand{}
 	_ = restapp.DoCmd(ctx, func(ctx context.Context) error {
-		return c.userAppService.UpdateAddress(ctx, cmd)
+		return c.service.UpdateAddress(ctx, cmd)
 	})
 }
 
 func (c *UserCommandApi) AddressUpdateAndGet(ctx iris.Context) {
 	cmd := &command.AddressUpdateCommand{}
-	_, _, _ = restapp.DoCmdAndQueryOne(ctx, c.queryAppId, cmd, func(ctx context.Context) error {
-		return c.userAppService.UpdateAddress(ctx, cmd)
+	_, _, _ = restapp.DoCmdAndQueryOne(ctx, c.service.QueryAppId, cmd, func(ctx context.Context) error {
+		return c.service.UpdateAddress(ctx, cmd)
 	}, func(ctx context.Context) (interface{}, bool, error) {
-		return c.getById(ctx, cmd.GetTenantId(), cmd.Data.UserId)
+		return c.service.QueryById(ctx, cmd.GetTenantId(), cmd.Data.UserId)
 	})
 }
 
 func (c *UserCommandApi) AddressDelete(ctx iris.Context) {
 	cmd := &command.AddressDeleteCommand{}
 	_ = restapp.DoCmd(ctx, func(ctx context.Context) error {
-		return c.userAppService.DeleteAddress(ctx, cmd)
+		return c.service.DeleteAddress(ctx, cmd)
 	})
-}
-
-func (c *UserCommandApi) getById(ctx context.Context, tenantId, userId string) (data interface{}, isFound bool, err error) {
-	return service.GetUserQueryAppService().FindById(ctx, tenantId, userId)
 }

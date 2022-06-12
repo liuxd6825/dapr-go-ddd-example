@@ -2,11 +2,13 @@ package service
 
 import (
 	"context"
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/application/internals/user/adto"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/application/internals/user/assembler"
+	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/application/internals/user/dto"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/user/command"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/user/model"
 	domain_service "github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/user/service"
+	base "github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/infrastructure/base/application/service"
+	query_dto "github.com/liuxd6825/dapr-go-ddd-example/pkg/query-service/userinterface/rest/user/dto"
 )
 
 //
@@ -14,6 +16,7 @@ import (
 // @Description:
 //
 type UserCommandAppService struct {
+	base.BaseQueryAppService
 	userDomainService *domain_service.UserDomainService
 }
 
@@ -23,9 +26,11 @@ type UserCommandAppService struct {
 // @return *UserCommandAppService
 //
 func NewCommandUserAppService() *UserCommandAppService {
-	return &UserCommandAppService{
+	res := &UserCommandAppService{
 		userDomainService: &domain_service.UserDomainService{},
 	}
+	res.Init("query-service", "users", "v1.0")
+	return res
 }
 
 //
@@ -36,7 +41,7 @@ func NewCommandUserAppService() *UserCommandAppService {
 // @param cmd
 // @return error
 //
-func (s *UserCommandAppService) CreateUser(ctx context.Context, cmdDto *adto.UserCreateCommandDto) error {
+func (s *UserCommandAppService) CreateUser(ctx context.Context, cmdDto *dto.UserCreateCommandDto) error {
 	cmd, err := assembler.AssUserCreateCommand(ctx, cmdDto)
 	if err != nil {
 		return err
@@ -45,7 +50,7 @@ func (s *UserCommandAppService) CreateUser(ctx context.Context, cmdDto *adto.Use
 	return err
 }
 
-func (s *UserCommandAppService) UpdateUser(ctx context.Context, cmdDto *adto.UserUpdateCommandDto) error {
+func (s *UserCommandAppService) UpdateUser(ctx context.Context, cmdDto *dto.UserUpdateCommandDto) error {
 	cmd, err := assembler.AssUserUpdateCommand(ctx, cmdDto)
 	if err != nil {
 		return err
@@ -54,7 +59,7 @@ func (s *UserCommandAppService) UpdateUser(ctx context.Context, cmdDto *adto.Use
 	return err
 }
 
-func (s *UserCommandAppService) DeleteUser(ctx context.Context, cmdDto *adto.UserDeleteCommandDto) error {
+func (s *UserCommandAppService) DeleteUser(ctx context.Context, cmdDto *dto.UserDeleteCommandDto) error {
 	cmd, err := assembler.AssUserDeleteCommand(ctx, cmdDto)
 	if err != nil {
 		return err
@@ -80,4 +85,13 @@ func (s *UserCommandAppService) DeleteAddress(ctx context.Context, cmd *command.
 
 func (s *UserCommandAppService) GetAggregateById(ctx context.Context, tenantId string, id string) (*model.UserAggregate, bool, error) {
 	return s.userDomainService.GetAggregateById(ctx, tenantId, id)
+}
+
+func (s *UserCommandAppService) QueryById(ctx context.Context, tenantId string, id string) (*query_dto.UserFindByIdResponse, bool, error) {
+	var resp query_dto.UserFindByIdResponse
+	isFound, err := s.BaseQueryAppService.QueryById(ctx, tenantId, id, resp)
+	if err != nil {
+		return nil, false, err
+	}
+	return &resp, isFound, nil
 }

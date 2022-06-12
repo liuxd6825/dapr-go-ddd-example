@@ -1,4 +1,4 @@
-package adto
+package dto
 
 import (
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/user/command"

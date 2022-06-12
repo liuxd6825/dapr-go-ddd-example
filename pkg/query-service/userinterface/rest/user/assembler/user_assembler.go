@@ -16,14 +16,6 @@ type userAssembler struct {
 
 var User = &userAssembler{}
 
-func (a *userAssembler) AssFindByIdRequest(ctx iris.Context, tenantId, id string) (*dto.UserFindByIdRequest, error) {
-	request := dto.UserFindByIdRequest{
-		TenantId: tenantId,
-		Id:       id,
-	}
-	return &request, nil
-}
-
 func (a *userAssembler) AssFindByIdResponse(ctx iris.Context, v *view.UserView, isFound bool, findErr error) (*dto.UserFindByIdResponse, bool, error) {
 	if findErr != nil || !isFound {
 		return nil, isFound, findErr
@@ -35,16 +27,6 @@ func (a *userAssembler) AssFindByIdResponse(ctx iris.Context, v *view.UserView, 
 		return nil, false, err
 	}
 	return res, true, nil
-}
-
-func (a *userAssembler) AssFindPagingRequest(ctx iris.Context, tenantId string) (ddd_repository.FindPagingQuery, error) {
-	var request dto.UserFindPagingRequest
-	query := a.GetFindPagingQuery(ctx)
-	if err := mapper.Mapper(query, &request); err != nil {
-		return nil, err
-	}
-	ddd_repository.NewFindPagingQuery()
-	return &request, nil
 }
 
 func (a *userAssembler) AssFindPagingResponse(ctx iris.Context, v *ddd_repository.FindPagingResult[*view.UserView], isFound bool, findErr error) (*dto.UserFindPagingResponse, bool, error) {
@@ -61,15 +43,6 @@ func (a *userAssembler) AssFindPagingResponse(ctx iris.Context, v *ddd_repositor
 	}
 
 	return &response, isFound, nil
-}
-
-func (a *userAssembler) AssFindAllRequest(ctx iris.Context) (*dto.UserFindAllRequest, error) {
-	var request dto.UserFindAllRequest
-	query := a.GetFindAllQuery(ctx)
-	if err := mapper.Mapper(query, &request); err != nil {
-		return nil, err
-	}
-	return &request, nil
 }
 
 func (a *userAssembler) AssFindAllResponse(ctx iris.Context, vList *[]*view.UserView, isFound bool, findErr error) (*dto.UserFindAllResponse, bool, error) {

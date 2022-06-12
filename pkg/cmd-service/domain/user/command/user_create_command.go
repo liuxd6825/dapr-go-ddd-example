@@ -1,6 +1,7 @@
 package command
 
 import (
+	"github.com/google/uuid"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/user/event"
 	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/domain/user/fields"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
@@ -17,8 +18,9 @@ type UserCreateCommand struct {
 }
 
 func (c *UserCreateCommand) NewDomainEvent() ddd.DomainEvent {
+	eventId := uuid.New().String()
 	return &event.UserCreateEventV1{
-		EventId:   c.CommandId,
+		EventId:   eventId,
 		CommandId: c.CommandId,
 		Data:      c.Data,
 	}

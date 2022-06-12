@@ -1,15 +1,15 @@
 package dto
 
-type FindByIdQuery struct {
+type FindByIdRequest struct {
 	TenantId string
 	Id       string
 }
 
-type FindAllQuery struct {
+type FindAllRequest struct {
 	TenantId string
 }
 
-type FindPagingQuery struct {
+type FindPagingRequest struct {
 	TenantId string
 	PageNum  int64
 	PageSize int64
@@ -18,19 +18,19 @@ type FindPagingQuery struct {
 	Fields   string
 }
 
-func (q *FindPagingQuery) GetTenantId() string { return q.TenantId }
-func (q *FindPagingQuery) GetPageNum() int64   { return q.PageNum }
-func (q *FindPagingQuery) GetPageSize() int64  { return q.PageSize }
-func (q *FindPagingQuery) GetFilter() string   { return q.Filter }
-func (q *FindPagingQuery) GetSort() string     { return q.Sort }
-func (q *FindPagingQuery) GetFields() string   { return q.Fields }
+func (q *FindPagingRequest) GetTenantId() string { return q.TenantId }
+func (q *FindPagingRequest) GetPageNum() int64   { return q.PageNum }
+func (q *FindPagingRequest) GetPageSize() int64  { return q.PageSize }
+func (q *FindPagingRequest) GetFilter() string   { return q.Filter }
+func (q *FindPagingRequest) GetSort() string     { return q.Sort }
+func (q *FindPagingRequest) GetFields() string   { return q.Fields }
 
-func (q *FindPagingQuery) SetTenantId(value string) { q.TenantId = value }
-func (q *FindPagingQuery) SetPageNum(value int64)   { q.PageNum = value }
-func (q *FindPagingQuery) SetPageSize(value int64)  { q.PageSize = value }
-func (q *FindPagingQuery) SetFilter(value string)   { q.Filter = value }
-func (q *FindPagingQuery) SetSort(value string)     { q.Sort = value }
-func (q *FindPagingQuery) SetFields(value string)   { q.Fields = value }
+func (q *FindPagingRequest) SetTenantId(value string) { q.TenantId = value }
+func (q *FindPagingRequest) SetPageNum(value int64)   { q.PageNum = value }
+func (q *FindPagingRequest) SetPageSize(value int64)  { q.PageSize = value }
+func (q *FindPagingRequest) SetFilter(value string)   { q.Filter = value }
+func (q *FindPagingRequest) SetSort(value string)     { q.Sort = value }
+func (q *FindPagingRequest) SetFields(value string)   { q.Fields = value }
 
 //
 // FindPagingResponse
