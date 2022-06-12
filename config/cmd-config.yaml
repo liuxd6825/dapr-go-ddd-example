@@ -1,4 +1,4 @@
-envType: dev
+env: dev
 envs:
   dev:
     app:
