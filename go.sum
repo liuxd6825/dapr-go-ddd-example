@@ -1,5 +1,11 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 cloud.google.com/go v0.34.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
+gitee.com/liuxd6825/dapr v1.7.1-1.0-alpha h1:QJDKqZ3bX72P6Fk4jOzlOons5UKC8rupSbFhvFiQNgw=
+gitee.com/liuxd6825/dapr v1.7.1-1.0-alpha/go.mod h1:KtCaW45HyeljwhHYNmPAq0evFUZpMEPG/RywsDDzBtw=
+gitee.com/liuxd6825/dapr-go-ddd-sdk v1.7.1-1.0-alpha h1:3/Mi0Qici7vW55fxv6o7XlDGOj54ryxQFsQq7l9rPTU=
+gitee.com/liuxd6825/dapr-go-ddd-sdk v1.7.1-1.0-alpha/go.mod h1:t3cuRfQiKkWfvADmsBLeic0y7KLM0s4Bmu3W6rmqfec=
+gitee.com/liuxd6825/go-sdk v1.7.1-1.0-alpha h1:0m3eZC8nP/v4Ip4KI4R8oiNUYimE8DqQVqSNwfDvslQ=
+gitee.com/liuxd6825/go-sdk v1.7.1-1.0-alpha/go.mod h1:QkN6NXFQgjKxCD8xJ27zzKKDGUQMjlEz2VcOdpweTWk=
 github.com/AndreasBriese/bbloom v0.0.0-20190306092124-e2d15f34fcf9/go.mod h1:bOvUY6CB00SOBii9/FifXqc0awNKxLFCL/+pkDPuyl8=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/toml v1.0.0 h1:dtDWrepsVPfW9H/4y7dDgFc2MBUSeJhlaDtK13CxFlU=

@@ -6,7 +6,7 @@ require (
 	github.com/go-playground/validator/v10 v10.10.1
 	github.com/google/uuid v1.3.0
 	github.com/kataras/iris/v12 v12.2.0-alpha9
-	github.com/liuxd6825/dapr-go-ddd-sdk v0.0.0
+	github.com/liuxd6825/dapr-go-ddd-sdk v1.7.1-1.0-alpha
 	github.com/swaggo/swag v1.8.1
 )
 
@@ -57,7 +57,7 @@ require (
 	github.com/klauspost/compress v1.15.0 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/liuxd6825/dapr v1.7.1 // indirect
-	github.com/liuxd6825/go-sdk v1.3.1 // indirect
+	github.com/liuxd6825/go-sdk v1.7.1-1.0-alpha // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mediocregopher/radix/v3 v3.8.0 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.18 // indirect
@@ -98,10 +98,12 @@ require (
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
 
-replace github.com/liuxd6825/go-sdk => ../go-sdk
+//replace github.com/liuxd6825/go-sdk => ../go-sdk
+//replace github.com/liuxd6825/dapr => ../dapr
+//replace github.com/liuxd6825/dapr-go-ddd-sdk => ../dapr-go-ddd-sdk
+//replace github.com/liuxd6825/components-contrib => ../components-contrib
 
-replace github.com/liuxd6825/dapr => ../dapr
-
-replace github.com/liuxd6825/dapr-go-ddd-sdk => ../dapr-go-ddd-sdk
-
-replace github.com/liuxd6825/components-contrib => ../components-contrib
+replace github.com/liuxd6825/go-sdk => gitee.com/liuxd6825/go-sdk v1.7.1-1.0-alpha
+replace github.com/liuxd6825/dapr-go-ddd-sdk => gitee.com/liuxd6825/dapr-go-ddd-sdk v1.7.1-1.0-alpha
+replace github.com/liuxd6825/dapr => gitee.com/liuxd6825/dapr v1.7.1-1.0-alpha
+replace github.com/liuxd6825/components-contrib => github.com/liuxd6825/components-contrib v1.7.1-1.0-alpha
