@@ -106,4 +106,4 @@ require (
 replace github.com/liuxd6825/go-sdk => gitee.com/liuxd6825/go-sdk v1.7.1-1.0-alpha
 replace github.com/liuxd6825/dapr-go-ddd-sdk => gitee.com/liuxd6825/dapr-go-ddd-sdk v1.7.1-1.0-alpha
 replace github.com/liuxd6825/dapr => gitee.com/liuxd6825/dapr v1.7.1-1.0-alpha
-replace github.com/liuxd6825/components-contrib => github.com/liuxd6825/components-contrib v1.7.1-1.0-alpha
+replace github.com/liuxd6825/components-contrib => gitee.com/liuxd6825/components-contrib v1.7.1-1.0-alpha
