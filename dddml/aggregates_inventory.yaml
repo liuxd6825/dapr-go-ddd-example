@@ -1,0 +1,67 @@
+aggregates:
+  # 定义聚合根-存货档案
+  Inventory:
+    description: "存货档案"
+    # 定义存货档案聚合根的属性
+    properties:
+      Id:
+        type: string
+        description: "Id"
+      Name:
+        type: string
+        description: "名称"
+      Spec:
+        type: string
+        description: "规格"
+      Brand:
+        type: string
+        description: "品牌"
+      Keywords:
+        type: string
+        description: "搜索关键字"
+    # 定义实体类
+    entities:
+
+    # 定义命令
+    commands:
+      InventoryCreateCommand:
+        description: "创建存货档案"
+        fields:
+          properties:
+            Id:
+              type: string
+              description: "Id"
+            Name:
+              type: string
+              description: "名称"
+            Spec:
+              type: string
+              description: "规格"
+            Brand:
+              type: string
+              description: "品牌"
+            Keywords:
+              type: string
+              description: "搜索关键字"
+      InventoryUpdateCommand:
+        description: "更新存货档案"
+        fields:
+          properties:
+            Id:
+              type: string
+              description: "Id"
+            Name:
+              type: string
+              description: "名称"
+            Spec:
+              type: string
+              description: "规格"
+            Brand:
+              type: string
+              description: "品牌"
+            Keywords:
+              type: string
+              description: "搜索关键字"
+
+
+

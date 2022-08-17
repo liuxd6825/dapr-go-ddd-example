@@ -1,0 +1,52 @@
+aggregates:
+  User:
+    description: "用户"
+    properties:
+      Id:
+        type: string
+        description: "用户Id"
+      Name:
+        type: string
+        description: "用户名称"
+      Email:
+        type: string
+        description: "电子邮箱"
+    entities:
+    commands:
+      UserCreateCommand:
+        description: "创建用户"
+        fieldsRef: UserCreateFields
+      UserUpdateCommand:
+        description: "更新用户"
+        fieldsRef: UserUpdateFields
+      UserDeleteCommand:
+        description: "删除用户"
+        fieldsRef: UserDeleteFields
+    fields:
+      UserCreateFields:
+        properties:
+          Id:
+            type: string
+            description: "用户Id"
+          Name:
+            type: string
+            description: "用户名称"
+          Email:
+            type: string
+            description: "电子邮箱"
+      UserUpdateFields:
+        properties:
+          Id:
+            type: string
+            description: "用户Id"
+          Name:
+            type: string
+            description: "用户名称"
+          Email:
+            type: string
+            description: "电子邮箱"
+      UserDeleteFields:
+        properties:
+          Id:
+            type: string
+            description: "用户Id"

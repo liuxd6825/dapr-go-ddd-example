@@ -1,0 +1,112 @@
+aggregates:
+  SaleBill:
+    description: "销售订单"
+    properties:
+      Id:
+        type: string
+        description: "主键"
+      UserId:
+        type: string
+        description: "用户Id"
+      UserName:
+        type: string
+        description: "用户名称"
+      SaleMoney:
+        type: money
+        description: "销售金额"
+      SaleTime:
+        type: time
+        description: "文件大小"
+      Remarks:
+        type: string
+        description: "备注"
+    # 命令
+    commands:
+      SaleBillCreateCommand:
+        description: "创建销售订单"
+        fieldsRef: SaleBillCreateFields
+      SaleBillUpdateCommand:
+        description: "更新销售订单"
+        fieldsRef: SaleBillUpdateFields
+      SaleBillConfirmCommand:
+        description: "下单确认命令"
+        action: "update"
+        fieldsRef: SaleBillConfirmFields
+      SaleBillDeleteCommand:
+        description: "删除销售订单"
+        fieldsRef: SaleBillDeleteFields
+    # 字段项
+    fields:
+      SaleBillCreateFields:
+        description: "销售订单"
+        properties:
+          Id:
+            type: string
+            description: "主键"
+          UserId:
+            type: string
+            description: "用户Id"
+          UserName:
+            type: string
+            description: "用户名称"
+          SaleMoney:
+            type: money
+            description: "销售金额"
+          SaleTime:
+            type: time
+            description: "文件大小"
+          Remarks:
+            type: string
+            description: "备注"
+      SaleBillUpdateFields:
+        description: "销售订单"
+        properties:
+          Id:
+            type: string
+            description: "主键"
+          UserId:
+            type: string
+            description: "用户Id"
+          UserName:
+            type: string
+            description: "用户名称"
+          SaleMoney:
+            type: money
+            description: "销售金额"
+          SaleTime:
+            type: time
+            description: "文件大小"
+          Remarks:
+            type: string
+            description: "备注"
+      SaleBillDeleteFields:
+        description: "删除销售订单"
+        properties:
+          Id:
+            type: string
+            description: "主键"
+      SaleBillConfirmFields:
+        description: "下单确认"
+        fields:
+          properties:
+            Id:
+              type: string
+              description: "主键"
+    # 实体
+    entities:
+    # 枚举
+    enumObjects:
+      SaleBillStatue:
+        description: "销售订单状态"
+        values:
+          Creating:
+            value: 1
+            title: "创建中"
+          Created:
+            value: 2
+            title: "下单完成"
+          Receive:
+            value: 3
+            title: "已收货"
+
+

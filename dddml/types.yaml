@@ -1,0 +1,62 @@
+# 领域基础类型
+typeDefinitions:
+  ptime:
+    sqlType: DATETIME
+    cSharpType: DateTime?
+    javaType: java.sql.Timestamp
+    goType: "*time.Time"
+  time:
+    sqlType: DATETIME
+    cSharpType: DateTime?
+    javaType: java.sql.Timestamp
+    goType: "time.Time"
+  dateTime:
+    sqlType: DATETIME
+    cSharpType: DateTime?
+    javaType: java.sql.Timestamp
+    goType: "*time.Time"
+  id:
+    sqlType: VARCHAR(20)
+    cSharpType: string
+    javaType: String
+    goType: string
+  string:
+    sqlType: VARCHAR(320)
+    cSharpType: string
+    javaType: String
+    goType: string
+  decimal:
+    sqlType: DECIMAL(18,6)
+    cSharpType: decimal?
+    javaType: java.math.BigDecimal
+    goType: float64
+  money:
+    sqlType: DECIMAL(18,6)
+    cSharpType: MyMoneyLib.Money
+    javaType: MyMoneyLib.Money
+    goType: float64
+  long:
+    sqlType: DECIMAL(18,6)
+    cSharpType: long
+    javaType: Long
+    goType: int64
+  int:
+    sqlType: DECIMAL(18,6)
+    cSharpType: int
+    javaType: int
+    goType: int64
+  uint:
+    sqlType: DECIMAL(18,6)
+    cSharpType: uint
+    javaType: uint
+    goType: uint64
+  bool:
+    sqlType: TINYINT(1)
+    cSharpType: bool
+    javaType: boolean
+    goType: bool
+  tenantId:
+    sqlType: VARCHAR(320)
+    cSharpType: String
+    javaType: String
+    goType: string

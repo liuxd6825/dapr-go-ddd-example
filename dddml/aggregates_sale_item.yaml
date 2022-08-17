@@ -1,0 +1,80 @@
+aggregates:
+  SaleBill:
+    properties:
+      SaleItems:
+        type: SaleItem
+        isArray: true
+    entities:
+      SaleItem:
+        description: "销售明细项"
+        properties:
+          Id:
+            type: string
+            description: "主键"
+          InventoryId:
+            type: string
+            description: "存货Id"
+          InventoryName:
+            type: string
+            description: "存货名称"
+          Quantity:
+            type: int
+            description: "文档id"
+          Money:
+            type: money
+            description: "文件大小"
+    commands:
+      SaleItemCreateCommand:
+        description: "创建扫描文件"
+        fieldsRef: SaleItemCreateFields
+      SaleItemUpdateCommand:
+        description: "更新扫描文件"
+        fieldsRef: SaleItemUpdateFields
+      SaleItemDeleteCommand:
+        description: "删除扫描单"
+        fields:
+          properties:
+            Id:
+              type: string
+              description: "销售明细Id"
+            SaleBillId:
+              type: string
+              description: "销售单Id"
+    fields:
+      SaleItemCreateFields:
+        description: "扫描文件"
+        properties:
+          Id:
+            type: string
+            description: "主键"
+          InventoryId:
+            type: string
+            description: "存货Id"
+          InventoryName:
+            type: string
+            description: "存货名称"
+          Quantity:
+            type: int
+            description: "销售数量"
+          Money:
+            type: money
+            description: "销售金额"
+      SaleItemUpdateFields:
+        description: "扫描文件"
+        properties:
+          Id:
+            type: string
+            description: "主键"
+          InventoryId:
+            type: string
+            description: "存货Id"
+          InventoryName:
+            type: string
+            description: "存货名称"
+          Quantity:
+            type: int
+            description: "销售数量"
+          Money:
+            type: money
+            description: "销售金额"
+

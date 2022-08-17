@@ -1,0 +1,8 @@
+# 存放各个聚合共用的值对象
+valueObjects:
+  PersonalName:
+    properties:
+      FirstName:
+        type: string
+      LastName:
+        type: string

@@ -1,0 +1,171 @@
+configuration:
+  # 界限上下文名称
+  boundedContextName: "Dddml.WMs"
+  # 默认模块的名称
+  defaultModule: "Dddml.Wms"
+  # 服务名
+  serviceName: "dapr-ddd-demo"
+  # API版本号
+  apiVersion: "v1.0"
+  # 系统说明
+  description: "DDD使用示例"
+  # 命名空间
+  namespace:
+    go: "gitee.com/liuxu6825/dapr-ddd-demo"
+    c#: "com.liuxu6825.dapr-ddd-demo"
+    java: "com.liuxu6825.dapr-ddd-demo"
+  # 上下文中每个实体都需要的保留属性
+  defaultReservedProperties:
+    # 聚合根保留字段
+    aggregate:
+      Id:
+        type: string
+        description: "主键"
+      TenantId:
+        type: string
+        description: "租户ID"
+      IsDeleted:
+        type: bool
+        description: "已删除"
+      Remarks:
+        type: string
+        description: "备注"
+    # 实体保留字段
+    entity:
+      Id:
+        type: string
+        description: "主键"
+      TenantId:
+        type: string
+        description: "租户ID"
+      Remarks:
+        type: string
+        description: "备注"
+    # 投射类保留字段
+    view:
+      Id:
+        type: string
+        description: "主键"
+      TenantId:
+        type: string
+        description: "租户ID"
+      Remarks:
+        type: string
+        description: "备注"
+      CreatorId:
+        type: string
+        description: "创建人ID"
+      CreatorName:
+        type: string
+        description: "创建人名称"
+      CreatedTime:
+        type: dateTime
+        description: "创建时间"
+      UpdaterId:
+        type: string
+        description: "修改人ID"
+      UpdaterName:
+        type: string
+        description: "修改人名称"
+      UpdatedTime:
+        type: dateTime
+        description: "修改时间"
+      DeleterId:
+        type: string
+        description: "删除人ID"
+      DeleterName:
+        type: string
+        description: "删除人名称"
+      DeletedTime:
+        type: dateTime
+        description: "删除时间"
+      IsDeleted:
+        type: bool
+        description: "是否删除"
+    # 投射类保留字段
+    field:
+      Id:
+        type: string
+        description: "主键"
+      TenantId:
+        type: string
+        description: "租户ID"
+      Remarks:
+        type: string
+        description: "备注"
+  # 没有明确定义的扩展点， 其值类型为Map<String, Object>
+  metadata:
+    HttpServicesAuthorizationEnalbled: false
+    SpringSecurityEnalbeld: true
+  database:
+    mongo: true
+    neo4j: false
+  # K8S扩展点
+  k8s:
+    namespace: "dapr-ddd-demo"
+    commandImage: "192.168.64.12/dapr-ddd-demo-cmd-service:dapr-linux-arm64"
+    queryImage: "192.168.64.12/dapr-ddd-demo-query-service:dapr-linux-arm64"
+  # C# 扩展点
+  c#:
+  # Java 扩展点
+  java:
+  # Go 扩展点
+  go:
+    DaprSrcPath: "/Users/lxd/go/src/github.com/liuxd6825"
+    CommandService:
+      Dev:
+        AppHttpPort: 9030
+        DaprHttpPort: 9031
+        DaprGrpcPort: 9032
+      Test:
+        AppHttpPort: 9030
+        DaprHttpPort: 9031
+        DaprGrpcPort: 9032
+    QueryService:
+      Dev:
+        AppHttpPort: 9037
+        DaprHttpPort: 9038
+        DaprGrpcPort: 9039
+        Mongo:
+          host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
+          replicaSet: mongors
+          dbname: dapr-ddd-demo-dev
+          user: ddd
+          pwd: 123456
+          maxPoolSize: 20
+        Neo4j:
+          host: 192.168.64.4
+          port: 7687
+          user: neo4j
+          pwd: 123456
+      Test:
+        AppHttpPort: 8080
+        DaprHttpPort: 8081
+        DaprGrpcPort: 8082
+        Mongo:
+          host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
+          replicaSet: mongors
+          dbname: dapr-ddd-demo-test
+          user: ddd
+          pwd: 123456
+          maxPoolSize: 20
+        Neo4j:
+          host: 192.168.64.4
+          port: 7687
+          user: neo4j
+          pwd: 123456
+      Prod:
+        Mongo:
+          host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
+          replicaSet: mongors
+          dbname: dapr-ddd-demo-prod
+          user: ddd
+          pwd: 123456
+          maxPoolSize: 20
+        Neo4j:
+          host: 192.168.64.4
+          port: 7687
+          user: neo4j
+          pwd: 123456
+
+
