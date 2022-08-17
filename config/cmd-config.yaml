@@ -2,20 +2,20 @@ env: dev
 envs:
   dev:
     app:
-      id: cmd-service
-      httpPort: 9010
+      id: dapr-ddd-demo-command-service
+      httpPort: 9030
       rootUrl: /api/v1.0
     dapr:
       host: localhost
-      httpPort: 9011
-      grpcPort: 9012
+      httpPort: 9031
+      grpcPort: 9032
       pubsubs:
         - "pubsub"
     log:
       level: debug
   test:
     app:
-      id: cmd-service
+      id: dapr-ddd-demo-command-service
       httpPort: 8080
       rootUrl: /api/v1.0
     dapr:
@@ -28,7 +28,7 @@ envs:
       level: debug
   prod:
     app:
-      id: cmd-service
+      id: dapr-ddd-demo-command-service
       httpPort: 8080
       rootUrl: /api/v1.0
     dapr:
@@ -39,4 +39,3 @@ envs:
         - "pubsub"
     log:
       level: debug
-

@@ -98,8 +98,8 @@ HELM_REGISTRY?=daprio.azurecr.io
 ################################################################################
 # Go build details                                                             #
 ################################################################################
-BASE_PACKAGE_NAME := github.com/liuxd6825/dapr
-LOGGER_PACKAGE_NAME := github.com/liuxd6825/kit/logger
+BASE_PACKAGE_NAME := github.com/dapr/dapr
+LOGGER_PACKAGE_NAME := github.com/dapr/kit/logger
 
 DEFAULT_LDFLAGS:=-X $(BASE_PACKAGE_NAME)/pkg/version.gitcommit=$(GIT_COMMIT) \
   -X $(BASE_PACKAGE_NAME)/pkg/version.gitversion=$(GIT_VERSION) \

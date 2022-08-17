@@ -2,7 +2,7 @@ apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
   name: applogger
-  namespace: dapr-system
+  namespace: 
 spec:
   type: applogger.mongodb
   version: v1

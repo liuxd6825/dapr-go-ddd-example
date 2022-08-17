@@ -1,312 +1,312 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "description": "This is a sample server celler server.",
-        "title": "go-ddd-example cmd-service API",
-        "termsOfService": "http://swagger.io/terms/",
-        "contact": {
-            "name": "API Support",
-            "url": "http://www.swagger.io/support",
-            "email": "support@swagger.io"
-        },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-        },
-        "version": "1.0"
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample server celler server.",
+    "title": "go-ddd-example cmd-service API",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "name": "API Support",
+      "url": "http://www.swagger.io/support",
+      "email": "support@swagger.io"
     },
-    "host": "localhost:9010",
-    "basePath": "/api/v1",
-    "paths": {
-        "/tenants/{tenantId}/aggregate/{id}": {
-            "get": {
-                "description": "获取用户聚合根信息",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "users"
-                ],
-                "summary": "获取用户聚合根信息",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "租户ID",
-                        "name": "tenantId",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "聚合根ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/tenants/{tenantId}/users": {
-            "post": {
-                "description": "创建用户数据",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "users"
-                ],
-                "summary": "创建用户数据",
-                "parameters": [
-                    {
-                        "description": "The input UserCreateRequest struct",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.UserCreateRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/tenants/{tenantId}/users:get": {
-            "post": {
-                "description": "创建并返回用户数据",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "users"
-                ],
-                "summary": "创建并返回用户数据",
-                "parameters": [
-                    {
-                        "description": "The input UserUpdateRequest struct",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.UserCreateRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
-            "patch": {
-                "description": "更新并返回用户数据",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "users"
-                ],
-                "summary": "更新并返回用户数据",
-                "parameters": [
-                    {
-                        "description": "The input UserUpdateRequest struct",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.UserUpdateRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        }
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "definitions": {
-        "dto.UserCreateRequest": {
-            "type": "object",
-            "properties": {
-                "commandId": {
-                    "type": "string"
-                },
-                "data": {
-                    "$ref": "#/definitions/dto.UserCreateRequestData"
-                },
-                "isValidOnly": {
-                    "type": "boolean"
-                }
+    "version": "1.0"
+  },
+  "host": "localhost:9010",
+  "basePath": "/api/v1",
+  "paths": {
+    "/tenants/{tenantId}/aggregate/{id}": {
+      "get": {
+        "description": "获取用户聚合根信息",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "获取用户聚合根信息",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "租户ID",
+            "name": "tenantId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "聚合根ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
             }
-        },
-        "dto.UserCreateRequestData": {
-            "type": "object",
-            "properties": {
-                "address": {
-                    "type": "string"
-                },
-                "birthday": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string",
-                    "example": "xxx@163.com"
-                },
-                "id": {
-                    "type": "string",
-                    "maxLength": 16,
-                    "minLength": 16,
-                    "example": "random string"
-                },
-                "telephone": {
-                    "type": "string",
-                    "example": "18867766829"
-                },
-                "tenantId": {
-                    "type": "string",
-                    "maxLength": 16,
-                    "minLength": 16,
-                    "example": "random string"
-                },
-                "userCode": {
-                    "type": "string",
-                    "maxLength": 16,
-                    "minLength": 16,
-                    "example": "random string"
-                },
-                "userName": {
-                    "type": "string",
-                    "maxLength": 16,
-                    "minLength": 16,
-                    "example": "random string"
-                }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "string"
             }
-        },
-        "dto.UserUpdateRequest": {
-            "type": "object",
-            "properties": {
-                "commandId": {
-                    "type": "string"
-                },
-                "data": {
-                    "$ref": "#/definitions/dto.UserUpdateRequestData"
-                },
-                "isValidOnly": {
-                    "type": "boolean"
-                },
-                "updateMask": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            }
-        },
-        "dto.UserUpdateRequestData": {
-            "type": "object",
-            "properties": {
-                "address": {
-                    "type": "string"
-                },
-                "birthday": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string",
-                    "example": "xxx@163.com"
-                },
-                "id": {
-                    "type": "string",
-                    "maxLength": 16,
-                    "minLength": 16,
-                    "example": "random string"
-                },
-                "telephone": {
-                    "type": "string",
-                    "example": "18867766829"
-                },
-                "tenantId": {
-                    "type": "string",
-                    "maxLength": 16,
-                    "minLength": 16,
-                    "example": "random string"
-                },
-                "userCode": {
-                    "type": "string",
-                    "maxLength": 16,
-                    "minLength": 16,
-                    "example": "random string"
-                },
-                "userName": {
-                    "type": "string",
-                    "maxLength": 16,
-                    "minLength": 16,
-                    "example": "random string"
-                }
-            }
+          }
         }
+      }
     },
-    "securityDefinitions": {
-        "BasicAuth": {
-            "type": "basic"
+    "/tenants/{tenantId}/users": {
+      "post": {
+        "description": "创建用户数据",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "创建用户数据",
+        "parameters": [
+          {
+            "description": "The input UserCreateRequest struct",
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/dto.UserCreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "string"
+            }
+          }
         }
+      }
+    },
+    "/tenants/{tenantId}/users:get": {
+      "post": {
+        "description": "创建并返回用户数据",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "创建并返回用户数据",
+        "parameters": [
+          {
+            "description": "The input UserUpdateRequest struct",
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/dto.UserCreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "patch": {
+        "description": "更新并返回用户数据",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "更新并返回用户数据",
+        "parameters": [
+          {
+            "description": "The input UserUpdateRequest struct",
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/dto.UserUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
     }
+  },
+  "definitions": {
+    "dto.UserCreateRequest": {
+      "type": "object",
+      "properties": {
+        "commandId": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/dto.UserCreateRequestData"
+        },
+        "isValidOnly": {
+          "type": "boolean"
+        }
+      }
+    },
+    "dto.UserCreateRequestData": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "birthday": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "example": "xxx@163.com"
+        },
+        "id": {
+          "type": "string",
+          "maxLength": 16,
+          "minLength": 16,
+          "example": "random string"
+        },
+        "telephone": {
+          "type": "string",
+          "example": "18867766829"
+        },
+        "tenantId": {
+          "type": "string",
+          "maxLength": 16,
+          "minLength": 16,
+          "example": "random string"
+        },
+        "userCode": {
+          "type": "string",
+          "maxLength": 16,
+          "minLength": 16,
+          "example": "random string"
+        },
+        "userName": {
+          "type": "string",
+          "maxLength": 16,
+          "minLength": 16,
+          "example": "random string"
+        }
+      }
+    },
+    "dto.UserUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "commandId": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/dto.UserUpdateRequestData"
+        },
+        "isValidOnly": {
+          "type": "boolean"
+        },
+        "updateMask": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "dto.UserUpdateRequestData": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "birthday": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "example": "xxx@163.com"
+        },
+        "id": {
+          "type": "string",
+          "maxLength": 16,
+          "minLength": 16,
+          "example": "random string"
+        },
+        "telephone": {
+          "type": "string",
+          "example": "18867766829"
+        },
+        "tenantId": {
+          "type": "string",
+          "maxLength": 16,
+          "minLength": 16,
+          "example": "random string"
+        },
+        "userCode": {
+          "type": "string",
+          "maxLength": 16,
+          "minLength": 16,
+          "example": "random string"
+        },
+        "userName": {
+          "type": "string",
+          "maxLength": 16,
+          "minLength": 16,
+          "example": "random string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "BasicAuth": {
+      "type": "basic"
+    }
+  }
 }

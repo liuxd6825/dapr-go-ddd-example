@@ -105,21 +105,21 @@ paths:
   /tenants/{tenantId}/aggregate/{id}:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 获取用户聚合根信息
       parameters:
-      - description: 租户ID
-        in: path
-        name: tenantId
-        required: true
-        type: string
-      - description: 聚合根ID
-        in: path
-        name: id
-        required: true
-        type: string
+        - description: 租户ID
+          in: path
+          name: tenantId
+          required: true
+          type: string
+        - description: 聚合根ID
+          in: path
+          name: id
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
@@ -131,21 +131,21 @@ paths:
             type: string
       summary: 获取用户聚合根信息
       tags:
-      - users
+        - users
   /tenants/{tenantId}/users:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 创建用户数据
       parameters:
-      - description: The input UserCreateRequest struct
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/dto.UserCreateRequest'
+        - description: The input UserCreateRequest struct
+          in: body
+          name: data
+          required: true
+          schema:
+            $ref: '#/definitions/dto.UserCreateRequest'
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
@@ -157,21 +157,21 @@ paths:
             type: string
       summary: 创建用户数据
       tags:
-      - users
+        - users
   /tenants/{tenantId}/users:get:
     patch:
       consumes:
-      - application/json
+        - application/json
       description: 更新并返回用户数据
       parameters:
-      - description: The input UserUpdateRequest struct
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/dto.UserUpdateRequest'
+        - description: The input UserUpdateRequest struct
+          in: body
+          name: data
+          required: true
+          schema:
+            $ref: '#/definitions/dto.UserUpdateRequest'
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
@@ -183,20 +183,20 @@ paths:
             type: string
       summary: 更新并返回用户数据
       tags:
-      - users
+        - users
     post:
       consumes:
-      - application/json
+        - application/json
       description: 创建并返回用户数据
       parameters:
-      - description: The input UserUpdateRequest struct
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/dto.UserCreateRequest'
+        - description: The input UserUpdateRequest struct
+          in: body
+          name: data
+          required: true
+          schema:
+            $ref: '#/definitions/dto.UserCreateRequest'
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: OK
@@ -208,7 +208,7 @@ paths:
             type: string
       summary: 创建并返回用户数据
       tags:
-      - users
+        - users
 securityDefinitions:
   BasicAuth:
     type: basic

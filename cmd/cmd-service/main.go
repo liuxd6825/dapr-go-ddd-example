@@ -2,14 +2,13 @@ package main
 
 import (
 	"flag"
-	"github.com/liuxd6825/dapr-go-ddd-example/pkg/cmd-service/infrastructure/register"
-	_ "github.com/liuxd6825/dapr-go-ddd-example/swagger/cmd"
+	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/cmd-service/infrastructure/register"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
 )
 
 func main() {
 	help := flag.Bool("help", false, "参数提示。")
-	envType := flag.String("envType", "", "替换配置文件中的envType值。")
+	env := flag.String("env", "", "替换配置文件中的env值。")
 	config := flag.String("config", "./config/cmd-config.yaml", "配置文件。")
 	flag.Parse()
 
@@ -17,22 +16,22 @@ func main() {
 		return
 	}
 
-	if _, err := restapp.RunWithConfig(*envType, *config, subscribes, controllers, events, restapp.Actors); err != nil {
+	if _, err := restapp.RunWithConfig(*env, *config, subscribes, controllers, events, restapp.Actors); err != nil {
 		panic(err)
 	}
 }
 
 // 注册消息监听器
-func subscribes() *[]restapp.RegisterSubscribe {
-	return &[]restapp.RegisterSubscribe{}
+func subscribes() []restapp.RegisterSubscribe {
+	return []restapp.RegisterSubscribe{}
 }
 
 // 注册Http控制器
-func controllers() *[]restapp.Controller {
+func controllers() []restapp.Controller {
 	return register.GetRegisterController()
 }
 
-// 注册Http控制器
-func events() *[]restapp.RegisterEventType {
-	return register.GetRegisterEventTypes()
+// 注册领域事件
+func events() []restapp.RegisterEventType {
+	return register.GetRegisterEventType()
 }

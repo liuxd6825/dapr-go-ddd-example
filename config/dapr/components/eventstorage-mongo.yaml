@@ -2,7 +2,7 @@ apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
   name: eventstorage
-  namespace: dapr-system
+  namespace: 
 spec:
   type: eventstorage.mongodb
   version: v1

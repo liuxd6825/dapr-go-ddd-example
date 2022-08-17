@@ -17,9 +17,9 @@ DOCKER:=docker
 DOCKERFILE_DIR?=./docker
 
 APP_SYSTEM_IMAGE_NAME=$(RELEASE_NAME)
-APP_RUNTIME_IMAGE_NAME=example
-APP_CMD_IMAGE_NAME=cmd-service
-APP_QUERY_IMAGE_NAME=query-service
+APP_RUNTIME_IMAGE_NAME=dapr-ddd-demo
+APP_CMD_IMAGE_NAME=dapr-ddd-demo-cmd-service
+APP_QUERY_IMAGE_NAME=dapr-ddd-demo-query-service
 
 # build docker image for linux
 BIN_PATH=$(OUT_DIR)/$(TARGET_OS)_$(TARGET_ARCH)
@@ -103,7 +103,7 @@ docker-push:
 
 docker-rmi:
 	docker images|grep none|awk '{print $3}'|xargs docker rmi
-	docker rmi -f cmd-service
-	docker rmi -f query-service
+	docker rmi -f $(APP_CMD_IMAGE_NAME)
+	docker rmi -f $(APP_QUERY_IMAGE_NAME)
 
 
