@@ -101,3 +101,23 @@ func (s *UserCommandAppService) QueryById(ctx context.Context, tenantId string, 
 	}
 	return &resp, isFound, nil
 }
+
+//
+// QueryByIds
+// @Description: 按ids获取<no value>投影类
+// @receiver s queryAppService
+// @param ctx 上下文
+// @param tenantId  租户id
+// @param ids 多个<no value>Id
+// @return data <no value> 信息
+// @return isFound 是否找到
+// @return err 错误信息
+//
+func (s *UserCommandAppService) QueryByIds(ctx context.Context, tenantId string, ids []string) (*query_dto.UserFindByIdsResponse, bool, error) {
+	var resp query_dto.UserFindByIdsResponse
+	isFound, err := s.BaseQueryAppService.QueryByIds(ctx, tenantId, ids, &resp)
+	if err != nil {
+		return nil, false, err
+	}
+	return &resp, isFound, nil
+}

@@ -7,9 +7,9 @@ import (
 type UserEventType uint32
 
 const (
-	UserDeleteEventType UserEventType = iota
+	UserUpdateEventType UserEventType = iota
+	UserDeleteEventType
 	UserCreateEventType
-	UserUpdateEventType
 )
 
 //
@@ -18,12 +18,12 @@ const (
 //
 func (p UserEventType) String() string {
 	switch p {
+	case UserUpdateEventType:
+		return "dapr-ddd-demo.UserUpdateEvent"
 	case UserDeleteEventType:
 		return "dapr-ddd-demo.UserDeleteEvent"
 	case UserCreateEventType:
 		return "dapr-ddd-demo.UserCreateEvent"
-	case UserUpdateEventType:
-		return "dapr-ddd-demo.UserUpdateEvent"
 	default:
 		return "UNKNOWN"
 	}
@@ -38,17 +38,17 @@ func GetRegisterEventTypes() []restapp.RegisterEventType {
 	return []restapp.RegisterEventType{
 		{
 			EventType: UserCreateEventType.String(),
-			Version:   (&UserCreateEvent{}).GetEventVersion(),
+			Version:   NewUserCreateEvent("").GetEventVersion(),
 			NewFunc:   func() interface{} { return &UserCreateEvent{} },
 		},
 		{
 			EventType: UserDeleteEventType.String(),
-			Version:   (&UserDeleteEvent{}).GetEventVersion(),
+			Version:   NewUserDeleteEvent("").GetEventVersion(),
 			NewFunc:   func() interface{} { return &UserDeleteEvent{} },
 		},
 		{
 			EventType: UserUpdateEventType.String(),
-			Version:   (&UserUpdateEvent{}).GetEventVersion(),
+			Version:   NewUserUpdateEvent("").GetEventVersion(),
 			NewFunc:   func() interface{} { return &UserUpdateEvent{} },
 		},
 	}

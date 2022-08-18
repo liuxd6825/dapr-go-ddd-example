@@ -7,7 +7,7 @@ import (
 
 //
 // SaleItemUpdateCommand
-// @Description: 更新扫描文件
+// @Description: 更新明细
 //
 type SaleItemUpdateCommand struct {
 	CommandId   string                     `json:"commandId" validate:"required"` // 命令ID

@@ -7,7 +7,7 @@ import (
 
 //
 // SaleItemCreateCommand
-// @Description: 创建扫描文件
+// @Description: 添加明细
 //
 type SaleItemCreateCommand struct {
 	CommandId   string                     `json:"commandId" validate:"required"` // 命令ID

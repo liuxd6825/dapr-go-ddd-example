@@ -7,7 +7,7 @@ import (
 
 //
 // SaleItemDeleteCommand
-// @Description: 删除扫描单
+// @Description: 删除销售明细项
 //
 type SaleItemDeleteCommand struct {
 	CommandId   string                     `json:"commandId" validate:"required"` // 命令ID

@@ -9,6 +9,11 @@ type FindByIdRequest struct {
 	Id       string
 }
 
+type FindByIdsRequest struct {
+	TenantId string
+	Ids      []string
+}
+
 type FindAllRequest struct {
 	TenantId string
 }

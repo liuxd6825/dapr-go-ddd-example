@@ -13,12 +13,12 @@ type inventoryViewFactory struct {
 
 var InventoryView = &inventoryViewFactory{}
 
-func (f *inventoryViewFactory) NewByInventoryUpdateEvent(ctx context.Context, e *event.InventoryUpdateEvent) (*view.InventoryView, error) {
+func (f *inventoryViewFactory) NewByInventoryCreateEvent(ctx context.Context, e *event.InventoryCreateEvent) (*view.InventoryView, error) {
 	if e == nil {
-		return nil, errors.New("NewByInventoryUpdateEvent(ctx, e) error: e is nil")
+		return nil, errors.New("NewByInventoryCreateEvent(ctx, e) error: e is nil")
 	}
 	v := &view.InventoryView{}
-	setViewType := utils.SetViewUpdated
+	setViewType := utils.SetViewCreated
 	v.Brand = e.Data.Brand
 	v.Id = e.Data.Id
 	v.Keywords = e.Data.Keywords
@@ -32,12 +32,12 @@ func (f *inventoryViewFactory) NewByInventoryUpdateEvent(ctx context.Context, e 
 	return v, nil
 }
 
-func (f *inventoryViewFactory) NewByInventoryCreateEvent(ctx context.Context, e *event.InventoryCreateEvent) (*view.InventoryView, error) {
+func (f *inventoryViewFactory) NewByInventoryUpdateEvent(ctx context.Context, e *event.InventoryUpdateEvent) (*view.InventoryView, error) {
 	if e == nil {
-		return nil, errors.New("NewByInventoryCreateEvent(ctx, e) error: e is nil")
+		return nil, errors.New("NewByInventoryUpdateEvent(ctx, e) error: e is nil")
 	}
 	v := &view.InventoryView{}
-	setViewType := utils.SetViewCreated
+	setViewType := utils.SetViewUpdated
 	v.Brand = e.Data.Brand
 	v.Id = e.Data.Id
 	v.Keywords = e.Data.Keywords

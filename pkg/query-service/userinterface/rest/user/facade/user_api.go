@@ -24,6 +24,7 @@ func NewUserQueryApi() *UserQueryApi {
 func (a *UserQueryApi) BeforeActivation(b mvc.BeforeActivation) {
 	restapp.Handle(b, "GET", "/tenants/{tenantId}/users/{id}", "FindById")
 	restapp.Handle(b, "GET", "/tenants/{tenantId}/users:all", "FindAll")
+	restapp.Handle(b, "GET", "/tenants/{tenantId}/users:ids", "FindByIds")
 	restapp.Handle(b, "GET", "/tenants/{tenantId}/users", "FindPaging")
 }
 
@@ -50,8 +51,30 @@ func (a *UserQueryApi) FindById(ictx iris.Context) {
 	})
 }
 
+// FindByIds godoc
+// @Summary      按多个ID获取<no value>
+// @Description  get string by ID
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        tenantId  path      string     true    "Tenant ID"
+// @Param        id        path      string     true    "User ID"
+// @Success      200       {object}  dto.UserFindByIdsResponse
+// @Failure      500       {object}  string          "应用错误"
+// @Router       /tenants/{tenantId}/users:ids [get]
+func (a *UserQueryApi) FindByIds(ictx iris.Context, tenantId string) {
+	_, _, _ = restapp.DoQuery(ictx, func(ctx context.Context) (interface{}, bool, error) {
+		req, err := UserAssembler.AssFindByIdsRequest(ictx)
+		if err != nil {
+			return nil, false, err
+		}
+		fpr, b, e := a.queryService.FindByIds(ctx, req.TenantId, req.Ids)
+		return UserAssembler.AssFindByIdsResponse(ictx, fpr, b, e)
+	})
+}
+
 // FindAll godoc
-// @Summary      获取所有用户
+// @Summary      获取所有<no value>
 // @Description  get string by ID
 // @Tags         users
 // @Accept       json
@@ -72,8 +95,8 @@ func (a *UserQueryApi) FindAll(ictx iris.Context, tenantId string) {
 }
 
 // FindPaging godoc
-// @Summary      分页查询
-// @Description  分页查询
+// @Summary      分页查询<no value>
+// @Description  分页查询<no value>
 // @Tags         users
 // @Accept       json
 // @Produce      json

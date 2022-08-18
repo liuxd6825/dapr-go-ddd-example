@@ -50,7 +50,7 @@ func (e *SaleItemDeleteEvent) GetTenantId() string {
 }
 
 func (e *SaleItemDeleteEvent) GetAggregateId() string {
-	return e.Data.Id
+	return e.Data.SaleBillId
 }
 
 func (e *SaleItemDeleteEvent) GetCreatedTime() time.Time {

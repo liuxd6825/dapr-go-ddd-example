@@ -11,23 +11,6 @@ type UserAssembler struct {
 }
 
 //
-// AssUserCreateCommandDto
-// @Description: 创建用户
-// @receiver a
-// @param ictx
-// @return *appcmd.UserCreateAppCmd 创建用户 应用层DTO对象
-// @return error 错误
-//
-func (a *UserAssembler) AssUserCreateAppCmd(ictx iris.Context) (*appcmd.UserCreateAppCmd, error) {
-	var request dto.UserCreateCommandRequest
-	var appCmd appcmd.UserCreateAppCmd
-	if err := utils.AssemblerRequestBody(ictx, &request, &appCmd); err != nil {
-		return nil, err
-	}
-	return &appCmd, nil
-}
-
-//
 // AssUserUpdateCommandDto
 // @Description: 更新用户
 // @receiver a
@@ -55,6 +38,23 @@ func (a *UserAssembler) AssUserUpdateAppCmd(ictx iris.Context) (*appcmd.UserUpda
 func (a *UserAssembler) AssUserDeleteAppCmd(ictx iris.Context) (*appcmd.UserDeleteAppCmd, error) {
 	var request dto.UserDeleteCommandRequest
 	var appCmd appcmd.UserDeleteAppCmd
+	if err := utils.AssemblerRequestBody(ictx, &request, &appCmd); err != nil {
+		return nil, err
+	}
+	return &appCmd, nil
+}
+
+//
+// AssUserCreateCommandDto
+// @Description: 创建用户
+// @receiver a
+// @param ictx
+// @return *appcmd.UserCreateAppCmd 创建用户 应用层DTO对象
+// @return error 错误
+//
+func (a *UserAssembler) AssUserCreateAppCmd(ictx iris.Context) (*appcmd.UserCreateAppCmd, error) {
+	var request dto.UserCreateCommandRequest
+	var appCmd appcmd.UserCreateAppCmd
 	if err := utils.AssemblerRequestBody(ictx, &request, &appCmd); err != nil {
 		return nil, err
 	}

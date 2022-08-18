@@ -20,6 +20,9 @@ aggregates:
       Remarks:
         type: string
         description: "备注"
+      Statue:
+        type: SaleBillStatue
+        description: "单据状态"
     # 命令
     commands:
       SaleBillCreateCommand:
@@ -102,9 +105,9 @@ aggregates:
           Creating:
             value: 1
             title: "创建中"
-          Created:
+          Confirm:
             value: 2
-            title: "下单完成"
+            title: "确认下单"
           Receive:
             value: 3
             title: "已收货"

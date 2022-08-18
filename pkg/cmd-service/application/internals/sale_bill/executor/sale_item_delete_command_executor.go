@@ -10,7 +10,7 @@ import (
 
 //
 // SaleItemDeleteCommandExecutor
-// @Description: 删除扫描单 命令执行器接口
+// @Description: 删除销售明细项 命令执行器接口
 //
 type SaleItemDeleteCommandExecutor interface {
 	Execute(context.Context, *appcmd.SaleItemDeleteAppCmd) error
@@ -18,7 +18,7 @@ type SaleItemDeleteCommandExecutor interface {
 
 //
 // saleItemDeleteCommandCommandExecutor
-// @Description: 删除扫描单 命令执行器实现类
+// @Description: 删除销售明细项 命令执行器实现类
 //
 type saleItemDeleteCommandExecutor struct {
 	domainService *domain_service.SaleBillCommandDomainService

@@ -1,6 +1,7 @@
 package dto
 
 import (
+	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/cmd-service/domain/sale_bill/field"
 	base "gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/infrastructure/base/userinterface/rest/dto"
 	"time"
 )
@@ -17,6 +18,30 @@ type SaleBillFindByIdResponse struct {
 
 func NewSaleBillFindByIdResponse() *SaleBillFindByIdResponse {
 	return &SaleBillFindByIdResponse{}
+}
+
+// 按多个ID查询
+
+//
+// SaleBillFindByIdsResponse
+// @Description: 销售订单  查询所有响应体
+//
+type SaleBillFindByIdsResponse []*SaleBillFindByIdsResponse
+
+func NewSaleBillFindByIdsResponse() *SaleBillFindByIdsResponse {
+	return &SaleBillFindByIdsResponse{}
+}
+
+//
+// SaleBillFindByIdsResponseItem
+// @Description: 销售订单  请求业务数据
+//
+type SaleBillFindByIdsResponseItem struct {
+	SaleBillDto
+}
+
+func NewSaleBillFindByIdsResponseItem() *SaleBillFindByIdsResponseItem {
+	return &SaleBillFindByIdsResponseItem{}
 }
 
 // 分页查询
@@ -89,11 +114,12 @@ func NewSaleBillFindAllResponseItem() *SaleBillFindAllResponseItem {
 //
 type SaleBillDto struct {
 	base.BaseDto
-	SaleItems []*SaleItemDto `json:"saleItems,omitempty" validate:"-""`    //
-	SaleMoney float64        `json:"saleMoney,omitempty" validate:"-"`     // 销售金额
-	SaleTime  time.Time      `json:"saleTime,omitempty" validate:"-"`      // 文件大小
-	UserId    string         `json:"userId,omitempty" validate:"required"` // 用户Id
-	UserName  string         `json:"userName,omitempty" validate:"-"`      // 用户名称
+	SaleItems []*SaleItemDto       `json:"saleItems,omitempty" validate:"-""`    //
+	SaleMoney float64              `json:"saleMoney,omitempty" validate:"-"`     // 销售金额
+	SaleTime  time.Time            `json:"saleTime,omitempty" validate:"-"`      // 文件大小
+	Statue    field.SaleBillStatue `json:"statue,omitempty" validate:"-"`        // 单据状态
+	UserId    string               `json:"userId,omitempty" validate:"required"` // 用户Id
+	UserName  string               `json:"userName,omitempty" validate:"-"`      // 用户名称
 }
 
 func NewSaleBillDto() *SaleBillDto {

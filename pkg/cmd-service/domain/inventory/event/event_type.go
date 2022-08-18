@@ -7,8 +7,8 @@ import (
 type InventoryEventType uint32
 
 const (
-	InventoryUpdateEventType InventoryEventType = iota
-	InventoryCreateEventType
+	InventoryCreateEventType InventoryEventType = iota
+	InventoryUpdateEventType
 )
 
 //
@@ -17,10 +17,10 @@ const (
 //
 func (p InventoryEventType) String() string {
 	switch p {
-	case InventoryUpdateEventType:
-		return "dapr-ddd-demo.InventoryUpdateEvent"
 	case InventoryCreateEventType:
 		return "dapr-ddd-demo.InventoryCreateEvent"
+	case InventoryUpdateEventType:
+		return "dapr-ddd-demo.InventoryUpdateEvent"
 	default:
 		return "UNKNOWN"
 	}
@@ -35,12 +35,12 @@ func GetRegisterEventTypes() []restapp.RegisterEventType {
 	return []restapp.RegisterEventType{
 		{
 			EventType: InventoryCreateEventType.String(),
-			Version:   (&InventoryCreateEvent{}).GetEventVersion(),
+			Version:   NewInventoryCreateEvent("").GetEventVersion(),
 			NewFunc:   func() interface{} { return &InventoryCreateEvent{} },
 		},
 		{
 			EventType: InventoryUpdateEventType.String(),
-			Version:   (&InventoryUpdateEvent{}).GetEventVersion(),
+			Version:   NewInventoryUpdateEvent("").GetEventVersion(),
 			NewFunc:   func() interface{} { return &InventoryUpdateEvent{} },
 		},
 	}

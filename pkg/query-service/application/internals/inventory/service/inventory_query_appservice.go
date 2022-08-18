@@ -166,7 +166,7 @@ func (a *InventoryQueryAppService) DeleteAll(ctx context.Context, tenantId strin
 // @return error
 //
 func (a *InventoryQueryAppService) FindById(ctx context.Context, tenantId string, id string) (*view.InventoryView, bool, error) {
-	qry := assembler.AssInventoryFindByIdQuery(tenantId, id)
+	qry := assembler.Inventory.AssFindByIdAppQuery(tenantId, id)
 	return a.inventoryFindByIdExecutor.Execute(ctx, qry)
 }
 
@@ -181,7 +181,7 @@ func (a *InventoryQueryAppService) FindById(ctx context.Context, tenantId string
 // @return error
 //
 func (a *InventoryQueryAppService) FindByIds(ctx context.Context, tenantId string, ids []string) ([]*view.InventoryView, bool, error) {
-	qry := assembler.AssInventoryFindByIdsQuery(tenantId, ids)
+	qry := assembler.Inventory.AssFindByIdsAppQuery(tenantId, ids)
 	return a.inventoryFindByIdsExecutor.Execute(ctx, qry)
 }
 
@@ -196,7 +196,7 @@ func (a *InventoryQueryAppService) FindByIds(ctx context.Context, tenantId strin
 // @return error 错误
 //
 func (a *InventoryQueryAppService) FindAll(ctx context.Context, tenantId string) ([]*view.InventoryView, bool, error) {
-	qry := assembler.AssInventoryFindAllQuery(tenantId)
+	qry := assembler.Inventory.AssFindAllAppQuery(tenantId)
 	return a.inventoryFindAllExecutor.Execute(ctx, qry)
 }
 

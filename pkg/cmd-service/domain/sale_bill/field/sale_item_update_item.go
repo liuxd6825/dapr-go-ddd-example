@@ -1,24 +1,24 @@
 package field
 
 //
-// SaleItemFields
-// @Description: 扫描文件
+// SaleItemUpdateItem
+// @Description: 更新明细项
 //
-type SaleItemFields struct {
+type SaleItemUpdateItem struct {
 	Id            string  `json:"id" validate:"required" `          // 主键
 	InventoryId   string  `json:"inventoryId" validate:"required" ` // 存货Id
 	InventoryName string  `json:"inventoryName" validate:"-" `      // 存货名称
-	Money         float64 `json:"money" validate:"-" `              // 文件大小
-	Quantity      int64   `json:"quantity" validate:"-" `           // 文档id
+	Money         float64 `json:"money" validate:"-" `              // 销售金额
+	Quantity      int64   `json:"quantity" validate:"-" `           // 销售数量
 	Remarks       string  `json:"remarks" validate:"-" `            // 备注
-	SaleBillId    string  `json:"saleBillId" validate:"required" `
+	SaleBillId    string  `json:"saleBillId" validate:"gt=0" `
 	TenantId      string  `json:"tenantId" validate:"required" ` // 租户ID
 }
 
-func (f *SaleItemFields) GetId() string {
+func (f *SaleItemUpdateItem) GetId() string {
 	return f.Id
 }
 
-func (f *SaleItemFields) GetTenantId() string {
+func (f *SaleItemUpdateItem) GetTenantId() string {
 	return f.TenantId
 }

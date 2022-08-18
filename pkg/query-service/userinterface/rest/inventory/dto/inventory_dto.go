@@ -18,6 +18,30 @@ func NewInventoryFindByIdResponse() *InventoryFindByIdResponse {
 	return &InventoryFindByIdResponse{}
 }
 
+// 按多个ID查询
+
+//
+// InventoryFindByIdsResponse
+// @Description: 存货档案  查询所有响应体
+//
+type InventoryFindByIdsResponse []*InventoryFindByIdsResponse
+
+func NewInventoryFindByIdsResponse() *InventoryFindByIdsResponse {
+	return &InventoryFindByIdsResponse{}
+}
+
+//
+// InventoryFindByIdsResponseItem
+// @Description: 存货档案  请求业务数据
+//
+type InventoryFindByIdsResponseItem struct {
+	InventoryDto
+}
+
+func NewInventoryFindByIdsResponseItem() *InventoryFindByIdsResponseItem {
+	return &InventoryFindByIdsResponseItem{}
+}
+
 // 分页查询
 
 //

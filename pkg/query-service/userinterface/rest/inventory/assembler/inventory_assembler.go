@@ -54,6 +54,18 @@ func (a *InventoryAssembler) AssFindPagingResponse(ictx iris.Context, fpr *appqu
 	return res, isFound, nil
 }
 
+func (a *InventoryAssembler) AssFindByIdsResponse(ictx iris.Context, vList []*view.InventoryView, isFound bool, findErr error) (*dto.InventoryFindByIdsResponse, bool, error) {
+	if findErr != nil {
+		return nil, isFound, findErr
+	}
+	res := dto.NewInventoryFindByIdsResponse()
+	err := utils.Mapper(vList, res)
+	if err != nil {
+		return nil, false, err
+	}
+	return res, true, nil
+}
+
 func (a *InventoryAssembler) AssFindAllResponse(ictx iris.Context, vList []*view.InventoryView, isFound bool, findErr error) (*dto.InventoryFindAllResponse, bool, error) {
 	if findErr != nil {
 		return nil, isFound, findErr

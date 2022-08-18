@@ -8,38 +8,6 @@ import (
 )
 
 //
-// AssSaleBillConfirmCommand
-// @Description:  SaleBillConfirmAppCmd 下单确认命令转换器
-// @param ctx
-// @param cmdDto
-// @return *command.SaleBillConfirmCommand
-// @return error
-//
-func AssSaleBillConfirmCommand(ctx context.Context, appCmd *appcmd.SaleBillConfirmAppCmd) (*command.SaleBillConfirmCommand, error) {
-	if appCmd == nil {
-		return nil, errors.New("AssSaleBillConfirmCommand() appCmd is nil")
-	}
-	cmd := (*appCmd).SaleBillConfirmCommand
-	return &cmd, nil
-}
-
-//
-// AssSaleBillDeleteCommand
-// @Description:  SaleBillDeleteAppCmd 删除销售订单转换器
-// @param ctx
-// @param cmdDto
-// @return *command.SaleBillDeleteCommand
-// @return error
-//
-func AssSaleBillDeleteCommand(ctx context.Context, appCmd *appcmd.SaleBillDeleteAppCmd) (*command.SaleBillDeleteCommand, error) {
-	if appCmd == nil {
-		return nil, errors.New("AssSaleBillDeleteCommand() appCmd is nil")
-	}
-	cmd := (*appCmd).SaleBillDeleteCommand
-	return &cmd, nil
-}
-
-//
 // AssSaleBillCreateCommand
 // @Description:  SaleBillCreateAppCmd 创建销售订单转换器
 // @param ctx
@@ -68,5 +36,37 @@ func AssSaleBillUpdateCommand(ctx context.Context, appCmd *appcmd.SaleBillUpdate
 		return nil, errors.New("AssSaleBillUpdateCommand() appCmd is nil")
 	}
 	cmd := (*appCmd).SaleBillUpdateCommand
+	return &cmd, nil
+}
+
+//
+// AssSaleBillConfirmCommand
+// @Description:  SaleBillConfirmAppCmd 下单确认命令转换器
+// @param ctx
+// @param cmdDto
+// @return *command.SaleBillConfirmCommand
+// @return error
+//
+func AssSaleBillConfirmCommand(ctx context.Context, appCmd *appcmd.SaleBillConfirmAppCmd) (*command.SaleBillConfirmCommand, error) {
+	if appCmd == nil {
+		return nil, errors.New("AssSaleBillConfirmCommand() appCmd is nil")
+	}
+	cmd := (*appCmd).SaleBillConfirmCommand
+	return &cmd, nil
+}
+
+//
+// AssSaleBillDeleteCommand
+// @Description:  SaleBillDeleteAppCmd 删除销售订单转换器
+// @param ctx
+// @param cmdDto
+// @return *command.SaleBillDeleteCommand
+// @return error
+//
+func AssSaleBillDeleteCommand(ctx context.Context, appCmd *appcmd.SaleBillDeleteAppCmd) (*command.SaleBillDeleteCommand, error) {
+	if appCmd == nil {
+		return nil, errors.New("AssSaleBillDeleteCommand() appCmd is nil")
+	}
+	cmd := (*appCmd).SaleBillDeleteCommand
 	return &cmd, nil
 }

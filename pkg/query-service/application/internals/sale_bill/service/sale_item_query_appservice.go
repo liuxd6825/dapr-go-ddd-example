@@ -182,7 +182,7 @@ func (a *SaleItemQueryAppService) DeleteAll(ctx context.Context, tenantId string
 // @return error
 //
 func (a *SaleItemQueryAppService) FindById(ctx context.Context, tenantId string, id string) (*view.SaleItemView, bool, error) {
-	qry := assembler.AssSaleItemFindByIdQuery(tenantId, id)
+	qry := assembler.SaleItem.AssFindByIdAppQuery(tenantId, id)
 	return a.saleItemFindByIdExecutor.Execute(ctx, qry)
 }
 
@@ -197,7 +197,7 @@ func (a *SaleItemQueryAppService) FindById(ctx context.Context, tenantId string,
 // @return error
 //
 func (a *SaleItemQueryAppService) FindByIds(ctx context.Context, tenantId string, ids []string) ([]*view.SaleItemView, bool, error) {
-	qry := assembler.AssSaleItemFindByIdsQuery(tenantId, ids)
+	qry := assembler.SaleItem.AssFindByIdsAppQuery(tenantId, ids)
 	return a.saleItemFindByIdsExecutor.Execute(ctx, qry)
 }
 
@@ -212,7 +212,7 @@ func (a *SaleItemQueryAppService) FindByIds(ctx context.Context, tenantId string
 // @return error 错误
 //
 func (a *SaleItemQueryAppService) FindAll(ctx context.Context, tenantId string) ([]*view.SaleItemView, bool, error) {
-	qry := assembler.AssSaleItemFindAllQuery(tenantId)
+	qry := assembler.SaleItem.AssFindAllAppQuery(tenantId)
 	return a.saleItemFindAllExecutor.Execute(ctx, qry)
 }
 
@@ -242,6 +242,6 @@ func (a *SaleItemQueryAppService) FindPaging(ctx context.Context, aq *appquery.S
 // @return error 错误
 //
 func (a *SaleItemQueryAppService) FindBySaleBillId(ctx context.Context, tenantId string, saleBillId string) ([]*view.SaleItemView, bool, error) {
-	aq := assembler.AssSaleItemFindBySaleBillIdQuery(tenantId, saleBillId)
+	aq := assembler.SaleItem.AssFindBySaleBillIdAppQuery(tenantId, saleBillId)
 	return a.saleItemFindBySaleBillIdExecutor.Execute(ctx, aq)
 }

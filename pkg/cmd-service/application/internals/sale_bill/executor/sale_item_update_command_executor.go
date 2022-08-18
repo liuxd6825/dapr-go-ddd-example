@@ -10,7 +10,7 @@ import (
 
 //
 // SaleItemUpdateCommandExecutor
-// @Description: 更新扫描文件 命令执行器接口
+// @Description: 更新明细 命令执行器接口
 //
 type SaleItemUpdateCommandExecutor interface {
 	Execute(context.Context, *appcmd.SaleItemUpdateAppCmd) error
@@ -18,7 +18,7 @@ type SaleItemUpdateCommandExecutor interface {
 
 //
 // saleItemUpdateCommandCommandExecutor
-// @Description: 更新扫描文件 命令执行器实现类
+// @Description: 更新明细 命令执行器实现类
 //
 type saleItemUpdateCommandExecutor struct {
 	domainService *domain_service.SaleBillCommandDomainService

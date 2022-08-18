@@ -34,7 +34,7 @@ func (c *SaleItemCommandApi) BeforeActivation(b mvc.BeforeActivation) {
 
 //
 // SaleItemCreate
-// @Description: 创建扫描文件
+// @Description: 添加明细
 // @receiver c
 // @param ctx
 //
@@ -50,7 +50,7 @@ func (c *SaleItemCommandApi) SaleItemCreate(ictx iris.Context) {
 
 //
 // SaleItemCreateAndGet
-// @Description: 创建扫描文件
+// @Description: 添加明细
 // @receiver c
 // @param ctx
 //
@@ -64,7 +64,7 @@ func (c *SaleItemCommandApi) SaleItemCreateAndGet(ictx iris.Context) {
 		_, _, err = restapp.DoCmdAndQueryOne(ictx, c.service.QueryAppId, appCmd, func(ctx context.Context) error {
 			return c.service.SaleItemCreate(ctx, appCmd)
 		}, func(ctx context.Context) (interface{}, bool, error) {
-			return c.service.QueryById(ctx, appCmd.GetTenantId(), appCmd.Data.Id)
+			return c.service.QueryByIds(ctx, appCmd.GetTenantId(), appCmd.Data.GetIds())
 		})
 
 		return err
@@ -73,7 +73,7 @@ func (c *SaleItemCommandApi) SaleItemCreateAndGet(ictx iris.Context) {
 
 //
 // SaleItemUpdate
-// @Description: 更新扫描文件
+// @Description: 更新明细
 // @receiver c
 // @param ctx
 //
@@ -89,7 +89,7 @@ func (c *SaleItemCommandApi) SaleItemUpdate(ictx iris.Context) {
 
 //
 // SaleItemUpdateAndGet
-// @Description: 更新扫描文件
+// @Description: 更新明细
 // @receiver c
 // @param ctx
 //
@@ -103,7 +103,7 @@ func (c *SaleItemCommandApi) SaleItemUpdateAndGet(ictx iris.Context) {
 		_, _, err = restapp.DoCmdAndQueryOne(ictx, c.service.QueryAppId, appCmd, func(ctx context.Context) error {
 			return c.service.SaleItemUpdate(ctx, appCmd)
 		}, func(ctx context.Context) (interface{}, bool, error) {
-			return c.service.QueryById(ctx, appCmd.GetTenantId(), appCmd.Data.Id)
+			return c.service.QueryByIds(ctx, appCmd.GetTenantId(), appCmd.Data.GetIds())
 		})
 
 		return err
@@ -112,7 +112,7 @@ func (c *SaleItemCommandApi) SaleItemUpdateAndGet(ictx iris.Context) {
 
 //
 // SaleItemDelete
-// @Description: 删除扫描单
+// @Description: 删除销售明细项
 // @receiver c
 // @param ctx
 //

@@ -112,20 +112,21 @@ configuration:
   # Go 扩展点
   go:
     DaprSrcPath: "/Users/lxd/go/src/github.com/liuxd6825"
+    # -app-port 9010 -dapr-http-port 9011 -dapr-grpc-port 9012
     CommandService:
       Dev:
-        AppHttpPort: 9030
-        DaprHttpPort: 9031
-        DaprGrpcPort: 9032
+        AppHttpPort: 9010
+        DaprHttpPort: 9011
+        DaprGrpcPort: 9012
       Test:
-        AppHttpPort: 9030
-        DaprHttpPort: 9031
-        DaprGrpcPort: 9032
+        AppHttpPort: 8080
+        DaprHttpPort: 8081
+        DaprGrpcPort: 8082
     QueryService:
       Dev:
-        AppHttpPort: 9037
-        DaprHttpPort: 9038
-        DaprGrpcPort: 9039
+        AppHttpPort: 9017
+        DaprHttpPort: 9018
+        DaprGrpcPort: 9019
         Mongo:
           host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
           replicaSet: mongors

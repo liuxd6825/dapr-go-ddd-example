@@ -3,12 +3,12 @@ envs:
   dev:
     app:
       id: dapr-ddd-demo-command-service
-      httpPort: 9030
+      httpPort: 9010
       rootUrl: /api/v1.0
     dapr:
       host: localhost
-      httpPort: 9031
-      grpcPort: 9032
+      httpPort: 9011
+      grpcPort: 9012
       pubsubs:
         - "pubsub"
     log:

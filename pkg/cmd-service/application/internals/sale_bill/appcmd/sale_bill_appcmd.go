@@ -5,22 +5,6 @@ import (
 )
 
 //
-// SaleBillConfirmAppCmd
-// @Description: 应用服务层命令, 下单确认命令
-//
-type SaleBillConfirmAppCmd struct {
-	domain.SaleBillConfirmCommand
-}
-
-//
-// SaleBillDeleteAppCmd
-// @Description: 应用服务层命令, 删除销售订单
-//
-type SaleBillDeleteAppCmd struct {
-	domain.SaleBillDeleteCommand
-}
-
-//
 // SaleBillCreateAppCmd
 // @Description: 应用服务层命令, 创建销售订单
 //
@@ -34,4 +18,20 @@ type SaleBillCreateAppCmd struct {
 //
 type SaleBillUpdateAppCmd struct {
 	domain.SaleBillUpdateCommand
+}
+
+//
+// SaleBillConfirmAppCmd
+// @Description: 应用服务层命令, 下单确认命令
+//
+type SaleBillConfirmAppCmd struct {
+	domain.SaleBillConfirmCommand
+}
+
+//
+// SaleBillDeleteAppCmd
+// @Description: 应用服务层命令, 删除销售订单
+//
+type SaleBillDeleteAppCmd struct {
+	domain.SaleBillDeleteCommand
 }

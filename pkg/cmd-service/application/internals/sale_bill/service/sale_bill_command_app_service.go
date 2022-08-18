@@ -91,10 +91,10 @@ func (s *SaleBillCommandAppService) SaleBillUpdate(ctx context.Context, appCmd *
 
 //
 // SaleItemCreate
-// @Description: 创建扫描文件
+// @Description: 添加明细
 // @receiver s
 // @param ctx 上下文
-// @param cmd 创建扫描文件命令DTO对象
+// @param cmd 添加明细命令DTO对象
 // @return error
 //
 func (s *SaleBillCommandAppService) SaleItemCreate(ctx context.Context, appCmd *appcmd.SaleItemCreateAppCmd) error {
@@ -103,10 +103,10 @@ func (s *SaleBillCommandAppService) SaleItemCreate(ctx context.Context, appCmd *
 
 //
 // SaleItemDelete
-// @Description: 删除扫描单
+// @Description: 删除销售明细项
 // @receiver s
 // @param ctx 上下文
-// @param cmd 删除扫描单命令DTO对象
+// @param cmd 删除销售明细项命令DTO对象
 // @return error
 //
 func (s *SaleBillCommandAppService) SaleItemDelete(ctx context.Context, appCmd *appcmd.SaleItemDeleteAppCmd) error {
@@ -115,10 +115,10 @@ func (s *SaleBillCommandAppService) SaleItemDelete(ctx context.Context, appCmd *
 
 //
 // SaleItemUpdate
-// @Description: 更新扫描文件
+// @Description: 更新明细
 // @receiver s
 // @param ctx 上下文
-// @param cmd 更新扫描文件命令DTO对象
+// @param cmd 更新明细命令DTO对象
 // @return error
 //
 func (s *SaleBillCommandAppService) SaleItemUpdate(ctx context.Context, appCmd *appcmd.SaleItemUpdateAppCmd) error {
@@ -152,6 +152,26 @@ func (s *SaleBillCommandAppService) FindAggregateById(ctx context.Context, tenan
 func (s *SaleBillCommandAppService) QueryById(ctx context.Context, tenantId string, id string) (*query_dto.SaleBillFindByIdResponse, bool, error) {
 	var resp query_dto.SaleBillFindByIdResponse
 	isFound, err := s.BaseQueryAppService.QueryById(ctx, tenantId, id, &resp)
+	if err != nil {
+		return nil, false, err
+	}
+	return &resp, isFound, nil
+}
+
+//
+// QueryByIds
+// @Description: 按ids获取<no value>投影类
+// @receiver s queryAppService
+// @param ctx 上下文
+// @param tenantId  租户id
+// @param ids 多个<no value>Id
+// @return data <no value> 信息
+// @return isFound 是否找到
+// @return err 错误信息
+//
+func (s *SaleBillCommandAppService) QueryByIds(ctx context.Context, tenantId string, ids []string) (*query_dto.SaleBillFindByIdsResponse, bool, error) {
+	var resp query_dto.SaleBillFindByIdsResponse
+	isFound, err := s.BaseQueryAppService.QueryByIds(ctx, tenantId, ids, &resp)
 	if err != nil {
 		return nil, false, err
 	}

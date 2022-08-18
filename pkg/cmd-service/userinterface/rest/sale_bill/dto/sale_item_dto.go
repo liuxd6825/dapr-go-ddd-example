@@ -1,10 +1,42 @@
 package dto
 
+import (
+	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/cmd-service/domain/sale_bill/field"
+)
+
+// SaleItemDeleteCommand
+
+//
+// SaleItemDeleteCommandRequest
+// @Description: 删除销售明细项
+//
+type SaleItemDeleteCommandRequest struct {
+	CommandId   string                           `json:"commandId"  validate:"required"` // 命令ID
+	IsValidOnly bool                             `json:"isValidOnly"  validate:"-"`      // 是否仅验证，不执行
+	Data        SaleItemDeleteCommandRequestData `json:"data"  validate:"required"`
+}
+
+//
+// SaleItemDeleteCommandRequestData
+// @Description: 删除销售明细项
+//
+type SaleItemDeleteCommandRequestData struct {
+	Items      field.SaleItemDeleteItem `json:"items,omitempty" validate:"-"`             //
+	SaleBillId string                   `json:"saleBillId,omitempty" validate:"required"` // 销售单Id
+	TenantId   string                   `json:"tenantId,omitempty" validate:"required"`   // 租户ID
+}
+
+//
+// SaleItemDeleteCommandResponse
+// @Description: 删除销售明细项
+type SaleItemDeleteCommandResponse struct {
+}
+
 // SaleItemCreateCommand
 
 //
 // SaleItemCreateCommandRequest
-// @Description: 创建扫描文件
+// @Description: 添加明细
 //
 type SaleItemCreateCommandRequest struct {
 	CommandId   string                           `json:"commandId"  validate:"required"` // 命令ID
@@ -14,22 +46,17 @@ type SaleItemCreateCommandRequest struct {
 
 //
 // SaleItemCreateCommandRequestData
-// @Description: 创建扫描文件
+// @Description: 添加明细
 //
 type SaleItemCreateCommandRequestData struct {
-	Id            string  `json:"id,omitempty" validate:"required"`          // 主键
-	InventoryId   string  `json:"inventoryId,omitempty" validate:"required"` // 存货Id
-	InventoryName string  `json:"inventoryName,omitempty" validate:"-"`      // 存货名称
-	Money         float64 `json:"money,omitempty" validate:"-"`              // 销售金额
-	Quantity      int64   `json:"quantity,omitempty" validate:"-"`           // 销售数量
-	Remarks       string  `json:"remarks,omitempty" validate:"-"`            // 备注
-	SaleBillId    string  `json:"saleBillId,omitempty" validate:"required"`  //
-	TenantId      string  `json:"tenantId,omitempty" validate:"required"`    // 租户ID
+	Items      field.SaleItemCreateItem `json:"items,omitempty" validate:"-"`             //
+	SaleBillId string                   `json:"saleBillId,omitempty" validate:"required"` //
+	TenantId   string                   `json:"tenantId,omitempty" validate:"required"`   // 租户ID
 }
 
 //
 // SaleItemCreateCommandResponse
-// @Description: 创建扫描文件
+// @Description: 添加明细
 type SaleItemCreateCommandResponse struct {
 }
 
@@ -37,7 +64,7 @@ type SaleItemCreateCommandResponse struct {
 
 //
 // SaleItemUpdateCommandRequest
-// @Description: 更新扫描文件
+// @Description: 更新明细
 //
 type SaleItemUpdateCommandRequest struct {
 	CommandId   string                           `json:"commandId"  validate:"required"` // 命令ID
@@ -48,52 +75,18 @@ type SaleItemUpdateCommandRequest struct {
 
 //
 // SaleItemUpdateCommandRequestData
-// @Description: 更新扫描文件
+// @Description: 更新明细
 //
 type SaleItemUpdateCommandRequestData struct {
-	Id            string  `json:"id,omitempty" validate:"required"`          // 主键
-	InventoryId   string  `json:"inventoryId,omitempty" validate:"required"` // 存货Id
-	InventoryName string  `json:"inventoryName,omitempty" validate:"-"`      // 存货名称
-	Money         float64 `json:"money,omitempty" validate:"-"`              // 销售金额
-	Quantity      int64   `json:"quantity,omitempty" validate:"-"`           // 销售数量
-	Remarks       string  `json:"remarks,omitempty" validate:"-"`            // 备注
-	SaleBillId    string  `json:"saleBillId,omitempty" validate:"required"`  //
-	TenantId      string  `json:"tenantId,omitempty" validate:"required"`    // 租户ID
+	Items      field.SaleItemUpdateItem `json:"items,omitempty" validate:"-"`             //
+	SaleBillId string                   `json:"saleBillId,omitempty" validate:"required"` //
+	TenantId   string                   `json:"tenantId,omitempty" validate:"required"`   // 租户ID
 }
 
 //
 // SaleItemUpdateCommandResponse
-// @Description: 更新扫描文件
+// @Description: 更新明细
 type SaleItemUpdateCommandResponse struct {
-}
-
-// SaleItemDeleteCommand
-
-//
-// SaleItemDeleteCommandRequest
-// @Description: 删除扫描单
-//
-type SaleItemDeleteCommandRequest struct {
-	CommandId   string                           `json:"commandId"  validate:"required"` // 命令ID
-	IsValidOnly bool                             `json:"isValidOnly"  validate:"-"`      // 是否仅验证，不执行
-	Data        SaleItemDeleteCommandRequestData `json:"data"  validate:"required"`
-}
-
-//
-// SaleItemDeleteCommandRequestData
-// @Description: 删除扫描单
-//
-type SaleItemDeleteCommandRequestData struct {
-	Id         string `json:"id,omitempty" validate:"required"`         // 销售明细Id
-	Remarks    string `json:"remarks,omitempty" validate:"-"`           // 备注
-	SaleBillId string `json:"saleBillId,omitempty" validate:"required"` // 销售单Id
-	TenantId   string `json:"tenantId,omitempty" validate:"required"`   // 租户ID
-}
-
-//
-// SaleItemDeleteCommandResponse
-// @Description: 删除扫描单
-type SaleItemDeleteCommandResponse struct {
 }
 
 //
@@ -105,7 +98,7 @@ type SaleItemDto struct {
 	InventoryId   string  `json:"inventoryId,omitempty" validate:"required"` // 存货Id
 	InventoryName string  `json:"inventoryName,omitempty" validate:"-"`      // 存货名称
 	Money         float64 `json:"money,omitempty" validate:"-"`              // 文件大小
-	Quantity      int64   `json:"quantity,omitempty" validate:"-"`           // 文档id
+	Quantity      int64   `json:"quantity,omitempty" validate:"-"`           // 数量
 	Remarks       string  `json:"remarks,omitempty" validate:"-"`            // 备注
 	SaleBillId    string  `json:"saleBillId,omitempty" validate:"gt=0"`      //
 	TenantId      string  `json:"tenantId,omitempty" validate:"required"`    // 租户ID

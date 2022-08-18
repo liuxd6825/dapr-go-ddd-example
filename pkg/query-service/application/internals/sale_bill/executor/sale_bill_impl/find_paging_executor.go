@@ -34,7 +34,7 @@ func (e *saleBillFindPagingExecutor) Execute(ctx context.Context, aq *appquery.S
 	if err != nil {
 		return nil, false, err
 	}
-	res := assembler.AssSaleBillFindPagingResult(fpr)
+	res := assembler.SaleBill.AssFindPagingResult(fpr)
 	return res, ok, nil
 }
 

@@ -20,10 +20,23 @@ func (s *BaseQueryAppService) Init(queryAppId, resourceName, apiVersion string) 
 }
 
 func (s *BaseQueryAppService) QueryById(ctx context.Context, tenantId, id string, resData interface{}) (isFound bool, err error) {
-	return s.QueryData(ctx, tenantId, "/"+id, resData)
+	return s.QueryData(ctx, tenantId, "/"+id, nil, resData)
 }
 
-func (s *BaseQueryAppService) QueryData(ctx context.Context, tenantId, methodName string, resData interface{}) (isFound bool, err error) {
+func (s *BaseQueryAppService) QueryByIds(ctx context.Context, tenantId string, ids []string, resData interface{}) (isFound bool, err error) {
+	idParams := ""
+	count := len(ids)
+	for i, id := range ids {
+		idParams = idParams + fmt.Sprintf("id=%v", id)
+		if i < count-2 {
+			idParams += "&"
+		}
+	}
+	methodName := fmt.Sprintf(":getById?%v", idParams)
+	return s.QueryData(ctx, tenantId, methodName, nil, resData)
+}
+
+func (s *BaseQueryAppService) QueryData(ctx context.Context, tenantId, methodName string, req interface{}, resData interface{}) (isFound bool, err error) {
 	defer func() {
 		if e := errors.GetRecoverError(recover()); e != nil {
 			err = e

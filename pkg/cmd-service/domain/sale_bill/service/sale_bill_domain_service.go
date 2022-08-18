@@ -106,10 +106,10 @@ func (s *SaleBillCommandDomainService) SaleBillUpdate(ctx context.Context, cmd *
 
 //
 // SaleItemCreate
-// @Description: 创建扫描文件
+// @Description: 添加明细
 // @receiver s
 // @param ctx 上下文
-// @param cmd 创建扫描文件
+// @param cmd 添加明细
 // @return *model.SaleBillCommandDomainService
 // @return error
 //
@@ -121,10 +121,10 @@ func (s *SaleBillCommandDomainService) SaleItemCreate(ctx context.Context, cmd *
 
 //
 // SaleItemDelete
-// @Description: 删除扫描单
+// @Description: 删除销售明细项
 // @receiver s
 // @param ctx 上下文
-// @param cmd 删除扫描单
+// @param cmd 删除销售明细项
 // @return *model.SaleBillCommandDomainService
 // @return error
 //
@@ -136,10 +136,10 @@ func (s *SaleBillCommandDomainService) SaleItemDelete(ctx context.Context, cmd *
 
 //
 // SaleItemUpdate
-// @Description: 更新扫描文件
+// @Description: 更新明细
 // @receiver s
 // @param ctx 上下文
-// @param cmd 更新扫描文件
+// @param cmd 更新明细
 // @return *model.SaleBillCommandDomainService
 // @return error
 //

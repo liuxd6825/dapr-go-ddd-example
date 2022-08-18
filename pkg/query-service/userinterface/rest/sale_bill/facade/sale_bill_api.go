@@ -24,6 +24,7 @@ func NewSaleBillQueryApi() *SaleBillQueryApi {
 func (a *SaleBillQueryApi) BeforeActivation(b mvc.BeforeActivation) {
 	restapp.Handle(b, "GET", "/tenants/{tenantId}/sale-bills/{id}", "FindById")
 	restapp.Handle(b, "GET", "/tenants/{tenantId}/sale-bills:all", "FindAll")
+	restapp.Handle(b, "GET", "/tenants/{tenantId}/sale-bills:ids", "FindByIds")
 	restapp.Handle(b, "GET", "/tenants/{tenantId}/sale-bills", "FindPaging")
 }
 
@@ -34,7 +35,7 @@ func (a *SaleBillQueryApi) BeforeActivation(b mvc.BeforeActivation) {
 // @Accept       json
 // @Produce      json
 // @Param        tenantId   path       int           true  "Tenant ID"
-// @Param        id         path       int           true  "User ID"
+// @Param        id         path       int           true  "SaleBill ID"
 // @Success      200        {object}   dto.SaleBillFindByIdResponse
 // @Failure      404        {object}   string        "按ID找到数据"
 // @Failure      500        {object}   string        "应用错误"
@@ -50,14 +51,36 @@ func (a *SaleBillQueryApi) FindById(ictx iris.Context) {
 	})
 }
 
+// FindByIds godoc
+// @Summary      按多个ID获取<no value>
+// @Description  get string by ID
+// @Tags         sale-bills
+// @Accept       json
+// @Produce      json
+// @Param        tenantId  path      string     true    "Tenant ID"
+// @Param        id        path      string     true    "SaleBill ID"
+// @Success      200       {object}  dto.SaleBillFindByIdsResponse
+// @Failure      500       {object}  string          "应用错误"
+// @Router       /tenants/{tenantId}/sale-bills:ids [get]
+func (a *SaleBillQueryApi) FindByIds(ictx iris.Context, tenantId string) {
+	_, _, _ = restapp.DoQuery(ictx, func(ctx context.Context) (interface{}, bool, error) {
+		req, err := SaleBillAssembler.AssFindByIdsRequest(ictx)
+		if err != nil {
+			return nil, false, err
+		}
+		fpr, b, e := a.queryService.FindByIds(ctx, req.TenantId, req.Ids)
+		return SaleBillAssembler.AssFindByIdsResponse(ictx, fpr, b, e)
+	})
+}
+
 // FindAll godoc
-// @Summary      获取所有用户
+// @Summary      获取所有<no value>
 // @Description  get string by ID
 // @Tags         sale-bills
 // @Accept       json
 // @Produce      json
 // @Param        tenantId  path      int     true    "Tenant ID"
-// @Success      200       {object}  dto.UserFindAllResponse
+// @Success      200       {object}  dto.SaleBillFindAllResponse
 // @Failure      500       {object}  string          "应用错误"
 // @Router       /tenants/{tenantId}/sale-bills:all [get]
 func (a *SaleBillQueryApi) FindAll(ictx iris.Context, tenantId string) {
@@ -72,8 +95,8 @@ func (a *SaleBillQueryApi) FindAll(ictx iris.Context, tenantId string) {
 }
 
 // FindPaging godoc
-// @Summary      分页查询
-// @Description  分页查询
+// @Summary      分页查询<no value>
+// @Description  分页查询<no value>
 // @Tags         sale-bills
 // @Accept       json
 // @Produce      json

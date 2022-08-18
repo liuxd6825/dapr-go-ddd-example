@@ -1,8 +1,6 @@
 package dto
 
-import (
-	base "gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/infrastructure/base/userinterface/rest/dto"
-)
+import base "gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/infrastructure/base/userinterface/rest/dto"
 
 // 按ID查询
 
@@ -16,6 +14,30 @@ type UserFindByIdResponse struct {
 
 func NewUserFindByIdResponse() *UserFindByIdResponse {
 	return &UserFindByIdResponse{}
+}
+
+// 按多个ID查询
+
+//
+// UserFindByIdsResponse
+// @Description: 用户  查询所有响应体
+//
+type UserFindByIdsResponse []*UserFindByIdsResponse
+
+func NewUserFindByIdsResponse() *UserFindByIdsResponse {
+	return &UserFindByIdsResponse{}
+}
+
+//
+// UserFindByIdsResponseItem
+// @Description: 用户  请求业务数据
+//
+type UserFindByIdsResponseItem struct {
+	UserDto
+}
+
+func NewUserFindByIdsResponseItem() *UserFindByIdsResponseItem {
+	return &UserFindByIdsResponseItem{}
 }
 
 // 分页查询

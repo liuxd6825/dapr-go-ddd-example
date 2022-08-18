@@ -9,12 +9,12 @@ import (
 type BaseAssembler struct {
 }
 
-func (a *BaseAssembler) AssFindByIdRequest(ctx iris.Context) (*dto.FindByIdRequest, error) {
-	tenantId, err := a.GetTenantId(ctx)
+func (a *BaseAssembler) AssFindByIdRequest(ictx iris.Context) (*dto.FindByIdRequest, error) {
+	tenantId, err := a.GetTenantId(ictx)
 	if err != nil {
 		return nil, err
 	}
-	id, err := a.GetId(ctx)
+	id, err := a.GetId(ictx)
 	if err != nil {
 		return nil, err
 	}
@@ -24,8 +24,23 @@ func (a *BaseAssembler) AssFindByIdRequest(ctx iris.Context) (*dto.FindByIdReque
 	}, nil
 }
 
-func (a *BaseAssembler) AssFindAllRequest(ctx iris.Context) (*dto.FindAllRequest, error) {
-	tenantId, err := a.GetTenantId(ctx)
+func (a *BaseAssembler) AssFindByIdsRequest(ictx iris.Context) (*dto.FindByIdsRequest, error) {
+	tenantId, err := a.GetTenantId(ictx)
+	if err != nil {
+		return nil, err
+	}
+	ids, err := a.GetIds(ictx)
+	if err != nil {
+		return nil, err
+	}
+	return &dto.FindByIdsRequest{
+		TenantId: tenantId,
+		Ids:      ids,
+	}, nil
+}
+
+func (a *BaseAssembler) AssFindAllRequest(ictx iris.Context) (*dto.FindAllRequest, error) {
+	tenantId, err := a.GetTenantId(ictx)
 	if err != nil {
 		return nil, err
 	}
@@ -34,16 +49,16 @@ func (a *BaseAssembler) AssFindAllRequest(ctx iris.Context) (*dto.FindAllRequest
 	}, nil
 }
 
-func (a *BaseAssembler) AssFindPagingRequest(ctx iris.Context) (*dto.FindPagingRequest, error) {
-	tenantId, err := a.GetTenantId(ctx)
+func (a *BaseAssembler) AssFindPagingRequest(ictx iris.Context) (*dto.FindPagingRequest, error) {
+	tenantId, err := a.GetTenantId(ictx)
 	if err != nil {
 		return nil, err
 	}
-	pageNum := ctx.URLParamInt64Default("page-num", 0)
-	pageSize := ctx.URLParamInt64Default("page-size", 20)
-	filter := ctx.URLParamDefault("filter", "")
-	sort := ctx.URLParamDefault("sort", "")
-	fields := ctx.URLParamDefault("fields", "")
+	pageNum := ictx.URLParamInt64Default("page-num", 0)
+	pageSize := ictx.URLParamInt64Default("page-size", 20)
+	filter := ictx.URLParamDefault("filter", "")
+	sort := ictx.URLParamDefault("sort", "")
+	fields := ictx.URLParamDefault("fields", "")
 	return &dto.FindPagingRequest{
 		TenantId: tenantId,
 		PageNum:  pageNum,
@@ -54,16 +69,21 @@ func (a *BaseAssembler) AssFindPagingRequest(ctx iris.Context) (*dto.FindPagingR
 	}, nil
 }
 
-func (a *BaseAssembler) GetTenantId(ctx iris.Context) (string, error) {
-	return a.GetIdParam(ctx, "tenantId")
+func (a *BaseAssembler) GetTenantId(ictx iris.Context) (string, error) {
+	return a.GetIdParam(ictx, "tenantId")
 }
 
-func (a *BaseAssembler) GetId(ctx iris.Context) (string, error) {
-	return a.GetIdParam(ctx, "id")
+func (a *BaseAssembler) GetId(ictx iris.Context) (string, error) {
+	return a.GetIdParam(ictx, "id")
 }
 
-func (a *BaseAssembler) GetIdParam(ctx iris.Context, name string) (string, error) {
-	id := ctx.Params().GetStringDefault(name, "")
+func (a *BaseAssembler) GetIds(ictx iris.Context) ([]string, error) {
+	ids := ictx.URLParamSlice("id")
+	return ids, nil
+}
+
+func (a *BaseAssembler) GetIdParam(ictx iris.Context, name string) (string, error) {
+	id := ictx.Params().GetStringDefault(name, "")
 	if id == "" {
 		return "", errors.New(name + " is not empty")
 	}

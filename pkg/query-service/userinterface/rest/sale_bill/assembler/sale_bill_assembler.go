@@ -54,6 +54,18 @@ func (a *SaleBillAssembler) AssFindPagingResponse(ictx iris.Context, fpr *appque
 	return res, isFound, nil
 }
 
+func (a *SaleBillAssembler) AssFindByIdsResponse(ictx iris.Context, vList []*view.SaleBillView, isFound bool, findErr error) (*dto.SaleBillFindByIdsResponse, bool, error) {
+	if findErr != nil {
+		return nil, isFound, findErr
+	}
+	res := dto.NewSaleBillFindByIdsResponse()
+	err := utils.Mapper(vList, res)
+	if err != nil {
+		return nil, false, err
+	}
+	return res, true, nil
+}
+
 func (a *SaleBillAssembler) AssFindAllResponse(ictx iris.Context, vList []*view.SaleBillView, isFound bool, findErr error) (*dto.SaleBillFindAllResponse, bool, error) {
 	if findErr != nil {
 		return nil, isFound, findErr

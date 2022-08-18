@@ -166,7 +166,7 @@ func (a *UserQueryAppService) DeleteAll(ctx context.Context, tenantId string) er
 // @return error
 //
 func (a *UserQueryAppService) FindById(ctx context.Context, tenantId string, id string) (*view.UserView, bool, error) {
-	qry := assembler.AssUserFindByIdQuery(tenantId, id)
+	qry := assembler.User.AssFindByIdAppQuery(tenantId, id)
 	return a.userFindByIdExecutor.Execute(ctx, qry)
 }
 
@@ -181,7 +181,7 @@ func (a *UserQueryAppService) FindById(ctx context.Context, tenantId string, id 
 // @return error
 //
 func (a *UserQueryAppService) FindByIds(ctx context.Context, tenantId string, ids []string) ([]*view.UserView, bool, error) {
-	qry := assembler.AssUserFindByIdsQuery(tenantId, ids)
+	qry := assembler.User.AssFindByIdsAppQuery(tenantId, ids)
 	return a.userFindByIdsExecutor.Execute(ctx, qry)
 }
 
@@ -196,7 +196,7 @@ func (a *UserQueryAppService) FindByIds(ctx context.Context, tenantId string, id
 // @return error 错误
 //
 func (a *UserQueryAppService) FindAll(ctx context.Context, tenantId string) ([]*view.UserView, bool, error) {
-	qry := assembler.AssUserFindAllQuery(tenantId)
+	qry := assembler.User.AssFindAllAppQuery(tenantId)
 	return a.userFindAllExecutor.Execute(ctx, qry)
 }
 

@@ -7,13 +7,13 @@ import (
 type SaleBillEventType uint32
 
 const (
-	SaleBillUpdateEventType SaleBillEventType = iota
+	SaleItemUpdateEventType SaleBillEventType = iota
+	SaleBillCreateEventType
+	SaleBillUpdateEventType
 	SaleBillConfirmEventType
 	SaleBillDeleteEventType
-	SaleItemCreateEventType
-	SaleItemUpdateEventType
 	SaleItemDeleteEventType
-	SaleBillCreateEventType
+	SaleItemCreateEventType
 )
 
 //
@@ -22,20 +22,20 @@ const (
 //
 func (p SaleBillEventType) String() string {
 	switch p {
+	case SaleItemUpdateEventType:
+		return "dapr-ddd-demo.SaleItemUpdateEvent"
+	case SaleBillCreateEventType:
+		return "dapr-ddd-demo.SaleBillCreateEvent"
 	case SaleBillUpdateEventType:
 		return "dapr-ddd-demo.SaleBillUpdateEvent"
 	case SaleBillConfirmEventType:
 		return "dapr-ddd-demo.SaleBillConfirmEvent"
 	case SaleBillDeleteEventType:
 		return "dapr-ddd-demo.SaleBillDeleteEvent"
-	case SaleItemCreateEventType:
-		return "dapr-ddd-demo.SaleItemCreateEvent"
-	case SaleItemUpdateEventType:
-		return "dapr-ddd-demo.SaleItemUpdateEvent"
 	case SaleItemDeleteEventType:
 		return "dapr-ddd-demo.SaleItemDeleteEvent"
-	case SaleBillCreateEventType:
-		return "dapr-ddd-demo.SaleBillCreateEvent"
+	case SaleItemCreateEventType:
+		return "dapr-ddd-demo.SaleItemCreateEvent"
 	default:
 		return "UNKNOWN"
 	}
@@ -50,37 +50,37 @@ func GetRegisterEventTypes() []restapp.RegisterEventType {
 	return []restapp.RegisterEventType{
 		{
 			EventType: SaleBillConfirmEventType.String(),
-			Version:   (&SaleBillConfirmEvent{}).GetEventVersion(),
+			Version:   NewSaleBillConfirmEvent("").GetEventVersion(),
 			NewFunc:   func() interface{} { return &SaleBillConfirmEvent{} },
 		},
 		{
 			EventType: SaleBillCreateEventType.String(),
-			Version:   (&SaleBillCreateEvent{}).GetEventVersion(),
+			Version:   NewSaleBillCreateEvent("").GetEventVersion(),
 			NewFunc:   func() interface{} { return &SaleBillCreateEvent{} },
 		},
 		{
 			EventType: SaleBillDeleteEventType.String(),
-			Version:   (&SaleBillDeleteEvent{}).GetEventVersion(),
+			Version:   NewSaleBillDeleteEvent("").GetEventVersion(),
 			NewFunc:   func() interface{} { return &SaleBillDeleteEvent{} },
 		},
 		{
 			EventType: SaleBillUpdateEventType.String(),
-			Version:   (&SaleBillUpdateEvent{}).GetEventVersion(),
+			Version:   NewSaleBillUpdateEvent("").GetEventVersion(),
 			NewFunc:   func() interface{} { return &SaleBillUpdateEvent{} },
 		},
 		{
 			EventType: SaleItemCreateEventType.String(),
-			Version:   (&SaleItemCreateEvent{}).GetEventVersion(),
+			Version:   NewSaleItemCreateEvent("").GetEventVersion(),
 			NewFunc:   func() interface{} { return &SaleItemCreateEvent{} },
 		},
 		{
 			EventType: SaleItemDeleteEventType.String(),
-			Version:   (&SaleItemDeleteEvent{}).GetEventVersion(),
+			Version:   NewSaleItemDeleteEvent("").GetEventVersion(),
 			NewFunc:   func() interface{} { return &SaleItemDeleteEvent{} },
 		},
 		{
 			EventType: SaleItemUpdateEventType.String(),
-			Version:   (&SaleItemUpdateEvent{}).GetEventVersion(),
+			Version:   NewSaleItemUpdateEvent("").GetEventVersion(),
 			NewFunc:   func() interface{} { return &SaleItemUpdateEvent{} },
 		},
 	}

@@ -8,22 +8,6 @@ import (
 )
 
 //
-// AssUserCreateCommand
-// @Description:  UserCreateAppCmd 创建用户转换器
-// @param ctx
-// @param cmdDto
-// @return *command.UserCreateCommand
-// @return error
-//
-func AssUserCreateCommand(ctx context.Context, appCmd *appcmd.UserCreateAppCmd) (*command.UserCreateCommand, error) {
-	if appCmd == nil {
-		return nil, errors.New("AssUserCreateCommand() appCmd is nil")
-	}
-	cmd := (*appCmd).UserCreateCommand
-	return &cmd, nil
-}
-
-//
 // AssUserUpdateCommand
 // @Description:  UserUpdateAppCmd 更新用户转换器
 // @param ctx
@@ -52,5 +36,21 @@ func AssUserDeleteCommand(ctx context.Context, appCmd *appcmd.UserDeleteAppCmd) 
 		return nil, errors.New("AssUserDeleteCommand() appCmd is nil")
 	}
 	cmd := (*appCmd).UserDeleteCommand
+	return &cmd, nil
+}
+
+//
+// AssUserCreateCommand
+// @Description:  UserCreateAppCmd 创建用户转换器
+// @param ctx
+// @param cmdDto
+// @return *command.UserCreateCommand
+// @return error
+//
+func AssUserCreateCommand(ctx context.Context, appCmd *appcmd.UserCreateAppCmd) (*command.UserCreateCommand, error) {
+	if appCmd == nil {
+		return nil, errors.New("AssUserCreateCommand() appCmd is nil")
+	}
+	cmd := (*appCmd).UserCreateCommand
 	return &cmd, nil
 }

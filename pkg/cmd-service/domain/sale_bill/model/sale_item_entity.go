@@ -9,7 +9,7 @@ type SaleItem struct {
 	InventoryId   string  `json:"inventoryId"  validate:"required"` // 存货Id
 	InventoryName string  `json:"inventoryName"  validate:"-"`      // 存货名称
 	Money         float64 `json:"money"  validate:"-"`              // 文件大小
-	Quantity      int64   `json:"quantity"  validate:"-"`           // 文档id
+	Quantity      int64   `json:"quantity"  validate:"-"`           // 数量
 	Remarks       string  `json:"remarks"  validate:"-"`            // 备注
 	SaleBillId    string  `json:"saleBillId"  validate:"gt=0"`
 	TenantId      string  `json:"tenantId"  validate:"required"` // 租户ID
@@ -23,6 +23,10 @@ func NewSaleItem() *SaleItem {
 	return &SaleItem{}
 }
 
+//
+// GetId
+// @Description: 取ID值
+//
 func (e *SaleItem) GetId() string {
 	return e.Id
 }

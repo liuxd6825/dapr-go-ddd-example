@@ -5,31 +5,36 @@ import (
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/domain/sale_bill/query"
 )
 
-func AssSaleItemFindByIdQuery(tenantId, id string) *appquery.SaleItemFindByIdAppQuery {
+type saleItemAssembler struct {
+}
+
+var SaleItem = saleItemAssembler{}
+
+func (a saleItemAssembler) AssFindByIdAppQuery(tenantId, id string) *appquery.SaleItemFindByIdAppQuery {
 	res := appquery.NewSaleItemFindByIdAppQuery()
 	res.TenantId = tenantId
 	res.Id = id
 	return res
 }
 
-func AssSaleItemFindByIdsQuery(tenantId string, ids []string) *appquery.SaleItemFindByIdsAppQuery {
+func (a saleItemAssembler) AssFindByIdsAppQuery(tenantId string, ids []string) *appquery.SaleItemFindByIdsAppQuery {
 	res := appquery.NewSaleItemFindByIdsAppQuery()
 	res.TenantId = tenantId
 	res.Ids = ids
 	return res
 }
-func AssSaleItemFindBySaleBillIdQuery(tenantId string, saleBillId string) *appquery.SaleItemFindBySaleBillIdAppQuery {
+func (a saleItemAssembler) AssFindBySaleBillIdAppQuery(tenantId string, saleBillId string) *appquery.SaleItemFindBySaleBillIdAppQuery {
 	res := appquery.NewSaleItemFindBySaleBillIdAppQuery()
 	res.TenantId = tenantId
 	res.SaleBillId = saleBillId
 	return res
 }
 
-func AssSaleItemFindAllQuery(tenantId string) *appquery.SaleItemFindAllAppQuery {
+func (a saleItemAssembler) AssFindAllAppQuery(tenantId string) *appquery.SaleItemFindAllAppQuery {
 	return &appquery.SaleItemFindAllAppQuery{TenantId: tenantId}
 }
 
-func AssSaleItemFindPagingResult(fpr *query.SaleItemFindPagingResult) *appquery.SaleItemFindPagingResult {
+func (a saleItemAssembler) AssFindPagingResult(fpr *query.SaleItemFindPagingResult) *appquery.SaleItemFindPagingResult {
 	res := &appquery.SaleItemFindPagingResult{}
 	res.Sort = fpr.Sort
 	res.PageNum = fpr.PageNum

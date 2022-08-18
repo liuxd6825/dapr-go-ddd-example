@@ -5,25 +5,30 @@ import (
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/domain/user/query"
 )
 
-func AssUserFindByIdQuery(tenantId, id string) *appquery.UserFindByIdAppQuery {
+type userAssembler struct {
+}
+
+var User = userAssembler{}
+
+func (a userAssembler) AssFindByIdAppQuery(tenantId, id string) *appquery.UserFindByIdAppQuery {
 	res := appquery.NewUserFindByIdAppQuery()
 	res.TenantId = tenantId
 	res.Id = id
 	return res
 }
 
-func AssUserFindByIdsQuery(tenantId string, ids []string) *appquery.UserFindByIdsAppQuery {
+func (a userAssembler) AssFindByIdsAppQuery(tenantId string, ids []string) *appquery.UserFindByIdsAppQuery {
 	res := appquery.NewUserFindByIdsAppQuery()
 	res.TenantId = tenantId
 	res.Ids = ids
 	return res
 }
 
-func AssUserFindAllQuery(tenantId string) *appquery.UserFindAllAppQuery {
+func (a userAssembler) AssFindAllAppQuery(tenantId string) *appquery.UserFindAllAppQuery {
 	return &appquery.UserFindAllAppQuery{TenantId: tenantId}
 }
 
-func AssUserFindPagingResult(fpr *query.UserFindPagingResult) *appquery.UserFindPagingResult {
+func (a userAssembler) AssFindPagingResult(fpr *query.UserFindPagingResult) *appquery.UserFindPagingResult {
 	res := &appquery.UserFindPagingResult{}
 	res.Sort = fpr.Sort
 	res.PageNum = fpr.PageNum

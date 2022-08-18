@@ -116,7 +116,7 @@ type SaleItemDto struct {
 	InventoryId   string  `json:"inventoryId,omitempty" validate:"required"` // 存货Id
 	InventoryName string  `json:"inventoryName,omitempty" validate:"-"`      // 存货名称
 	Money         float64 `json:"money,omitempty" validate:"-"`              // 文件大小
-	Quantity      int64   `json:"quantity,omitempty" validate:"-"`           // 文档id
+	Quantity      int64   `json:"quantity,omitempty" validate:"-"`           // 数量
 	SaleBillId    string  `json:"saleBillId,omitempty" validate:"gt=0"`      //
 }
 

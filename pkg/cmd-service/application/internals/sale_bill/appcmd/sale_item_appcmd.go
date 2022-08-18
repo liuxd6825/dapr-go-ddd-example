@@ -5,16 +5,8 @@ import (
 )
 
 //
-// SaleItemCreateAppCmd
-// @Description: 应用服务层命令, 创建扫描文件
-//
-type SaleItemCreateAppCmd struct {
-	domain.SaleItemCreateCommand
-}
-
-//
 // SaleItemUpdateAppCmd
-// @Description: 应用服务层命令, 更新扫描文件
+// @Description: 应用服务层命令, 更新明细
 //
 type SaleItemUpdateAppCmd struct {
 	domain.SaleItemUpdateCommand
@@ -22,8 +14,16 @@ type SaleItemUpdateAppCmd struct {
 
 //
 // SaleItemDeleteAppCmd
-// @Description: 应用服务层命令, 删除扫描单
+// @Description: 应用服务层命令, 删除销售明细项
 //
 type SaleItemDeleteAppCmd struct {
 	domain.SaleItemDeleteCommand
+}
+
+//
+// SaleItemCreateAppCmd
+// @Description: 应用服务层命令, 添加明细
+//
+type SaleItemCreateAppCmd struct {
+	domain.SaleItemCreateCommand
 }

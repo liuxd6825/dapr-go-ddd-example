@@ -1,35 +1,5 @@
 package dto
 
-// UserCreateCommand
-
-//
-// UserCreateCommandRequest
-// @Description: 创建用户
-//
-type UserCreateCommandRequest struct {
-	CommandId   string                       `json:"commandId"  validate:"required"` // 命令ID
-	IsValidOnly bool                         `json:"isValidOnly"  validate:"-"`      // 是否仅验证，不执行
-	Data        UserCreateCommandRequestData `json:"data"  validate:"required"`
-}
-
-//
-// UserCreateCommandRequestData
-// @Description: 创建用户
-//
-type UserCreateCommandRequestData struct {
-	Email    string `json:"email,omitempty" validate:"-"`           // 电子邮箱
-	Id       string `json:"id,omitempty" validate:"required"`       // 用户Id
-	Name     string `json:"name,omitempty" validate:"-"`            // 用户名称
-	Remarks  string `json:"remarks,omitempty" validate:"-"`         // 备注
-	TenantId string `json:"tenantId,omitempty" validate:"required"` // 租户ID
-}
-
-//
-// UserCreateCommandResponse
-// @Description: 创建用户
-type UserCreateCommandResponse struct {
-}
-
 // UserUpdateCommand
 
 //
@@ -87,6 +57,36 @@ type UserDeleteCommandRequestData struct {
 // UserDeleteCommandResponse
 // @Description: 删除用户
 type UserDeleteCommandResponse struct {
+}
+
+// UserCreateCommand
+
+//
+// UserCreateCommandRequest
+// @Description: 创建用户
+//
+type UserCreateCommandRequest struct {
+	CommandId   string                       `json:"commandId"  validate:"required"` // 命令ID
+	IsValidOnly bool                         `json:"isValidOnly"  validate:"-"`      // 是否仅验证，不执行
+	Data        UserCreateCommandRequestData `json:"data"  validate:"required"`
+}
+
+//
+// UserCreateCommandRequestData
+// @Description: 创建用户
+//
+type UserCreateCommandRequestData struct {
+	Email    string `json:"email,omitempty" validate:"-"`           // 电子邮箱
+	Id       string `json:"id,omitempty" validate:"required"`       // 用户Id
+	Name     string `json:"name,omitempty" validate:"-"`            // 用户名称
+	Remarks  string `json:"remarks,omitempty" validate:"-"`         // 备注
+	TenantId string `json:"tenantId,omitempty" validate:"required"` // 租户ID
+}
+
+//
+// UserCreateCommandResponse
+// @Description: 创建用户
+type UserCreateCommandResponse struct {
 }
 
 //

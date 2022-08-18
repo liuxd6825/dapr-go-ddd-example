@@ -166,7 +166,7 @@ func (a *SaleBillQueryAppService) DeleteAll(ctx context.Context, tenantId string
 // @return error
 //
 func (a *SaleBillQueryAppService) FindById(ctx context.Context, tenantId string, id string) (*view.SaleBillView, bool, error) {
-	qry := assembler.AssSaleBillFindByIdQuery(tenantId, id)
+	qry := assembler.SaleBill.AssFindByIdAppQuery(tenantId, id)
 	return a.saleBillFindByIdExecutor.Execute(ctx, qry)
 }
 
@@ -181,7 +181,7 @@ func (a *SaleBillQueryAppService) FindById(ctx context.Context, tenantId string,
 // @return error
 //
 func (a *SaleBillQueryAppService) FindByIds(ctx context.Context, tenantId string, ids []string) ([]*view.SaleBillView, bool, error) {
-	qry := assembler.AssSaleBillFindByIdsQuery(tenantId, ids)
+	qry := assembler.SaleBill.AssFindByIdsAppQuery(tenantId, ids)
 	return a.saleBillFindByIdsExecutor.Execute(ctx, qry)
 }
 
@@ -196,7 +196,7 @@ func (a *SaleBillQueryAppService) FindByIds(ctx context.Context, tenantId string
 // @return error 错误
 //
 func (a *SaleBillQueryAppService) FindAll(ctx context.Context, tenantId string) ([]*view.SaleBillView, bool, error) {
-	qry := assembler.AssSaleBillFindAllQuery(tenantId)
+	qry := assembler.SaleBill.AssFindAllAppQuery(tenantId)
 	return a.saleBillFindAllExecutor.Execute(ctx, qry)
 }
 

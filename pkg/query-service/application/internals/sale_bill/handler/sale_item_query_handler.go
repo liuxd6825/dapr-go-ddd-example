@@ -17,9 +17,9 @@ type SaleItemQueryHandler struct {
 
 func NewSaleItemSubscribe() restapp.RegisterSubscribe {
 	subscribes := &[]ddd.Subscribe{
+		{PubsubName: "pubsub", Topic: event.SaleItemDeleteEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_item_delete_event/ver:v1.0"},
 		{PubsubName: "pubsub", Topic: event.SaleItemCreateEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_item_create_event/ver:v1.0"},
 		{PubsubName: "pubsub", Topic: event.SaleItemUpdateEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_item_update_event/ver:v1.0"},
-		{PubsubName: "pubsub", Topic: event.SaleItemDeleteEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_item_delete_event/ver:v1.0"},
 	}
 	return restapp.NewRegisterSubscribe(subscribes, NewSaleItemQueryHandler())
 }
@@ -28,6 +28,24 @@ func NewSaleItemQueryHandler() ddd.QueryEventHandler {
 	return &SaleItemQueryHandler{
 		service: service.GetSaleItemQueryAppService(),
 	}
+}
+
+//
+// OnSaleItemDeleteEvent
+// @Description: SaleItemDeleteEvent事件处理器
+// @receiver h
+// @param ctx 上下文
+// @param event SaleItemDeleteEvent 领域事件
+// @return error 错误
+//
+func (h *SaleItemQueryHandler) OnSaleItemDeleteEvent(ctx context.Context, event *event.SaleItemDeleteEvent) error {
+	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
+		v, err := factory.SaleItemView.NewBySaleItemDeleteEvent(ctx, event)
+		if err != nil {
+			return err
+		}
+		return h.service.DeleteMany(ctx, event.GetTenantId(), v)
+	})
 }
 
 //
@@ -44,7 +62,7 @@ func (h *SaleItemQueryHandler) OnSaleItemCreateEvent(ctx context.Context, event 
 		if err != nil {
 			return err
 		}
-		return h.service.Create(ctx, v)
+		return h.service.CreateMany(ctx, v)
 	})
 }
 
@@ -62,21 +80,7 @@ func (h *SaleItemQueryHandler) OnSaleItemUpdateEvent(ctx context.Context, event 
 		if err != nil {
 			return err
 		}
-		return h.service.Update(ctx, v)
-	})
-}
-
-//
-// OnSaleItemDeleteEvent
-// @Description: SaleItemDeleteEvent事件处理器
-// @receiver h
-// @param ctx 上下文
-// @param event SaleItemDeleteEvent 领域事件
-// @return error 错误
-//
-func (h *SaleItemQueryHandler) OnSaleItemDeleteEvent(ctx context.Context, event *event.SaleItemDeleteEvent) error {
-	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
-		return h.service.DeleteById(ctx, event.GetTenantId(), event.Data.Id)
+		return h.service.UpdateMany(ctx, v)
 	})
 }
 

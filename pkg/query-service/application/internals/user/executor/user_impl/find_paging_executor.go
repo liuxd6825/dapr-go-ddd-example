@@ -34,7 +34,7 @@ func (e *userFindPagingExecutor) Execute(ctx context.Context, aq *appquery.UserF
 	if err != nil {
 		return nil, false, err
 	}
-	res := assembler.AssUserFindPagingResult(fpr)
+	res := assembler.User.AssFindPagingResult(fpr)
 	return res, ok, nil
 }
 

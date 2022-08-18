@@ -3,7 +3,7 @@ package view
 type SaleBillStatue int
 
 const (
-	SaleBillStatueCreated  SaleBillStatue = 2
+	SaleBillStatueConfirm  SaleBillStatue = 2
 	SaleBillStatueCreating SaleBillStatue = 1
 	SaleBillStatueReceive  SaleBillStatue = 3
 )
@@ -11,8 +11,8 @@ const (
 func (e SaleBillStatue) String() string {
 	res := "UNKNOWN"
 	switch e {
-	case SaleBillStatueCreated:
-		res = "Created"
+	case SaleBillStatueConfirm:
+		res = "Confirm"
 	case SaleBillStatueCreating:
 		res = "Creating"
 	case SaleBillStatueReceive:
@@ -26,8 +26,8 @@ func (e SaleBillStatue) String() string {
 func (e SaleBillStatue) Title() string {
 	res := "UNKNOWN"
 	switch e {
-	case SaleBillStatueCreated:
-		res = "下单完成"
+	case SaleBillStatueConfirm:
+		res = "确认下单"
 	case SaleBillStatueCreating:
 		res = "创建中"
 	case SaleBillStatueReceive:

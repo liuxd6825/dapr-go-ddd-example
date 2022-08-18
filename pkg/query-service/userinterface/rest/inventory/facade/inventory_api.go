@@ -24,6 +24,7 @@ func NewInventoryQueryApi() *InventoryQueryApi {
 func (a *InventoryQueryApi) BeforeActivation(b mvc.BeforeActivation) {
 	restapp.Handle(b, "GET", "/tenants/{tenantId}/inventories/{id}", "FindById")
 	restapp.Handle(b, "GET", "/tenants/{tenantId}/inventories:all", "FindAll")
+	restapp.Handle(b, "GET", "/tenants/{tenantId}/inventories:ids", "FindByIds")
 	restapp.Handle(b, "GET", "/tenants/{tenantId}/inventories", "FindPaging")
 }
 
@@ -34,7 +35,7 @@ func (a *InventoryQueryApi) BeforeActivation(b mvc.BeforeActivation) {
 // @Accept       json
 // @Produce      json
 // @Param        tenantId   path       int           true  "Tenant ID"
-// @Param        id         path       int           true  "User ID"
+// @Param        id         path       int           true  "Inventory ID"
 // @Success      200        {object}   dto.InventoryFindByIdResponse
 // @Failure      404        {object}   string        "按ID找到数据"
 // @Failure      500        {object}   string        "应用错误"
@@ -50,14 +51,36 @@ func (a *InventoryQueryApi) FindById(ictx iris.Context) {
 	})
 }
 
+// FindByIds godoc
+// @Summary      按多个ID获取<no value>
+// @Description  get string by ID
+// @Tags         inventories
+// @Accept       json
+// @Produce      json
+// @Param        tenantId  path      string     true    "Tenant ID"
+// @Param        id        path      string     true    "Inventory ID"
+// @Success      200       {object}  dto.InventoryFindByIdsResponse
+// @Failure      500       {object}  string          "应用错误"
+// @Router       /tenants/{tenantId}/inventories:ids [get]
+func (a *InventoryQueryApi) FindByIds(ictx iris.Context, tenantId string) {
+	_, _, _ = restapp.DoQuery(ictx, func(ctx context.Context) (interface{}, bool, error) {
+		req, err := InventoryAssembler.AssFindByIdsRequest(ictx)
+		if err != nil {
+			return nil, false, err
+		}
+		fpr, b, e := a.queryService.FindByIds(ctx, req.TenantId, req.Ids)
+		return InventoryAssembler.AssFindByIdsResponse(ictx, fpr, b, e)
+	})
+}
+
 // FindAll godoc
-// @Summary      获取所有用户
+// @Summary      获取所有<no value>
 // @Description  get string by ID
 // @Tags         inventories
 // @Accept       json
 // @Produce      json
 // @Param        tenantId  path      int     true    "Tenant ID"
-// @Success      200       {object}  dto.UserFindAllResponse
+// @Success      200       {object}  dto.InventoryFindAllResponse
 // @Failure      500       {object}  string          "应用错误"
 // @Router       /tenants/{tenantId}/inventories:all [get]
 func (a *InventoryQueryApi) FindAll(ictx iris.Context, tenantId string) {
@@ -72,8 +95,8 @@ func (a *InventoryQueryApi) FindAll(ictx iris.Context, tenantId string) {
 }
 
 // FindPaging godoc
-// @Summary      分页查询
-// @Description  分页查询
+// @Summary      分页查询<no value>
+// @Description  分页查询<no value>
 // @Tags         inventories
 // @Accept       json
 // @Produce      json

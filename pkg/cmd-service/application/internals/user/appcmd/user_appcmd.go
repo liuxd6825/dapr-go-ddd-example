@@ -5,14 +5,6 @@ import (
 )
 
 //
-// UserCreateAppCmd
-// @Description: 应用服务层命令, 创建用户
-//
-type UserCreateAppCmd struct {
-	domain.UserCreateCommand
-}
-
-//
 // UserUpdateAppCmd
 // @Description: 应用服务层命令, 更新用户
 //
@@ -26,4 +18,12 @@ type UserUpdateAppCmd struct {
 //
 type UserDeleteAppCmd struct {
 	domain.UserDeleteCommand
+}
+
+//
+// UserCreateAppCmd
+// @Description: 应用服务层命令, 创建用户
+//
+type UserCreateAppCmd struct {
+	domain.UserCreateCommand
 }

@@ -19,30 +19,42 @@ aggregates:
             description: "存货名称"
           Quantity:
             type: int
-            description: "文档id"
+            description: "数量"
           Money:
             type: money
             description: "文件大小"
     commands:
       SaleItemCreateCommand:
-        description: "创建扫描文件"
-        fieldsRef: SaleItemCreateFields
-      SaleItemUpdateCommand:
-        description: "更新扫描文件"
-        fieldsRef: SaleItemUpdateFields
-      SaleItemDeleteCommand:
-        description: "删除扫描单"
+        description: "添加明细"
         fields:
           properties:
-            Id:
+            SaleBillId:
               type: string
-              description: "销售明细Id"
+            Items:
+              type: SaleItemCreateItem
+              isArray: true
+      SaleItemUpdateCommand:
+        description: "更新明细"
+        fields:
+          properties:
+            SaleBillId:
+              type: string
+            Items:
+              type: SaleItemUpdateItem
+              isArray: true
+      SaleItemDeleteCommand:
+        description: "删除销售明细项"
+        fields:
+          properties:
+            Items:
+              type: SaleItemDeleteItem
+              isArray: true
             SaleBillId:
               type: string
               description: "销售单Id"
     fields:
-      SaleItemCreateFields:
-        description: "扫描文件"
+      SaleItemCreateItem:
+        description: "创建明细项"
         properties:
           Id:
             type: string
@@ -59,8 +71,8 @@ aggregates:
           Money:
             type: money
             description: "销售金额"
-      SaleItemUpdateFields:
-        description: "扫描文件"
+      SaleItemUpdateItem:
+        description: "更新明细项"
         properties:
           Id:
             type: string
@@ -77,4 +89,10 @@ aggregates:
           Money:
             type: money
             description: "销售金额"
+      SaleItemDeleteItem:
+        description: "删除明细项"
+        properties:
+          Id:
+            type: string
+            description: "明细Id"
 

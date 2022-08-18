@@ -8,24 +8,8 @@ import (
 )
 
 //
-// AssSaleItemCreateCommand
-// @Description:  SaleItemCreateAppCmd 创建扫描文件转换器
-// @param ctx
-// @param cmdDto
-// @return *command.SaleItemCreateCommand
-// @return error
-//
-func AssSaleItemCreateCommand(ctx context.Context, appCmd *appcmd.SaleItemCreateAppCmd) (*command.SaleItemCreateCommand, error) {
-	if appCmd == nil {
-		return nil, errors.New("AssSaleItemCreateCommand() appCmd is nil")
-	}
-	cmd := (*appCmd).SaleItemCreateCommand
-	return &cmd, nil
-}
-
-//
 // AssSaleItemUpdateCommand
-// @Description:  SaleItemUpdateAppCmd 更新扫描文件转换器
+// @Description:  SaleItemUpdateAppCmd 更新明细转换器
 // @param ctx
 // @param cmdDto
 // @return *command.SaleItemUpdateCommand
@@ -41,7 +25,7 @@ func AssSaleItemUpdateCommand(ctx context.Context, appCmd *appcmd.SaleItemUpdate
 
 //
 // AssSaleItemDeleteCommand
-// @Description:  SaleItemDeleteAppCmd 删除扫描单转换器
+// @Description:  SaleItemDeleteAppCmd 删除销售明细项转换器
 // @param ctx
 // @param cmdDto
 // @return *command.SaleItemDeleteCommand
@@ -52,5 +36,21 @@ func AssSaleItemDeleteCommand(ctx context.Context, appCmd *appcmd.SaleItemDelete
 		return nil, errors.New("AssSaleItemDeleteCommand() appCmd is nil")
 	}
 	cmd := (*appCmd).SaleItemDeleteCommand
+	return &cmd, nil
+}
+
+//
+// AssSaleItemCreateCommand
+// @Description:  SaleItemCreateAppCmd 添加明细转换器
+// @param ctx
+// @param cmdDto
+// @return *command.SaleItemCreateCommand
+// @return error
+//
+func AssSaleItemCreateCommand(ctx context.Context, appCmd *appcmd.SaleItemCreateAppCmd) (*command.SaleItemCreateCommand, error) {
+	if appCmd == nil {
+		return nil, errors.New("AssSaleItemCreateCommand() appCmd is nil")
+	}
+	cmd := (*appCmd).SaleItemCreateCommand
 	return &cmd, nil
 }

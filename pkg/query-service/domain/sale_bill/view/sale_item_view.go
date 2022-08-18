@@ -13,7 +13,7 @@ type SaleItemView struct {
 	InventoryId   string  `json:"inventoryId,omitempty"  bson:"inventoryId"`     // 存货Id
 	InventoryName string  `json:"inventoryName,omitempty"  bson:"inventoryName"` // 存货名称
 	Money         float64 `json:"money,omitempty"  bson:"money"`                 // 文件大小
-	Quantity      int64   `json:"quantity,omitempty"  bson:"quantity"`           // 文档id
+	Quantity      int64   `json:"quantity,omitempty"  bson:"quantity"`           // 数量
 	SaleBillId    string  `json:"saleBillId,omitempty"  bson:"saleBillId" validate:"gt=0"`
 }
 

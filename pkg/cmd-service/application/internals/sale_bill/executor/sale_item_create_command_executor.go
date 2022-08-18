@@ -10,7 +10,7 @@ import (
 
 //
 // SaleItemCreateCommandExecutor
-// @Description: 创建扫描文件 命令执行器接口
+// @Description: 添加明细 命令执行器接口
 //
 type SaleItemCreateCommandExecutor interface {
 	Execute(context.Context, *appcmd.SaleItemCreateAppCmd) error
@@ -18,7 +18,7 @@ type SaleItemCreateCommandExecutor interface {
 
 //
 // saleItemCreateCommandCommandExecutor
-// @Description: 创建扫描文件 命令执行器实现类
+// @Description: 添加明细 命令执行器实现类
 //
 type saleItemCreateCommandExecutor struct {
 	domainService *domain_service.SaleBillCommandDomainService
