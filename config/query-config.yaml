@@ -17,16 +17,16 @@ envs:
       default:
         host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
         replicaSet: mongors
-        dbname: dapr-ddd-demo-dev
-        user: ddd
+        dbname: query-example
+        user: query-example
         pwd: 123456
         maxPoolSize: 20
     neo4j:
-      default:
-        host: <no value>
-        port: <no value>
-        user: <no value>
-        pwd: <no value>
+      #default:
+      #  host: <no value>
+      #  port: <no value>
+      #  user: <no value>
+      #  pwd: <no value>
   test:
     app:
       id: dapr-ddd-demo-query-service

@@ -116,17 +116,11 @@ func (s *UserCommandDomainService) doCommand(ctx context.Context, cmd ddd.Comman
 		return nil, nil
 	}
 
-	// 执行领域命令
-	var err error
+	// 新建聚合根对象
 	agg := s.NewAggregate()
-	if _, ok := cmd.(*command.UserCreateCommand); ok {
-		err = ddd.CreateAggregate(ctx, agg, cmd)
-	} else {
-		err = ddd.CommandAggregate(ctx, agg, cmd)
-	}
 
 	// 如果领域命令执行时出错，则返回错误
-	if err != nil {
+	if err := ddd.ApplyCommand(ctx, agg, cmd); err != nil {
 		return nil, err
 	}
 

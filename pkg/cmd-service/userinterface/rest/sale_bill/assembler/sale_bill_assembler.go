@@ -11,7 +11,7 @@ type SaleBillAssembler struct {
 }
 
 //
-// AssSaleBillCreateCommandDto
+// AssSaleBillCreateAppCmd
 // @Description: 创建销售订单
 // @receiver a
 // @param ictx
@@ -28,7 +28,7 @@ func (a *SaleBillAssembler) AssSaleBillCreateAppCmd(ictx iris.Context) (*appcmd.
 }
 
 //
-// AssSaleBillUpdateCommandDto
+// AssSaleBillUpdateAppCmd
 // @Description: 更新销售订单
 // @receiver a
 // @param ictx
@@ -45,7 +45,7 @@ func (a *SaleBillAssembler) AssSaleBillUpdateAppCmd(ictx iris.Context) (*appcmd.
 }
 
 //
-// AssSaleBillConfirmCommandDto
+// AssSaleBillConfirmAppCmd
 // @Description: 下单确认命令
 // @receiver a
 // @param ictx
@@ -62,7 +62,7 @@ func (a *SaleBillAssembler) AssSaleBillConfirmAppCmd(ictx iris.Context) (*appcmd
 }
 
 //
-// AssSaleBillDeleteCommandDto
+// AssSaleBillDeleteAppCmd
 // @Description: 删除销售订单
 // @receiver a
 // @param ictx

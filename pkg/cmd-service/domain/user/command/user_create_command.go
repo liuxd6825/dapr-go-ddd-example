@@ -47,6 +47,9 @@ func (c *UserCreateCommand) GetIsValidOnly() bool {
 	return c.IsValidOnly
 }
 
+func (c *UserCreateCommand) IsAggregateCreateCommand() {
+}
+
 //
 // Validate
 // @Description: 命令数据验证

@@ -8,38 +8,38 @@ import (
 )
 
 //
-// OnUserCreateEvent
+// OnUserCreateEventV1s0
 // @Description: UserCreateEvent 领域事件 事件溯源处理器
 // @receiver a
 // @param ctx 上下文件
 // @param event 领域事件
 // @return err 错误
 //
-func (a *UserAggregate) OnUserCreateEvent(ctx context.Context, e *event.UserCreateEvent) error {
+func (a *UserAggregate) OnUserCreateEventV1s0(ctx context.Context, e *event.UserCreateEvent) error {
 	return utils.Mapper(e.Data, a)
 }
 
 //
-// OnUserDeleteEvent
+// OnUserDeleteEventV1s0
 // @Description: UserDeleteEvent 领域事件 事件溯源处理器
 // @receiver a
 // @param ctx 上下文件
 // @param event 领域事件
 // @return err 错误
 //
-func (a *UserAggregate) OnUserDeleteEvent(ctx context.Context, e *event.UserDeleteEvent) error {
+func (a *UserAggregate) OnUserDeleteEventV1s0(ctx context.Context, e *event.UserDeleteEvent) error {
 	a.IsDeleted = true
 	return nil
 }
 
 //
-// OnUserUpdateEvent
+// OnUserUpdateEventV1s0
 // @Description: UserUpdateEvent 领域事件 事件溯源处理器
 // @receiver a
 // @param ctx 上下文件
 // @param event 领域事件
 // @return err 错误
 //
-func (a *UserAggregate) OnUserUpdateEvent(ctx context.Context, e *event.UserUpdateEvent) error {
+func (a *UserAggregate) OnUserUpdateEventV1s0(ctx context.Context, e *event.UserUpdateEvent) error {
 	return utils.MaskMapperRemove(e.Data, a, e.UpdateMask, aggMapperRemove)
 }

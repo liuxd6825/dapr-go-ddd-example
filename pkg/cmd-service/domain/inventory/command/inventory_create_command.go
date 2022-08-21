@@ -47,6 +47,9 @@ func (c *InventoryCreateCommand) GetIsValidOnly() bool {
 	return c.IsValidOnly
 }
 
+func (c *InventoryCreateCommand) IsAggregateCreateCommand() {
+}
+
 //
 // Validate
 // @Description: 命令数据验证

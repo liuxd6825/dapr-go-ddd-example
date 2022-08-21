@@ -49,9 +49,24 @@ type SaleItemCreateCommandRequest struct {
 // @Description: 添加明细
 //
 type SaleItemCreateCommandRequestData struct {
-	Items      field.SaleItemCreateItem `json:"items,omitempty" validate:"-"`             //
-	SaleBillId string                   `json:"saleBillId,omitempty" validate:"required"` //
-	TenantId   string                   `json:"tenantId,omitempty" validate:"required"`   // 租户ID
+	Items      []*field.SaleItemCreateItem `json:"items,omitempty" validate:"-"`             //
+	SaleBillId string                      `json:"saleBillId,omitempty" validate:"required"` //
+	TenantId   string                      `json:"tenantId,omitempty" validate:"required"`   // 租户ID
+}
+
+//
+// SaleItemCreateItem
+// @Description:
+//
+type SaleItemCreateItem struct {
+	Id            string  `json:"id,omitempty" validate:"required"`          // 主键
+	InventoryId   string  `json:"inventoryId,omitempty" validate:"required"` // 存货Id
+	InventoryName string  `json:"inventoryName,omitempty" validate:"-"`      // 存货名称
+	Money         float64 `json:"money,omitempty" validate:"-"`              // 销售金额
+	Quantity      int64   `json:"quantity,omitempty" validate:"-"`           // 销售数量
+	Remarks       string  `json:"remarks,omitempty" validate:"-"`            // 备注
+	SaleBillId    string  `json:"saleBillId,omitempty" validate:"gt=0"`      //
+	TenantId      string  `json:"tenantId,omitempty" validate:"required"`    // 租户ID
 }
 
 //
@@ -78,9 +93,24 @@ type SaleItemUpdateCommandRequest struct {
 // @Description: 更新明细
 //
 type SaleItemUpdateCommandRequestData struct {
-	Items      field.SaleItemUpdateItem `json:"items,omitempty" validate:"-"`             //
-	SaleBillId string                   `json:"saleBillId,omitempty" validate:"required"` //
-	TenantId   string                   `json:"tenantId,omitempty" validate:"required"`   // 租户ID
+	Items      []*SaleItemUpdateItem `json:"items,omitempty" validate:"-"`             //
+	SaleBillId string                `json:"saleBillId,omitempty" validate:"required"` //
+	TenantId   string                `json:"tenantId,omitempty" validate:"required"`   // 租户ID
+}
+
+//
+// SaleItemUpdateItem
+// @Description:
+//
+type SaleItemUpdateItem struct {
+	Id            string  `json:"id,omitempty" validate:"required"`          // 主键
+	InventoryId   string  `json:"inventoryId,omitempty" validate:"required"` // 存货Id
+	InventoryName string  `json:"inventoryName,omitempty" validate:"-"`      // 存货名称
+	Money         float64 `json:"money,omitempty" validate:"-"`              // 销售金额
+	Quantity      int64   `json:"quantity,omitempty" validate:"-"`           // 销售数量
+	Remarks       string  `json:"remarks,omitempty" validate:"-"`            // 备注
+	SaleBillId    string  `json:"saleBillId,omitempty" validate:"gt=0"`      //
+	TenantId      string  `json:"tenantId,omitempty" validate:"required"`    // 租户ID
 }
 
 //

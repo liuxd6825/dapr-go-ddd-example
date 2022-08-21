@@ -8,7 +8,7 @@ import (
 )
 
 //
-// AssSaleItemDeleteCommandDto
+// AssSaleItemDeleteAppCmd
 // @Description: 删除销售明细项
 // @receiver a
 // @param ictx
@@ -25,7 +25,7 @@ func (a *SaleBillAssembler) AssSaleItemDeleteAppCmd(ictx iris.Context) (*appcmd.
 }
 
 //
-// AssSaleItemCreateCommandDto
+// AssSaleItemCreateAppCmd
 // @Description: 添加明细
 // @receiver a
 // @param ictx
@@ -42,7 +42,7 @@ func (a *SaleBillAssembler) AssSaleItemCreateAppCmd(ictx iris.Context) (*appcmd.
 }
 
 //
-// AssSaleItemUpdateCommandDto
+// AssSaleItemUpdateAppCmd
 // @Description: 更新明细
 // @receiver a
 // @param ictx

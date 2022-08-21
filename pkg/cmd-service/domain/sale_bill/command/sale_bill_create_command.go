@@ -60,3 +60,6 @@ func (c *SaleBillCreateCommand) Validate() error {
 	*/
 	return ve.GetError()
 }
+
+func (c *SaleBillCreateCommand) IsAggregateCreateCommand() {
+}
