@@ -22,10 +22,10 @@ type SaleBillQueryHandler struct {
 //
 func NewSaleBillSubscribe() restapp.RegisterSubscribe {
 	subscribes := &[]ddd.Subscribe{
-		{PubsubName: "pubsub", Topic: event.SaleBillConfirmEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_bill_confirm_event/ver:v1.0"},
-		{PubsubName: "pubsub", Topic: event.SaleBillCreateEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_bill_create_event/ver:v1.0"},
-		{PubsubName: "pubsub", Topic: event.SaleBillDeleteEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_bill_delete_event/ver:v1.0"},
-		{PubsubName: "pubsub", Topic: event.SaleBillUpdateEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_bill_update_event/ver:v1.0"},
+		{PubsubName: "pubsub", Topic: event.SaleBillConfirmEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_bill_confirm_event"},
+		{PubsubName: "pubsub", Topic: event.SaleBillCreateEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_bill_create_event"},
+		{PubsubName: "pubsub", Topic: event.SaleBillDeleteEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_bill_delete_event"},
+		{PubsubName: "pubsub", Topic: event.SaleBillUpdateEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_bill_update_event"},
 	}
 	return restapp.NewRegisterSubscribe(subscribes, NewSaleBillQueryHandler())
 }
@@ -42,14 +42,14 @@ func NewSaleBillQueryHandler() ddd.QueryEventHandler {
 }
 
 //
-// OnSaleBillConfirmEvent
+// OnSaleBillConfirmEventV1s0
 // @Description: SaleBillConfirmEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event SaleBillConfirmEvent 领域事件
 // @return error 错误
 //
-func (h *SaleBillQueryHandler) OnSaleBillConfirmEvent(ctx context.Context, event *event.SaleBillConfirmEvent) error {
+func (h *SaleBillQueryHandler) OnSaleBillConfirmEventV1s0(ctx context.Context, event *event.SaleBillConfirmEvent) error {
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.SaleBillView.NewBySaleBillConfirmEvent(ctx, event)
 		if err != nil {
@@ -60,14 +60,14 @@ func (h *SaleBillQueryHandler) OnSaleBillConfirmEvent(ctx context.Context, event
 }
 
 //
-// OnSaleBillCreateEvent
+// OnSaleBillCreateEventV1s0
 // @Description: SaleBillCreateEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event SaleBillCreateEvent 领域事件
 // @return error 错误
 //
-func (h *SaleBillQueryHandler) OnSaleBillCreateEvent(ctx context.Context, event *event.SaleBillCreateEvent) error {
+func (h *SaleBillQueryHandler) OnSaleBillCreateEventV1s0(ctx context.Context, event *event.SaleBillCreateEvent) error {
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.SaleBillView.NewBySaleBillCreateEvent(ctx, event)
 		if err != nil {
@@ -78,28 +78,28 @@ func (h *SaleBillQueryHandler) OnSaleBillCreateEvent(ctx context.Context, event 
 }
 
 //
-// OnSaleBillDeleteEvent
+// OnSaleBillDeleteEventV1s0
 // @Description: SaleBillDeleteEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event SaleBillDeleteEvent 领域事件
 // @return error 错误
 //
-func (h *SaleBillQueryHandler) OnSaleBillDeleteEvent(ctx context.Context, event *event.SaleBillDeleteEvent) error {
+func (h *SaleBillQueryHandler) OnSaleBillDeleteEventV1s0(ctx context.Context, event *event.SaleBillDeleteEvent) error {
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		return h.service.DeleteById(ctx, event.GetTenantId(), event.Data.Id)
 	})
 }
 
 //
-// OnSaleBillUpdateEvent
+// OnSaleBillUpdateEventV1s0
 // @Description: SaleBillUpdateEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event SaleBillUpdateEvent 领域事件
 // @return error 错误
 //
-func (h *SaleBillQueryHandler) OnSaleBillUpdateEvent(ctx context.Context, event *event.SaleBillUpdateEvent) error {
+func (h *SaleBillQueryHandler) OnSaleBillUpdateEventV1s0(ctx context.Context, event *event.SaleBillUpdateEvent) error {
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.SaleBillView.NewBySaleBillUpdateEvent(ctx, event)
 		if err != nil {

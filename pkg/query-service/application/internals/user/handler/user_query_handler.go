@@ -41,14 +41,14 @@ func NewUserQueryHandler() ddd.QueryEventHandler {
 }
 
 //
-// OnUserCreateEvent
+// OnUserCreateEventV1s0
 // @Description: UserCreateEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event UserCreateEvent 领域事件
 // @return error 错误
 //
-func (h *UserQueryHandler) OnUserCreateEvent(ctx context.Context, event *event.UserCreateEvent) error {
+func (h *UserQueryHandler) OnUserCreateEventV1s0(ctx context.Context, event *event.UserCreateEvent) error {
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.UserView.NewByUserCreateEvent(ctx, event)
 		if err != nil {
@@ -59,28 +59,28 @@ func (h *UserQueryHandler) OnUserCreateEvent(ctx context.Context, event *event.U
 }
 
 //
-// OnUserDeleteEvent
+// OnUserDeleteEventV1s0
 // @Description: UserDeleteEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event UserDeleteEvent 领域事件
 // @return error 错误
 //
-func (h *UserQueryHandler) OnUserDeleteEvent(ctx context.Context, event *event.UserDeleteEvent) error {
+func (h *UserQueryHandler) OnUserDeleteEventV1s0(ctx context.Context, event *event.UserDeleteEvent) error {
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		return h.service.DeleteById(ctx, event.GetTenantId(), event.Data.Id)
 	})
 }
 
 //
-// OnUserUpdateEvent
+// OnUserUpdateEventV1s0
 // @Description: UserUpdateEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event UserUpdateEvent 领域事件
 // @return error 错误
 //
-func (h *UserQueryHandler) OnUserUpdateEvent(ctx context.Context, event *event.UserUpdateEvent) error {
+func (h *UserQueryHandler) OnUserUpdateEventV1s0(ctx context.Context, event *event.UserUpdateEvent) error {
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.UserView.NewByUserUpdateEvent(ctx, event)
 		if err != nil {

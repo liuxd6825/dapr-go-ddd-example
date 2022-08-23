@@ -15,7 +15,7 @@ type SaleItemViewRepositoryImpl struct {
 
 func NewSaleItemViewRepository() repository.SaleItemViewRepository {
 	return &SaleItemViewRepositoryImpl{
-		dao: mongo_dao.NewDao[*view.SaleItemView]("sale_bill"),
+		dao: mongo_dao.NewDao[*view.SaleItemView]("sale_item"),
 	}
 }
 
@@ -24,7 +24,11 @@ func (r *SaleItemViewRepositoryImpl) Create(ctx context.Context, view *view.Sale
 }
 
 func (r *SaleItemViewRepositoryImpl) CreateMany(ctx context.Context, views []*view.SaleItemView, opt repository.Options) error {
-	return r.dao.InsertMany(ctx, views)
+	err := r.dao.InsertMany(ctx, views)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (r *SaleItemViewRepositoryImpl) Update(ctx context.Context, view *view.SaleItemView, opt repository.Options) error {

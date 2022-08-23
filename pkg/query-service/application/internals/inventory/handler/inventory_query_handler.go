@@ -8,6 +8,7 @@ import (
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/infrastructure/base/application/handler"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
+	"github.com/sirupsen/logrus"
 )
 
 type InventoryQueryHandler struct {
@@ -22,8 +23,8 @@ type InventoryQueryHandler struct {
 //
 func NewInventorySubscribe() restapp.RegisterSubscribe {
 	subscribes := &[]ddd.Subscribe{
-		{PubsubName: "pubsub", Topic: event.InventoryCreateEventType.String(), Route: "/dapr-ddd-demo/domain-event/inventory/inventory_create_event/ver:v1.0"},
-		{PubsubName: "pubsub", Topic: event.InventoryUpdateEventType.String(), Route: "/dapr-ddd-demo/domain-event/inventory/inventory_update_event/ver:v1.0"},
+		{PubsubName: "pubsub", Topic: event.InventoryCreateEventType.String(), Route: "/dapr-ddd-demo/domain-event/inventory/inventory_create_event"},
+		{PubsubName: "pubsub", Topic: event.InventoryUpdateEventType.String(), Route: "/dapr-ddd-demo/domain-event/inventory/inventory_update_event"},
 	}
 	return restapp.NewRegisterSubscribe(subscribes, NewInventoryQueryHandler())
 }
@@ -40,14 +41,15 @@ func NewInventoryQueryHandler() ddd.QueryEventHandler {
 }
 
 //
-// OnInventoryCreateEvent
+// OnInventoryCreateEventV1s0
 // @Description: InventoryCreateEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event InventoryCreateEvent 领域事件
 // @return error 错误
 //
-func (h *InventoryQueryHandler) OnInventoryCreateEvent(ctx context.Context, event *event.InventoryCreateEvent) error {
+func (h *InventoryQueryHandler) OnInventoryCreateEventV1s0(ctx context.Context, event *event.InventoryCreateEvent) error {
+	logrus.Error(event)
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.InventoryView.NewByInventoryCreateEvent(ctx, event)
 		if err != nil {
@@ -58,14 +60,15 @@ func (h *InventoryQueryHandler) OnInventoryCreateEvent(ctx context.Context, even
 }
 
 //
-// OnInventoryUpdateEvent
+// OnInventoryUpdateEventV1s0
 // @Description: InventoryUpdateEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event InventoryUpdateEvent 领域事件
 // @return error 错误
 //
-func (h *InventoryQueryHandler) OnInventoryUpdateEvent(ctx context.Context, event *event.InventoryUpdateEvent) error {
+func (h *InventoryQueryHandler) OnInventoryUpdateEventV1s0(ctx context.Context, event *event.InventoryUpdateEvent) error {
+	logrus.Error(event)
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.InventoryView.NewByInventoryUpdateEvent(ctx, event)
 		if err != nil {

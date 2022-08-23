@@ -15,7 +15,6 @@ func main() {
 	if *help {
 		return
 	}
-
 	if _, err := restapp.RunWithConfig(*env, *config, subscribes, controllers, events, restapp.Actors); err != nil {
 		panic(err)
 	}

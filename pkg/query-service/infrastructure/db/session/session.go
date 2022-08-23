@@ -2,6 +2,7 @@ package session
 
 import (
 	"context"
+	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/cmd-service/infrastructure/logs"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/infrastructure/db/dao/mongo_dao"
 )
 
@@ -49,11 +50,19 @@ func (o *Options) GetMongo() SessionType {
 
 func StartSession(ctx context.Context, fun Func, opts ...*Options) error {
 	opt := MergeOptions(opts...)
-	if opt.GetMongo() != NoSession {
-		mongoSession := mongo_dao.NewSession(opt.GetMongo() == WriteSession)
-		return mongoSession.UseTransaction(ctx, func(ctx context.Context) error {
-			return fun(ctx)
-		})
+	do := func() error {
+		if opt.GetMongo() != NoSession {
+			mongoSession := mongo_dao.NewSession(opt.GetMongo() == WriteSession)
+			return mongoSession.UseTransaction(ctx, func(ctx context.Context) error {
+				return fun(ctx)
+			})
+		}
+		return fun(ctx)
 	}
-	return fun(ctx)
+
+	err := do()
+	if err != nil {
+		logs.Errorln("db.StartSession()", err)
+	}
+	return err
 }

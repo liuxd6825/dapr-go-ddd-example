@@ -3,6 +3,7 @@ package handler
 import (
 	"context"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/cmd-service/domain/sale_bill/event"
+	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/cmd-service/infrastructure/logs"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/application/internals/sale_bill/service"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/domain/sale_bill/factory"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/infrastructure/base/application/handler"
@@ -31,14 +32,15 @@ func NewSaleItemQueryHandler() ddd.QueryEventHandler {
 }
 
 //
-// OnSaleItemDeleteEvent
+// OnSaleItemDeleteEventV1s0
 // @Description: SaleItemDeleteEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event SaleItemDeleteEvent 领域事件
 // @return error 错误
 //
-func (h *SaleItemQueryHandler) OnSaleItemDeleteEvent(ctx context.Context, event *event.SaleItemDeleteEvent) error {
+func (h *SaleItemQueryHandler) OnSaleItemDeleteEventV1s0(ctx context.Context, event *event.SaleItemDeleteEvent) error {
+	logs.Debugln(event)
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.SaleItemView.NewBySaleItemDeleteEvent(ctx, event)
 		if err != nil {
@@ -49,14 +51,16 @@ func (h *SaleItemQueryHandler) OnSaleItemDeleteEvent(ctx context.Context, event 
 }
 
 //
-// OnSaleItemCreateEvent
+// OnSaleItemCreateEventV1s0
 // @Description: SaleItemCreateEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event SaleItemCreateEvent 领域事件
 // @return error 错误
 //
-func (h *SaleItemQueryHandler) OnSaleItemCreateEvent(ctx context.Context, event *event.SaleItemCreateEvent) error {
+func (h *SaleItemQueryHandler) OnSaleItemCreateEventV1s0(ctx context.Context, event *event.SaleItemCreateEvent) error {
+	logs.DebugEvent(event, "OnSaleItemCreateEventV1s0")
+
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.SaleItemView.NewBySaleItemCreateEvent(ctx, event)
 		if err != nil {
@@ -67,14 +71,15 @@ func (h *SaleItemQueryHandler) OnSaleItemCreateEvent(ctx context.Context, event 
 }
 
 //
-// OnSaleItemUpdateEvent
+// OnSaleItemUpdateEventV1s0
 // @Description: SaleItemUpdateEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event SaleItemUpdateEvent 领域事件
 // @return error 错误
 //
-func (h *SaleItemQueryHandler) OnSaleItemUpdateEvent(ctx context.Context, event *event.SaleItemUpdateEvent) error {
+func (h *SaleItemQueryHandler) OnSaleItemUpdateEventV1s0(ctx context.Context, event *event.SaleItemUpdateEvent) error {
+
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.SaleItemView.NewBySaleItemUpdateEvent(ctx, event)
 		if err != nil {

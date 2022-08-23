@@ -11,16 +11,17 @@ import (
 // @Description:  <no value> 聚合类型
 //
 type SaleBillAggregate struct {
-	Id        string               `json:"id" validate:"required"`            // 主键
-	IsDeleted bool                 `json:"isDeleted" validate:"-"`            // 已删除
-	Remarks   string               `json:"remarks" validate:"-"`              // 备注
-	SaleItems *SaleItemItems       `json:"saleItems" copier:"-" validate:"-"` //
-	SaleMoney float64              `json:"saleMoney" validate:"-"`            // 销售金额
-	SaleTime  time.Time            `json:"saleTime" validate:"-"`             // 文件大小
-	Statue    field.SaleBillStatue `json:"statue" validate:"-"`               // 单据状态
-	TenantId  string               `json:"tenantId" validate:"required"`      // 租户ID
-	UserId    string               `json:"userId" validate:"required"`        // 用户Id
-	UserName  string               `json:"userName" validate:"-"`             // 用户名称
+	Id         string               `json:"id" validate:"required"`            // 主键
+	IsDeleted  bool                 `json:"isDeleted" validate:"-"`            // 已删除
+	Remarks    string               `json:"remarks" validate:"-"`              // 备注
+	SaleItems  *SaleItemItems       `json:"saleItems" copier:"-" validate:"-"` //
+	SaleMoney  float64              `json:"saleMoney" validate:"-"`            // 销售金额
+	SaleTime   time.Time            `json:"saleTime" validate:"-"`             // 文件大小
+	Statue     field.SaleBillStatue `json:"statue" validate:"-"`               // 单据状态
+	TenantId   string               `json:"tenantId" validate:"required"`      // 租户ID
+	UserId     string               `json:"userId" validate:"required"`        // 用户Id
+	UserName   string               `json:"userName" validate:"-"`             // 用户名称
+	TotalMoney float64              `json:"totalMoney" validate:"-"`
 }
 
 const AggregateType = "dapr-ddd-demo.SaleBillAggregate"
