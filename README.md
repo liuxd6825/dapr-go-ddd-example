@@ -5,9 +5,95 @@ DDD架构示例，采用六边形架构，清洁架构，CQRS模式,EventSourcin
 与Dapr集成，实现微服务治理功能，
 EventSourcing事件溯源功能，集成在gitee.com/liuxd6825/dapr项目中。
 
-#### 项目结构说明
-[说明文件](https://gitee.com/liuxd6825/dapr-go-ddd-example/edit/master/tree.md)
-
+#### 项目结构
+|-- cmd              项目入口  
+|   |-- cmd-service                命令服务 main() 函数定义   
+|   |-- query-service                  查询服务 main() 函数定义    
+|-- config                  配置目录     
+|   |-- dapr                  dapr配置目录     
+|   |   |-- components                  dapr 组件配置目录        
+|-- dddml                  DDD建模文件，可通过dapr-ddd-cli工具快速生成项目代码。  
+|-- dist                   项目可执行文件输出目录     
+|-- docker                  Dockerfile    
+|   |-- cmd                   写服务dockerfile     
+|   |-- query                  读服务dockerfile     
+|-- k8s                  k8s yaml文件     
+|-- pkg                  项目包目录     
+|   |-- cmd-service                  写服务    
+|   |   |-- application                  应用服务层    
+|   |   |   |-- internals                   内部服务层   
+|   |   |   |   +-- inventory                  存货聚合层    
+|   |   |   |   +-- user                  用户聚合层    
+|   |   |   |   |-- sale_bill                  销售单聚合层      
+|   |   |   |   |   |-- appcmd                  应用命令层      
+|   |   |   |   |   |-- assembler                   转化层      
+|   |   |   |   |   |-- executor                  命令执行层     
+|   |   |   |   |   |-- service                  应用服务层       
+|   |   |-- domain                  领域层     
+|   |   |   +-- inventory                  存货聚合层      
+|   |   |   +-- user                  用户聚合层     
+|   |   |   |-- sale_bill                   聚合根层    
+|   |   |   |   |-- command                  领域命令    
+|   |   |   |   |-- event                   领域事件  
+|   |   |   |   |-- factory                  领域工厂   
+|   |   |   |   |-- field                  领域层Dto  
+|   |   |   |   |-- model                  领域模式   
+|   |   |   |   |-- service                  领域服务  
+|   |   |-- infrastructure                   基础架构层   
+|   |   |-- userinterface                   用户接口层   
+|   |   |   |-- rest                   HTTP API 接口层   
+|   |   |   |   +-- inventory                  存货聚合层  
+|   |   |   |   +-- user                  用户聚合层  
+|   |   |   |   |-- sale_bill                   销售单聚合层  
+|   |   |   |   |   |-- assembler                    转化层    
+|   |   |   |   |   |-- dto                   数据传输层  
+|   |   |   |   |   |-- facade                   API层   
+|   |-- query-service                  读服务   
+|   |   |-- application                   应用服务层   
+|   |   |   |-- internals                  内部服务层  
+|   |   |   |   +-- inventory                  存货聚合层  
+|   |   |   |   +-- user                  用户聚合层   
+|   |   |   |   |-- sale_bill                    聚合根层     
+|   |   |   |   |   |-- appquery                  查询命令层   
+|   |   |   |   |   |-- assembler                  转化层    
+|   |   |   |   |   |-- executor                   命令执行层   
+|   |   |   |   |   |   |-- sale_bill_impl                    销售单命令接口实现  
+|   |   |   |   |   |   |-- sale_item_impl                    销售明细命令接口实现  
+|   |   |   |   |   |-- handler                  内部领域事件处理层   
+|   |   |   |   |   |-- service                   应用服务层    
+|   |   |-- domain                  领域层  
+|   |   |   +-- inventory                  存货聚合层  
+|   |   |   +-- user                  用户聚合层  
+|   |   |   |-- sale_bill                    聚合根层    
+|   |   |   |   |-- factory                  构造工厂   
+|   |   |   |   |-- query                  查询命令   
+|   |   |   |   |-- repository                  仓储定义   
+|   |   |   |   |-- service                  服务定义   
+|   |   |   |   |-- view                  视图投射类  
+|   |   |-- infrastructure                  基础架构层   
+|   |   |   |-- base                  基类   
+|   |   |   |-- db                    数据库   
+|   |   |   |-- domain_impl                     领域接口实现     
+|   |   |   |   +-- inventory                  存货聚合层    
+|   |   |   |   +-- user                  用户聚合层    
+|   |   |   |   |-- sale_bill                     销售接口实现     
+|   |   |   |   |   |-- repository_impl     
+|   |   |   |   |   |-- service_impl     
+|   |   |   |-- register                  ddd 功能注册      
+|   |   |   |-- types                   扩展数据类型      
+|   |   |   |-- utils                   工具包       
+|   |   |-- userinterface                   用户接口层     
+|   |   |   |-- rest                  接口层    
+|   |   |   |   +-- inventory                  存货聚合层    
+|   |   |   |   +-- user                  用户聚合层  
+|   |   |   |   |-- sale_bill                   聚合根层    
+|   |   |   |   |   |-- assembler                  转化层   
+|   |   |   |   |   |-- dto                  数据传输层    
+|   |   |   |   |   |-- facade                  API层    
+|-- swagger                  Swagger文件       
+|   |-- cmd    
+|   |-- query    
+|-- test                   测试
 #### 调试
 
 1. dapr -app-port 9010 -dapr-http-port 9011 -app-id cmd-example   -dapr-grpc-port 9012 --enable-metrics=false -config /Users/lxd/go/src/github.com/liuxd6825/dapr-go-ddd-example/config/dapr/config.yaml -components-path /Users/lxd/go/src/github.com/liuxd6825/dapr-go-ddd-example/config/dapr/components
