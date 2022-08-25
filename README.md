@@ -165,7 +165,7 @@ EventSourcing事件溯源功能，集成在gitee.com/liuxd6825/dapr项目中。
 dddml文件说明:  
 - aggregates_inventory.yaml            存货聚合根定义  
 - aggregates_sale_bill.yaml             销售单聚合根定义  
-- aggregates_sale_item.yaml           销售明细实体根定义  
+- aggregates_sale_item.yaml           销售明细实体定义  
 - aggregates_user.yaml                    用户聚合根定义   
 - configuration.yaml                          系统环境配置   
 - types.yaml                                      系统数据类型定义  
