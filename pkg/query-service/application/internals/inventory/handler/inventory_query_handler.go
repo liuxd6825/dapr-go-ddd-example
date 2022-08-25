@@ -3,12 +3,12 @@ package handler
 import (
 	"context"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/cmd-service/domain/inventory/event"
+	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/cmd-service/infrastructure/logs"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/application/internals/inventory/service"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/domain/inventory/factory"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/infrastructure/base/application/handler"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
-	"github.com/sirupsen/logrus"
 )
 
 type InventoryQueryHandler struct {
@@ -49,7 +49,7 @@ func NewInventoryQueryHandler() ddd.QueryEventHandler {
 // @return error 错误
 //
 func (h *InventoryQueryHandler) OnInventoryCreateEventV1s0(ctx context.Context, event *event.InventoryCreateEvent) error {
-	logrus.Error(event)
+	logs.Debugln(event)
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.InventoryView.NewByInventoryCreateEvent(ctx, event)
 		if err != nil {
@@ -68,7 +68,7 @@ func (h *InventoryQueryHandler) OnInventoryCreateEventV1s0(ctx context.Context, 
 // @return error 错误
 //
 func (h *InventoryQueryHandler) OnInventoryUpdateEventV1s0(ctx context.Context, event *event.InventoryUpdateEvent) error {
-	logrus.Error(event)
+	logs.Debugln(event)
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.InventoryView.NewByInventoryUpdateEvent(ctx, event)
 		if err != nil {

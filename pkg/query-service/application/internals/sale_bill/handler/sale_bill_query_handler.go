@@ -3,6 +3,7 @@ package handler
 import (
 	"context"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/cmd-service/domain/sale_bill/event"
+	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/cmd-service/infrastructure/logs"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/application/internals/sale_bill/service"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/domain/sale_bill/factory"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/infrastructure/base/application/handler"
@@ -50,6 +51,7 @@ func NewSaleBillQueryHandler() ddd.QueryEventHandler {
 // @return error 错误
 //
 func (h *SaleBillQueryHandler) OnSaleBillConfirmEventV1s0(ctx context.Context, event *event.SaleBillConfirmEvent) error {
+	logs.DebugEvent(event, "OnSaleBillConfirmEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.SaleBillView.NewBySaleBillConfirmEvent(ctx, event)
 		if err != nil {
@@ -68,6 +70,7 @@ func (h *SaleBillQueryHandler) OnSaleBillConfirmEventV1s0(ctx context.Context, e
 // @return error 错误
 //
 func (h *SaleBillQueryHandler) OnSaleBillCreateEventV1s0(ctx context.Context, event *event.SaleBillCreateEvent) error {
+	logs.DebugEvent(event, "OnSaleBillCreateEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.SaleBillView.NewBySaleBillCreateEvent(ctx, event)
 		if err != nil {
@@ -86,6 +89,7 @@ func (h *SaleBillQueryHandler) OnSaleBillCreateEventV1s0(ctx context.Context, ev
 // @return error 错误
 //
 func (h *SaleBillQueryHandler) OnSaleBillDeleteEventV1s0(ctx context.Context, event *event.SaleBillDeleteEvent) error {
+	logs.DebugEvent(event, "OnSaleBillDeleteEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		return h.service.DeleteById(ctx, event.GetTenantId(), event.Data.Id)
 	})
@@ -100,6 +104,7 @@ func (h *SaleBillQueryHandler) OnSaleBillDeleteEventV1s0(ctx context.Context, ev
 // @return error 错误
 //
 func (h *SaleBillQueryHandler) OnSaleBillUpdateEventV1s0(ctx context.Context, event *event.SaleBillUpdateEvent) error {
+	logs.DebugEvent(event, "OnSaleBillUpdateEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.SaleBillView.NewBySaleBillUpdateEvent(ctx, event)
 		if err != nil {
