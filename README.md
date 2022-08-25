@@ -1,11 +1,12 @@
-# dapr-ddd-demo
+# DDD示例
 
 #### 介绍
-<no value>
+DDD架构示例，采用六边形架构，清洁架构，CQRS模式,EventSourcing模式，一套完整的DDD示例。
+与Dapr集成，实现微服务治理功能，
+EventSourcing事件溯源功能，集成在gitee.com/liuxd6825/dapr项目中。
 
-
-#### 功能
-
+#### 项目结构说明
+[](项目目录说明)
 
 #### 调试
 
