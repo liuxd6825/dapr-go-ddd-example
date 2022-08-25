@@ -97,6 +97,8 @@ EventSourcing事件溯源功能，集成在gitee.com/liuxd6825/dapr项目中。
 
 #### DDDML定义
 模型示例，详细请查看dddml目录 
+
+
        aggregates:
          # 定义聚合根-存货档案
          Inventory:
