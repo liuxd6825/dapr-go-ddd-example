@@ -94,6 +94,72 @@ EventSourcing事件溯源功能，集成在gitee.com/liuxd6825/dapr项目中。
 |   |-- cmd                        命令服务swagger文件  
 |   |-- query                      查询服务swagger文件  
 |-- test                    测试
+
+#### DDDML定义示例 
+       aggregates:
+         # 定义聚合根-存货档案
+         Inventory:
+           description: "存货档案"
+           # 定义存货档案聚合根的属性
+           properties:
+           Id:
+             type: string
+             description: "Id"
+           Name:
+             type: string
+             description: "名称"
+           Spec:
+             type: string
+             description: "规格"
+           Brand:
+             type: string
+             description: "品牌"
+           Keywords:
+             type: string
+             description: "搜索关键字"
+         # 定义实体类
+         entities:
+         
+         # 定义命令
+         commands:
+           InventoryCreateCommand:
+             description: "创建存货档案"
+             fields:
+               properties:
+                 Id:
+                   type: string
+                   description: "Id"
+                 Name:
+                   type: string
+                   description: "名称"
+                 Spec:
+                   type: string
+                   description: "规格"
+                 Brand:
+                   type: string
+                   description: "品牌"
+                 Keywords:
+                   type: string
+                   description: "搜索关键字"
+             InventoryUpdateCommand:
+               description: "更新存货档案"
+               fields:
+                 properties:
+                   Id:
+                     type: string
+                     description: "Id"
+                   Name:
+                     type: string
+                     description: "名称"
+                   Spec:
+                     type: string
+                     description: "规格"
+                   Brand:
+                     type: string
+                     description: "品牌"
+                   Keywords:
+                     type: string
+                     description: "搜索关键字"
 #### 调试
 
 1. dapr -app-port 9010 -dapr-http-port 9011 -app-id cmd-example   -dapr-grpc-port 9012 --enable-metrics=false -config /Users/lxd/go/src/github.com/liuxd6825/dapr-go-ddd-example/config/dapr/config.yaml -components-path /Users/lxd/go/src/github.com/liuxd6825/dapr-go-ddd-example/config/dapr/components
