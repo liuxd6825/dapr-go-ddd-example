@@ -95,7 +95,8 @@ EventSourcing事件溯源功能，集成在gitee.com/liuxd6825/dapr项目中。
 |   |-- query                      查询服务swagger文件  
 |-- test                    测试
 
-#### DDDML定义示例 
+#### DDDML定义
+模型示例，详细请查看dddml目录 
        aggregates:
          # 定义聚合根-存货档案
          Inventory:
@@ -160,6 +161,14 @@ EventSourcing事件溯源功能，集成在gitee.com/liuxd6825/dapr项目中。
                    Keywords:
                      type: string
                      description: "搜索关键字"
+
+dddml文件说明:  
+- aggregates_inventory.yaml            存货聚合根定义  
+- aggregates_sale_bill.yaml             销售单聚合根定义  
+- aggregates_sale_item.yaml           销售明细实体根定义  
+- aggregates_user.yaml                    用户聚合根定义   
+- configuration.yaml                          系统环境配置   
+- types.yaml                                      系统数据类型定义  
 #### 调试
 
 1. dapr -app-port 9010 -dapr-http-port 9011 -app-id cmd-example   -dapr-grpc-port 9012 --enable-metrics=false -config /Users/lxd/go/src/github.com/liuxd6825/dapr-go-ddd-example/config/dapr/config.yaml -components-path /Users/lxd/go/src/github.com/liuxd6825/dapr-go-ddd-example/config/dapr/components
