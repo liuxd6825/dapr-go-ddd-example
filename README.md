@@ -48,8 +48,8 @@ EventSourcing事件溯源功能，集成在gitee.com/liuxd6825/dapr项目中。
 |   |   |   |   |   |-- assembler                    转化层    
 |   |   |   |   |   |-- dto                               数据传输层  
 |   |   |   |   |   |-- facade                         API层   
-|   |-- query-service                  读服务   
-|   |   |-- application                       应用服务层   
+|   |-- query-service           读服务   
+|   |   |-- application                    应用服务层   
 |   |   |   |-- internals                          内部服务层  
 |   |   |   |   +-- inventory                        存货聚合层  
 |   |   |   |   +-- user                                用户聚合层   
