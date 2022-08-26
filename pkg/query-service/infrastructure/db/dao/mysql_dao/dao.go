@@ -12,12 +12,8 @@ import (
 )
 
 const (
-	IdField             = "_id"
-	TenantIdField       = "tenant_id"
-	AggregateIdField    = "aggregate_id"
-	AggregateTypeField  = "aggregate_type"
-	EventIdField        = "event_id"
-	SequenceNumberField = "sequence_number"
+	WhereTenantId      = "tenant_id=%v"
+	WhereTenantIdAndId = "tenant_id=%v and id=%v"
 )
 
 type Dao[T ddd.Entity] struct {
@@ -54,7 +50,7 @@ func (d *Dao[T]) InsertMany(ctx context.Context, vList []T, opts ...*ddd_reposit
 }
 
 func (d *Dao[T]) Update(ctx context.Context, v T, opts ...*ddd_repository.SetOptions) error {
-	return d.getDB(ctx).Where("tenant_id=? and id=?", v.GetTenantId(), v.GetId()).Updates(v).Error
+	return d.getDB(ctx).Where(WhereTenantIdAndId, v.GetTenantId(), v.GetId()).Updates(v).Error
 }
 
 func (d *Dao[T]) UpdateMany(ctx context.Context, vList []T, opts ...*ddd_repository.SetOptions) error {
@@ -82,7 +78,7 @@ func (d *Dao[T]) UpdateManyByFilter(ctx context.Context, tenantId, filter string
 
 func (d *Dao[T]) UpdateByMap(ctx context.Context, tenantId, id string, data map[string]interface{}, opts ...*Options) error {
 	var v T = d.NewEntity()
-	return d.getDB(ctx).Model(v).Where("tenant_id=? and id=?", tenantId, id).Updates(data).Error
+	return d.getDB(ctx).Model(v).Where(WhereTenantIdAndId, tenantId, id).Updates(data).Error
 }
 
 func (d *Dao[T]) DeleteById(ctx context.Context, tenantId string, id string, opts ...*ddd_repository.SetOptions) error {
@@ -95,13 +91,13 @@ func (d *Dao[T]) DeleteById(ctx context.Context, tenantId string, id string, opt
 func (d *Dao[T]) DeleteByIds(ctx context.Context, tenantId string, ids []string, opts ...*ddd_repository.SetOptions) error {
 	var models []T
 	models = d.NewEntities()
-	return d.getDB(ctx).Where("tenant_id=%v", tenantId).Delete(&models, ids).Error
+	return d.getDB(ctx).Where(WhereTenantId, tenantId).Delete(&models, ids).Error
 }
 
 func (d *Dao[T]) DeleteAll(ctx context.Context, tenantId string, opts ...*ddd_repository.SetOptions) error {
 	var model T
 	model = d.NewEntity()
-	return d.getDB(ctx).Where("tenant_id=%v", tenantId).Delete(&model).Error
+	return d.getDB(ctx).Where(WhereTenantId, tenantId).Delete(&model).Error
 }
 
 func (d *Dao[T]) DeleteByFilter(ctx context.Context, tenantId string, filter string, opts ...*ddd_repository.SetOptions) error {
@@ -117,7 +113,7 @@ func (d *Dao[T]) DeleteByFilter(ctx context.Context, tenantId string, filter str
 func (d *Dao[T]) FindById(ctx context.Context, tenantId string, id string, opts ...*ddd_repository.FindOptions) (T, bool, error) {
 	var model T
 	model = d.NewEntity()
-	tx := d.getDB(ctx).Where("tenant_id=%v and id=%v", tenantId, id).Find(&model)
+	tx := d.getDB(ctx).Where(WhereTenantIdAndId, tenantId, id).Find(&model)
 	if tx.Error == gorm.ErrRecordNotFound {
 		return nil, false, nil
 	} else if tx.Error != nil {
@@ -141,7 +137,7 @@ func (d *Dao[T]) FindByIds(ctx context.Context, tenantId string, ids []string) (
 func (d *Dao[T]) FindAll(ctx context.Context, tenantId string, opts ...*ddd_repository.FindOptions) *ddd_repository.FindListResult[T] {
 	var vList []T
 	vList = d.NewEntities()
-	tx := d.getDB(ctx).Where("tenant_id=%v", tenantId).Find(&vList)
+	tx := d.getDB(ctx).Where(WhereTenantId, tenantId).Find(&vList)
 	if IsErrRecordNotFound(tx.Error) {
 		return ddd_repository.NewFindListResult(vList, false, nil)
 	} else if tx.Error != nil {
@@ -269,7 +265,7 @@ func (d *Dao[T]) getSort(sort string) (map[string]interface{}, error) {
 		name := sortItem[0]
 		name = strings.Trim(name, " ")
 		if name == "id" {
-			name = IdField
+			name = "id"
 		}
 		order := "asc"
 		if len(sortItem) > 1 {

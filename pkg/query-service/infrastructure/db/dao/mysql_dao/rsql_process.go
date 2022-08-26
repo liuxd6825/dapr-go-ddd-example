@@ -3,8 +3,8 @@ package mysql_dao
 import (
 	"errors"
 	"fmt"
-	"github.com/liuxd6825/components-contrib/liuxd/common/rsql"
-	"github.com/liuxd6825/components-contrib/liuxd/common/utils"
+	"github.com/liuxd6825/dapr-go-ddd-sdk/rsql"
+	"github.com/liuxd6825/dapr-go-ddd-sdk/utils/stringutils"
 )
 
 type Process interface {
@@ -152,41 +152,41 @@ func parseProcess(expr rsql.Expression, process rsql.Process) error {
 	case rsql.NotEqualsComparison:
 		ex, _ := expr.(rsql.NotEqualsComparison)
 		name := ex.Comparison.Identifier.Val
-		name = utils.AsFieldName(name)
+		name = stringutils.AsFieldName(name)
 		value := getValue(ex.Comparison.Val)
 		process.OnNotEquals(name, value, ex.Comparison.Val)
 		break
 	case rsql.EqualsComparison:
 		ex, _ := expr.(rsql.EqualsComparison)
 		name := ex.Comparison.Identifier.Val
-		name = utils.AsFieldName(name)
+		name = stringutils.AsFieldName(name)
 		value := getValue(ex.Comparison.Val)
 		process.OnEquals(name, value, ex.Comparison.Val)
 		break
 	case rsql.LikeComparison:
 		ex, _ := expr.(rsql.LikeComparison)
-		name := ex.Comparison.Identifier.Val
+		name := stringutils.AsFieldName(ex.Comparison.Identifier.Val)
 		value := getValue(ex.Comparison.Val)
 		process.OnLike(name, value, ex.Comparison.Val)
 		break
 	case rsql.NotLikeComparison:
 		ex, _ := expr.(rsql.NotLikeComparison)
 		name := ex.Comparison.Identifier.Val
-		name = utils.AsFieldName(name)
+		name = stringutils.AsFieldName(name)
 		value := getValue(ex.Comparison.Val)
 		process.OnNotLike(name, value, ex.Comparison.Val)
 		break
 	case rsql.GreaterThanComparison:
 		ex, _ := expr.(rsql.GreaterThanComparison)
 		name := ex.Comparison.Identifier.Val
-		name = utils.AsFieldName(name)
+		name = stringutils.AsFieldName(name)
 		value := getValue(ex.Comparison.Val)
 		process.OnGreaterThan(name, value, ex.Comparison.Val)
 		break
 	case rsql.GreaterThanOrEqualsComparison:
 		ex, _ := expr.(rsql.GreaterThanOrEqualsComparison)
 		name := ex.Comparison.Identifier.Val
-		name = utils.AsFieldName(name)
+		name = stringutils.AsFieldName(name)
 		value := getValue(ex.Comparison.Val)
 		process.OnGreaterThanOrEquals(name, value, ex.Comparison.Val)
 		break
@@ -199,21 +199,21 @@ func parseProcess(expr rsql.Expression, process rsql.Process) error {
 	case rsql.LessThanOrEqualsComparison:
 		ex, _ := expr.(rsql.LessThanOrEqualsComparison)
 		name := ex.Comparison.Identifier.Val
-		name = utils.AsFieldName(name)
+		name = stringutils.AsFieldName(name)
 		value := getValue(ex.Comparison.Val)
 		process.OnLessThanOrEquals(name, value, ex.Comparison.Val)
 		break
 	case rsql.InComparison:
 		ex, _ := expr.(rsql.InComparison)
 		name := ex.Comparison.Identifier.Val
-		name = utils.AsFieldName(name)
+		name = stringutils.AsFieldName(name)
 		value := getValue(ex.Comparison.Val)
 		process.OnIn(name, value, ex.Comparison.Val)
 		break
 	case rsql.NotInComparison:
 		ex, _ := expr.(rsql.NotInComparison)
 		name := ex.Comparison.Identifier.Val
-		name = utils.AsFieldName(name)
+		name = stringutils.AsFieldName(name)
 		value := getValue(ex.Comparison.Val)
 		process.OnNotIn(name, value, ex.Comparison.Val)
 		break
