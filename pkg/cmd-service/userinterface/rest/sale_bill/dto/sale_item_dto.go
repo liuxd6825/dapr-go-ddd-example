@@ -1,9 +1,5 @@
 package dto
 
-import (
-	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/cmd-service/domain/sale_bill/field"
-)
-
 // SaleItemDeleteCommand
 
 //
@@ -21,9 +17,20 @@ type SaleItemDeleteCommandRequest struct {
 // @Description: 删除销售明细项
 //
 type SaleItemDeleteCommandRequestData struct {
-	Items      field.SaleItemDeleteItem `json:"items,omitempty" validate:"-"`             //
-	SaleBillId string                   `json:"saleBillId,omitempty" validate:"required"` // 销售单Id
-	TenantId   string                   `json:"tenantId,omitempty" validate:"required"`   // 租户ID
+	Items      []*SaleItemDeleteItem `json:"items,omitempty" validate:"-"`             //
+	SaleBillId string                `json:"saleBillId,omitempty" validate:"required"` // 销售单Id
+	TenantId   string                `json:"tenantId,omitempty" validate:"required"`   // 租户ID
+}
+
+//
+// SaleItemDeleteItem
+// @Description: 
+//
+type SaleItemDeleteItem struct {
+	Id         string `json:"id,omitempty" validate:"required"`       // 明细Id
+	Remarks    string `json:"remarks,omitempty" validate:"-"`         // 备注
+	SaleBillId string `json:"saleBillId,omitempty" validate:"gt=0"`   //
+	TenantId   string `json:"tenantId,omitempty" validate:"required"` // 租户ID
 }
 
 //
@@ -49,14 +56,14 @@ type SaleItemCreateCommandRequest struct {
 // @Description: 添加明细
 //
 type SaleItemCreateCommandRequestData struct {
-	Items      []*field.SaleItemCreateItem `json:"items,omitempty" validate:"-"`             //
-	SaleBillId string                      `json:"saleBillId,omitempty" validate:"required"` //
-	TenantId   string                      `json:"tenantId,omitempty" validate:"required"`   // 租户ID
+	Items      []*SaleItemCreateItem `json:"items,omitempty" validate:"-"`             //
+	SaleBillId string                `json:"saleBillId,omitempty" validate:"required"` //
+	TenantId   string                `json:"tenantId,omitempty" validate:"required"`   // 租户ID
 }
 
 //
 // SaleItemCreateItem
-// @Description:
+// @Description: 
 //
 type SaleItemCreateItem struct {
 	Id            string  `json:"id,omitempty" validate:"required"`          // 主键
@@ -100,7 +107,7 @@ type SaleItemUpdateCommandRequestData struct {
 
 //
 // SaleItemUpdateItem
-// @Description:
+// @Description: 
 //
 type SaleItemUpdateItem struct {
 	Id            string  `json:"id,omitempty" validate:"required"`          // 主键

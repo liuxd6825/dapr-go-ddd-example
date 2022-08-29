@@ -9,19 +9,19 @@ import (
 // @Description: 视图基类
 //
 type BaseView struct {
-	CreatedTime *time.Time `json:"createdTime,omitempty"  bson:"createdTime"` // 创建时间
-	CreatorId   string     `json:"creatorId,omitempty"  bson:"creatorId"`     // 创建人ID
-	CreatorName string     `json:"creatorName,omitempty"  bson:"creatorName"` // 创建人名称
-	DeletedTime *time.Time `json:"deletedTime,omitempty"  bson:"deletedTime"` // 删除时间
-	DeleterId   string     `json:"deleterId,omitempty"  bson:"deleterId"`     // 删除人ID
-	DeleterName string     `json:"deleterName,omitempty"  bson:"deleterName"` // 删除人名称
-	Id          string     `json:"id,omitempty"  bson:"id"`                   // 主键
-	IsDeleted   bool       `json:"isDeleted,omitempty"  bson:"isDeleted"`     // 是否删除
-	Remarks     string     `json:"remarks,omitempty"  bson:"remarks"`         // 备注
-	TenantId    string     `json:"tenantId,omitempty"  bson:"tenantId"`       // 租户ID
-	UpdatedTime *time.Time `json:"updatedTime,omitempty"  bson:"updatedTime"` // 修改时间
-	UpdaterId   string     `json:"updaterId,omitempty"  bson:"updaterId"`     // 修改人ID
-	UpdaterName string     `json:"updaterName,omitempty"  bson:"updaterName"` // 修改人名称
+	CreatedTime *time.Time `json:"createdTime,omitempty"  bson:"created_time" gorm:"" `                 // 创建时间
+	CreatorId   string     `json:"creatorId,omitempty"  bson:"creator_id" gorm:"index:idx_creator_id" ` // 创建人ID
+	CreatorName string     `json:"creatorName,omitempty"  bson:"creator_name" gorm:"" `                 // 创建人名称
+	DeletedTime *time.Time `json:"deletedTime,omitempty"  bson:"deleted_time" gorm:"" `                 // 删除时间
+	DeleterId   string     `json:"deleterId,omitempty"  bson:"deleter_id" gorm:"index:idx_deleter_id" ` // 删除人ID
+	DeleterName string     `json:"deleterName,omitempty"  bson:"deleter_name" gorm:"" `                 // 删除人名称
+	Id          string     `json:"id,omitempty"  bson:"_id" gorm:"primaryKey" `                         // 主键
+	IsDeleted   bool       `json:"isDeleted,omitempty"  bson:"is_deleted" gorm:"" `                     // 是否删除
+	Remarks     string     `json:"remarks,omitempty"  bson:"remarks" gorm:"" `                          // 备注
+	TenantId    string     `json:"tenantId,omitempty"  bson:"tenant_id" gorm:"index:idx_tenant_id" `    // 租户ID
+	UpdatedTime *time.Time `json:"updatedTime,omitempty"  bson:"updated_time" gorm:"" `                 // 修改时间
+	UpdaterId   string     `json:"updaterId,omitempty"  bson:"updater_id" gorm:"index:idx_updater_id" ` // 修改人ID
+	UpdaterName string     `json:"updaterName,omitempty"  bson:"updater_name" gorm:"" `                 // 修改人名称
 }
 
 //

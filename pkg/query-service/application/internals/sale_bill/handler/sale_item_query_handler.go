@@ -18,9 +18,9 @@ type SaleItemQueryHandler struct {
 
 func NewSaleItemSubscribe() restapp.RegisterSubscribe {
 	subscribes := &[]ddd.Subscribe{
-		{PubsubName: "pubsub", Topic: event.SaleItemDeleteEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_item_delete_event/ver:v1.0"},
-		{PubsubName: "pubsub", Topic: event.SaleItemCreateEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_item_create_event/ver:v1.0"},
-		{PubsubName: "pubsub", Topic: event.SaleItemUpdateEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_item_update_event/ver:v1.0"},
+		{PubsubName: "pubsub", Topic: event.SaleItemDeleteEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_item_delete_event"},
+		{PubsubName: "pubsub", Topic: event.SaleItemCreateEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_item_create_event"},
+		{PubsubName: "pubsub", Topic: event.SaleItemUpdateEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_item_update_event"},
 	}
 	return restapp.NewRegisterSubscribe(subscribes, NewSaleItemQueryHandler())
 }
@@ -40,7 +40,7 @@ func NewSaleItemQueryHandler() ddd.QueryEventHandler {
 // @return error 错误
 //
 func (h *SaleItemQueryHandler) OnSaleItemDeleteEventV1s0(ctx context.Context, event *event.SaleItemDeleteEvent) error {
-	logs.Debugln(event)
+	logs.DebugEvent(event, "OnOnSaleItemDeleteEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.SaleItemView.NewBySaleItemDeleteEvent(ctx, event)
 		if err != nil {
@@ -59,8 +59,7 @@ func (h *SaleItemQueryHandler) OnSaleItemDeleteEventV1s0(ctx context.Context, ev
 // @return error 错误
 //
 func (h *SaleItemQueryHandler) OnSaleItemCreateEventV1s0(ctx context.Context, event *event.SaleItemCreateEvent) error {
-	logs.DebugEvent(event, "OnSaleItemCreateEventV1s0")
-
+	logs.DebugEvent(event, "OnOnSaleItemCreateEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.SaleItemView.NewBySaleItemCreateEvent(ctx, event)
 		if err != nil {
@@ -79,7 +78,7 @@ func (h *SaleItemQueryHandler) OnSaleItemCreateEventV1s0(ctx context.Context, ev
 // @return error 错误
 //
 func (h *SaleItemQueryHandler) OnSaleItemUpdateEventV1s0(ctx context.Context, event *event.SaleItemUpdateEvent) error {
-
+	logs.DebugEvent(event, "OnOnSaleItemUpdateEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.SaleItemView.NewBySaleItemUpdateEvent(ctx, event)
 		if err != nil {

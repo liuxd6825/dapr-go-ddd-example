@@ -16,6 +16,14 @@ func (f *UserUpdateFields) GetId() string {
 	return f.Id
 }
 
+func (f *UserUpdateFields) SetId(v string) {
+	f.Id = v
+}
+
 func (f *UserUpdateFields) GetTenantId() string {
 	return f.TenantId
+}
+
+func (f *UserUpdateFields) SetTenantId(v string) {
+	f.TenantId = v
 }

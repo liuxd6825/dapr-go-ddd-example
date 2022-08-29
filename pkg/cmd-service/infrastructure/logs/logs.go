@@ -6,7 +6,9 @@ import (
 )
 
 type LogFunction logrus.LogFunction
+
 type Fields logrus.Fields
+
 type Logger interface {
 	Trace(args ...interface{})
 	Debug(args ...interface{})
@@ -251,4 +253,22 @@ func ErrorEvent(event ddd.Event, handlerName string) {
 		"commandId": event.GetCommandId(),
 		"tenantId":  event.GetTenantId(),
 	}).Error(handlerName)
+}
+
+func PanicEvent(event ddd.Event, handlerName string) {
+	WithFields(Fields{
+		"eventType": event.GetEventType(),
+		"eventId":   event.GetEventId(),
+		"commandId": event.GetCommandId(),
+		"tenantId":  event.GetTenantId(),
+	}).Panic(handlerName)
+}
+
+func WarningEvent(event ddd.Event, handlerName string) {
+	WithFields(Fields{
+		"eventType": event.GetEventType(),
+		"eventId":   event.GetEventId(),
+		"commandId": event.GetCommandId(),
+		"tenantId":  event.GetTenantId(),
+	}).Warning(handlerName)
 }

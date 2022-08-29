@@ -7,13 +7,13 @@ import (
 type SaleBillEventType uint32
 
 const (
-	SaleItemUpdateEventType SaleBillEventType = iota
-	SaleBillCreateEventType
-	SaleBillUpdateEventType
-	SaleBillConfirmEventType
+	SaleBillConfirmEventType SaleBillEventType = iota
 	SaleBillDeleteEventType
 	SaleItemDeleteEventType
 	SaleItemCreateEventType
+	SaleItemUpdateEventType
+	SaleBillCreateEventType
+	SaleBillUpdateEventType
 )
 
 //
@@ -22,12 +22,6 @@ const (
 //
 func (p SaleBillEventType) String() string {
 	switch p {
-	case SaleItemUpdateEventType:
-		return "dapr-ddd-demo.SaleItemUpdateEvent"
-	case SaleBillCreateEventType:
-		return "dapr-ddd-demo.SaleBillCreateEvent"
-	case SaleBillUpdateEventType:
-		return "dapr-ddd-demo.SaleBillUpdateEvent"
 	case SaleBillConfirmEventType:
 		return "dapr-ddd-demo.SaleBillConfirmEvent"
 	case SaleBillDeleteEventType:
@@ -36,6 +30,12 @@ func (p SaleBillEventType) String() string {
 		return "dapr-ddd-demo.SaleItemDeleteEvent"
 	case SaleItemCreateEventType:
 		return "dapr-ddd-demo.SaleItemCreateEvent"
+	case SaleItemUpdateEventType:
+		return "dapr-ddd-demo.SaleItemUpdateEvent"
+	case SaleBillCreateEventType:
+		return "dapr-ddd-demo.SaleBillCreateEvent"
+	case SaleBillUpdateEventType:
+		return "dapr-ddd-demo.SaleBillUpdateEvent"
 	default:
 		return "UNKNOWN"
 	}

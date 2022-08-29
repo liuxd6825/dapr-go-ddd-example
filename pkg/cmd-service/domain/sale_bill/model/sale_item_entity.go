@@ -30,3 +30,7 @@ func NewSaleItem() *SaleItem {
 func (e *SaleItem) GetId() string {
 	return e.Id
 }
+
+func (e *SaleItem) SetId(v string) {
+	e.Id = v
+}

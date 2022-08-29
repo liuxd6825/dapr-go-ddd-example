@@ -5,7 +5,6 @@ import (
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/cmd-service/domain/sale_bill/command"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/cmd-service/domain/sale_bill/factory"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
-	"github.com/liuxd6825/dapr-go-ddd-sdk/errors"
 )
 
 //
@@ -89,11 +88,6 @@ func (a *SaleBillAggregate) SaleItemCreateCommand(ctx context.Context, cmd *comm
 	e, err := factory.Event.NewSaleItemCreateEvent(ctx, cmd, metadata)
 	if err != nil {
 		return nil, err
-	}
-	for _, item := range cmd.Data.Items {
-		if _, ok := a.SaleItems.Get(item.Id); ok {
-			return nil, errors.ErrorOf("SaleItemCreateCommand() error: saleItem id %v already exists", item.Id)
-		}
 	}
 	return ddd.ApplyEvent(ctx, a, e, ddd.NewApplyEventOptions(metadata))
 }

@@ -18,6 +18,14 @@ func (f *InventoryUpdateFields) GetId() string {
 	return f.Id
 }
 
+func (f *InventoryUpdateFields) SetId(v string) {
+	f.Id = v
+}
+
 func (f *InventoryUpdateFields) GetTenantId() string {
 	return f.TenantId
+}
+
+func (f *InventoryUpdateFields) SetTenantId(v string) {
+	f.TenantId = v
 }

@@ -3,12 +3,16 @@ package service
 import (
 	"context"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/domain/inventory/query"
-	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/domain/inventory/repository"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/domain/inventory/view"
+	"time"
 )
 
 type Options interface {
-	repository.Options
+	GetTimeout() *time.Duration
+	SetTimeout(v *time.Duration) Options
+	GetUpdateMask() *[]string
+	SetUpdateMask(*[]string) Options
+	Merge(opts ...Options) Options
 }
 
 type InventoryQueryDomainService interface {

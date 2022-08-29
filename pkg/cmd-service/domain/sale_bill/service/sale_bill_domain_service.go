@@ -179,30 +179,6 @@ func (s *SaleBillCommandDomainService) doCommand(ctx context.Context, cmd ddd.Co
 	// 新建聚合根对象
 	agg := s.NewAggregate()
 
-	/*	req := &daprclient.GetRelationsRequest{
-			TenantId:      cmd.GetTenantId(),
-			AggregateType: model.AggregateType,
-			Filter:        fmt.Sprintf(`aggregate_id=="%v"`, cmd.GetAggregateId().RootId()),
-		}
-
-		resq, err := ddd.GetRelations(ctx, req)
-		if err != nil {
-			return nil, err
-		}
-
-		logs.Debug(resq)*/
-
-	/*	getEventReq := &daprclient.GetEventsRequest{
-			TenantId:      cmd.GetTenantId(),
-			AggregateType: model.AggregateType,
-			Filter:        fmt.Sprintf(`aggregate_id=="%v"`, cmd.GetAggregateId().RootId()),
-		}
-		getEventResp, err := ddd.GetEvents(ctx, getEventReq)
-		if err != nil {
-			return nil, err
-		}
-		logs.Debug(getEventResp.Data)*/
-
 	// 如果领域命令执行时出错，则返回错误
 	if err := ddd.ApplyCommand(ctx, agg, cmd); err != nil {
 		return nil, err

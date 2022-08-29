@@ -25,11 +25,27 @@ func NewSaleItemCommandApi() *SaleItemCommandApi {
 // @param ctx
 //
 func (c *SaleItemCommandApi) BeforeActivation(b mvc.BeforeActivation) {
+	b.Handle("DELETE", "/tenants/{tenantId}/sale-bills/sale-items", "SaleItemDelete")
 	b.Handle("POST", "/tenants/{tenantId}/sale-bills/sale-items", "SaleItemCreate")
 	b.Handle("POST", "/tenants/{tenantId}/sale-bills/sale-items:get", "SaleItemCreateAndGet")
 	b.Handle("PATCH", "/tenants/{tenantId}/sale-bills/sale-items", "SaleItemUpdate")
 	b.Handle("PATCH", "/tenants/{tenantId}/sale-bills/sale-items:get", "SaleItemUpdateAndGet")
-	b.Handle("DELETE", "/tenants/{tenantId}/sale-bills/sale-items", "SaleItemDelete")
+}
+
+//
+// SaleItemDelete
+// @Description: 删除销售明细项
+// @receiver c
+// @param ctx
+//
+func (c *SaleItemCommandApi) SaleItemDelete(ictx iris.Context) {
+	_ = restapp.DoCmd(ictx, func(ctx context.Context) error {
+		cmd, err := saleBillAssembler.AssSaleItemDeleteAppCmd(ictx)
+		if err != nil {
+			return err
+		}
+		return c.service.SaleItemDelete(ctx, cmd)
+	})
 }
 
 //
@@ -107,21 +123,5 @@ func (c *SaleItemCommandApi) SaleItemUpdateAndGet(ictx iris.Context) {
 		})
 
 		return err
-	})
-}
-
-//
-// SaleItemDelete
-// @Description: 删除销售明细项
-// @receiver c
-// @param ctx
-//
-func (c *SaleItemCommandApi) SaleItemDelete(ictx iris.Context) {
-	_ = restapp.DoCmd(ictx, func(ctx context.Context) error {
-		cmd, err := saleBillAssembler.AssSaleItemDeleteAppCmd(ictx)
-		if err != nil {
-			return err
-		}
-		return c.service.SaleItemDelete(ctx, cmd)
 	})
 }

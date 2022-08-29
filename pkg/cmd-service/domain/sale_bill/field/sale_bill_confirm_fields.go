@@ -14,6 +14,14 @@ func (f *SaleBillConfirmFields) GetId() string {
 	return f.Id
 }
 
+func (f *SaleBillConfirmFields) SetId(v string) {
+	f.Id = v
+}
+
 func (f *SaleBillConfirmFields) GetTenantId() string {
 	return f.TenantId
+}
+
+func (f *SaleBillConfirmFields) SetTenantId(v string) {
+	f.TenantId = v
 }

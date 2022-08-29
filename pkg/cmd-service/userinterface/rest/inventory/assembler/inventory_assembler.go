@@ -11,7 +11,7 @@ type InventoryAssembler struct {
 }
 
 //
-// AssInventoryCreateCommandDto
+// AssInventoryCreateAppCmd
 // @Description: 创建存货档案
 // @receiver a
 // @param ictx
@@ -28,7 +28,7 @@ func (a *InventoryAssembler) AssInventoryCreateAppCmd(ictx iris.Context) (*appcm
 }
 
 //
-// AssInventoryUpdateCommandDto
+// AssInventoryUpdateAppCmd
 // @Description: 更新存货档案
 // @receiver a
 // @param ictx

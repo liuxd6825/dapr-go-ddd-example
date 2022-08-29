@@ -10,8 +10,8 @@ import (
 //
 type UserView struct {
 	base.BaseView `bson:",inline"`
-	Email         string `json:"email,omitempty"  bson:"email"` // 电子邮箱
-	Name          string `json:"name,omitempty"  bson:"name"`   // 用户名称
+	Email         string `json:"email,omitempty" bson:"email"  gorm:""` // 电子邮箱
+	Name          string `json:"name,omitempty" bson:"name"  gorm:""`   // 用户名称
 }
 
 //

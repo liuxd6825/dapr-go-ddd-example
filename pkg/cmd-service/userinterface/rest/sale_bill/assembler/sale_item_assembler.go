@@ -8,23 +8,6 @@ import (
 )
 
 //
-// AssSaleItemDeleteAppCmd
-// @Description: 删除销售明细项
-// @receiver a
-// @param ictx
-// @return *appcmd.SaleItemDeleteAppCmd 删除销售明细项 应用层DTO对象
-// @return error 错误
-//
-func (a *SaleBillAssembler) AssSaleItemDeleteAppCmd(ictx iris.Context) (*appcmd.SaleItemDeleteAppCmd, error) {
-	var request dto.SaleItemDeleteCommandRequest
-	var appCmd appcmd.SaleItemDeleteAppCmd
-	if err := utils.AssemblerRequestBody(ictx, &request, &appCmd); err != nil {
-		return nil, err
-	}
-	return &appCmd, nil
-}
-
-//
 // AssSaleItemCreateAppCmd
 // @Description: 添加明细
 // @receiver a
@@ -52,6 +35,23 @@ func (a *SaleBillAssembler) AssSaleItemCreateAppCmd(ictx iris.Context) (*appcmd.
 func (a *SaleBillAssembler) AssSaleItemUpdateAppCmd(ictx iris.Context) (*appcmd.SaleItemUpdateAppCmd, error) {
 	var request dto.SaleItemUpdateCommandRequest
 	var appCmd appcmd.SaleItemUpdateAppCmd
+	if err := utils.AssemblerRequestBody(ictx, &request, &appCmd); err != nil {
+		return nil, err
+	}
+	return &appCmd, nil
+}
+
+//
+// AssSaleItemDeleteAppCmd
+// @Description: 删除销售明细项
+// @receiver a
+// @param ictx
+// @return *appcmd.SaleItemDeleteAppCmd 删除销售明细项 应用层DTO对象
+// @return error 错误
+//
+func (a *SaleBillAssembler) AssSaleItemDeleteAppCmd(ictx iris.Context) (*appcmd.SaleItemDeleteAppCmd, error) {
+	var request dto.SaleItemDeleteCommandRequest
+	var appCmd appcmd.SaleItemDeleteAppCmd
 	if err := utils.AssemblerRequestBody(ictx, &request, &appCmd); err != nil {
 		return nil, err
 	}

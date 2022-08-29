@@ -22,6 +22,14 @@ func (f *SaleBillUpdateFields) GetId() string {
 	return f.Id
 }
 
+func (f *SaleBillUpdateFields) SetId(v string) {
+	f.Id = v
+}
+
 func (f *SaleBillUpdateFields) GetTenantId() string {
 	return f.TenantId
+}
+
+func (f *SaleBillUpdateFields) SetTenantId(v string) {
+	f.TenantId = v
 }

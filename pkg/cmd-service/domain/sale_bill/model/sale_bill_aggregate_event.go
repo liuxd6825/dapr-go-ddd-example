@@ -7,7 +7,7 @@ import (
 )
 
 //
-// OnSaleBillConfirmEvent
+// OnSaleBillConfirmEventV1s0
 // @Description: SaleBillConfirmEvent 领域事件 事件溯源处理器
 // @receiver a
 // @param ctx 上下文件
@@ -66,7 +66,6 @@ func (a *SaleBillAggregate) OnSaleBillUpdateEventV1s0(ctx context.Context, e *ev
 //
 func (a *SaleBillAggregate) OnSaleItemCreateEventV1s0(ctx context.Context, e *event.SaleItemCreateEvent) error {
 	for _, item := range e.Data.Items {
-		a.TotalMoney = a.TotalMoney + item.Money
 		if _, err := a.SaleItems.AddMapper(ctx, item.Id, item); err != nil {
 			return err
 		}
@@ -84,12 +83,8 @@ func (a *SaleBillAggregate) OnSaleItemCreateEventV1s0(ctx context.Context, e *ev
 //
 func (a *SaleBillAggregate) OnSaleItemDeleteEventV1s0(ctx context.Context, e *event.SaleItemDeleteEvent) error {
 	for _, item := range e.Data.Items {
-		saleItem, ok := a.SaleItems.Items.Get(item.GetId())
-		if ok {
-			a.TotalMoney = a.TotalMoney - saleItem.Money
-			if err := a.SaleItems.DeleteById(ctx, item.Id); err != nil {
-				return err
-			}
+		if err := a.SaleItems.DeleteById(ctx, item.Id); err != nil {
+			return err
 		}
 	}
 	return nil
@@ -105,12 +100,8 @@ func (a *SaleBillAggregate) OnSaleItemDeleteEventV1s0(ctx context.Context, e *ev
 //
 func (a *SaleBillAggregate) OnSaleItemUpdateEventV1s0(ctx context.Context, e *event.SaleItemUpdateEvent) error {
 	for _, item := range e.Data.Items {
-		saleItem, ok := a.SaleItems.Items.Get(item.GetId())
-		if ok {
-			a.TotalMoney = a.TotalMoney - saleItem.Money + item.Money
-			if _, err := a.SaleItems.AddMapper(ctx, item.Id, item); err != nil {
-				return err
-			}
+		if _, err := a.SaleItems.AddMapper(ctx, item.Id, item); err != nil {
+			return err
 		}
 	}
 	return nil

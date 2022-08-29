@@ -48,6 +48,14 @@ func (c *SaleBillCreateCommand) GetIsValidOnly() bool {
 }
 
 //
+// IsAggregateCreateCommand
+// @Description: 标识此命令为是聚合根创建命令，DDD框架层使用。
+//
+func (c *SaleBillCreateCommand) IsAggregateCreateCommand() {
+
+}
+
+//
 // Validate
 // @Description: 命令数据验证
 //
@@ -59,7 +67,4 @@ func (c *SaleBillCreateCommand) Validate() error {
 	   }
 	*/
 	return ve.GetError()
-}
-
-func (c *SaleBillCreateCommand) IsAggregateCreateCommand() {
 }

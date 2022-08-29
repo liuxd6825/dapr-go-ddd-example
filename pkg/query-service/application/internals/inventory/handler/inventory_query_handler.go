@@ -49,7 +49,7 @@ func NewInventoryQueryHandler() ddd.QueryEventHandler {
 // @return error 错误
 //
 func (h *InventoryQueryHandler) OnInventoryCreateEventV1s0(ctx context.Context, event *event.InventoryCreateEvent) error {
-	logs.Debugln(event)
+	logs.DebugEvent(event, "OnOnInventoryCreateEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.InventoryView.NewByInventoryCreateEvent(ctx, event)
 		if err != nil {
@@ -68,7 +68,7 @@ func (h *InventoryQueryHandler) OnInventoryCreateEventV1s0(ctx context.Context, 
 // @return error 错误
 //
 func (h *InventoryQueryHandler) OnInventoryUpdateEventV1s0(ctx context.Context, event *event.InventoryUpdateEvent) error {
-	logs.Debugln(event)
+	logs.DebugEvent(event, "OnOnInventoryUpdateEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.InventoryView.NewByInventoryUpdateEvent(ctx, event)
 		if err != nil {

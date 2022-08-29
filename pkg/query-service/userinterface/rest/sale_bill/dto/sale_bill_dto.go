@@ -3,7 +3,7 @@ package dto
 import (
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/cmd-service/domain/sale_bill/field"
 	base "gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/infrastructure/base/userinterface/rest/dto"
-	"time"
+	"github.com/liuxd6825/dapr-go-ddd-sdk/types"
 )
 
 // 按ID查询
@@ -116,7 +116,7 @@ type SaleBillDto struct {
 	base.BaseDto
 	SaleItems []*SaleItemDto       `json:"saleItems,omitempty" validate:"-""`    //
 	SaleMoney float64              `json:"saleMoney,omitempty" validate:"-"`     // 销售金额
-	SaleTime  time.Time            `json:"saleTime,omitempty" validate:"-"`      // 文件大小
+	SaleTime  *types.JSONTime      `json:"saleTime,omitempty" validate:"-"`      // 文件大小
 	Statue    field.SaleBillStatue `json:"statue,omitempty" validate:"-"`        // 单据状态
 	UserId    string               `json:"userId,omitempty" validate:"required"` // 用户Id
 	UserName  string               `json:"userName,omitempty" validate:"-"`      // 用户名称

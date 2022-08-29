@@ -3,6 +3,7 @@ package mongodb
 import (
 	"context"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/domain/sale_bill/repository"
+	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/domain/sale_bill/service"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/domain/sale_bill/view"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/infrastructure/db/dao/mongo_dao"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_repository"
@@ -18,62 +19,83 @@ func NewSaleBillViewRepository() repository.SaleBillViewRepository {
 	}
 }
 
-func (r *SaleBillViewRepositoryImpl) Create(ctx context.Context, view *view.SaleBillView, opt repository.Options) error {
-	return r.dao.Insert(ctx, view)
+func (r *SaleBillViewRepositoryImpl) Create(ctx context.Context, view *view.SaleBillView, opts ...service.Options) error {
+	ops := newOptions(opts...)
+	return r.dao.Insert(ctx, view, ops...)
 }
 
-func (r *SaleBillViewRepositoryImpl) CreateMany(ctx context.Context, views []*view.SaleBillView, opt repository.Options) error {
-	return r.dao.InsertMany(ctx, views)
+func (r *SaleBillViewRepositoryImpl) CreateMany(ctx context.Context, views []*view.SaleBillView, opts ...service.Options) error {
+	ops := newOptions(opts...)
+	return r.dao.InsertMany(ctx, views, ops...)
 }
 
-func (r *SaleBillViewRepositoryImpl) Update(ctx context.Context, view *view.SaleBillView, opt repository.Options) error {
-	return r.dao.Update(ctx, view)
+func (r *SaleBillViewRepositoryImpl) Update(ctx context.Context, view *view.SaleBillView, opts ...service.Options) error {
+	ops := newOptions(opts...)
+	return r.dao.Update(ctx, view, ops...)
 }
 
-func (r *SaleBillViewRepositoryImpl) UpdateMany(ctx context.Context, views []*view.SaleBillView, opt repository.Options) error {
-	return r.dao.UpdateMany(ctx, views)
+func (r *SaleBillViewRepositoryImpl) UpdateMany(ctx context.Context, views []*view.SaleBillView, opts ...service.Options) error {
+	ops := newOptions(opts...)
+	return r.dao.UpdateMany(ctx, views, ops...)
 }
 
-func (r *SaleBillViewRepositoryImpl) Delete(ctx context.Context, view *view.SaleBillView, opt repository.Options) error {
-	return r.dao.DeleteById(ctx, view.GetTenantId(), view.GetId())
+func (r *SaleBillViewRepositoryImpl) Delete(ctx context.Context, view *view.SaleBillView, opts ...service.Options) error {
+	ops := newOptions(opts...)
+	return r.dao.DeleteById(ctx, view.GetTenantId(), view.GetId(), ops...)
 }
 
-func (r *SaleBillViewRepositoryImpl) DeleteMany(ctx context.Context, tenantId string, views []*view.SaleBillView, opt repository.Options) error {
+func (r *SaleBillViewRepositoryImpl) DeleteMany(ctx context.Context, tenantId string, views []*view.SaleBillView, opts ...service.Options) error {
 	ids, err := ddd_repository.NewIds(ctx, views)
 	if err != nil {
 		return err
 	}
-	return r.DeleteByIds(ctx, tenantId, ids, opt)
+	return r.DeleteByIds(ctx, tenantId, ids, opts...)
 }
 
-func (r *SaleBillViewRepositoryImpl) DeleteById(ctx context.Context, tenantId string, id string, opt repository.Options) error {
-	return r.dao.DeleteById(ctx, tenantId, id)
+func (r *SaleBillViewRepositoryImpl) DeleteById(ctx context.Context, tenantId string, id string, opts ...service.Options) error {
+	ops := newOptions(opts...)
+	return r.dao.DeleteById(ctx, tenantId, id, ops...)
 }
 
-func (r *SaleBillViewRepositoryImpl) DeleteByIds(ctx context.Context, tenantId string, ids []string, opt repository.Options) error {
-	return r.dao.DeleteByIds(ctx, tenantId, ids)
+func (r *SaleBillViewRepositoryImpl) DeleteByIds(ctx context.Context, tenantId string, ids []string, opts ...service.Options) error {
+	ops := newOptions(opts...)
+	return r.dao.DeleteByIds(ctx, tenantId, ids, ops...)
 }
 
-func (r *SaleBillViewRepositoryImpl) DeleteAll(ctx context.Context, tenantId string, opt repository.Options) error {
-	return r.dao.DeleteAll(ctx, tenantId)
+func (r *SaleBillViewRepositoryImpl) DeleteAll(ctx context.Context, tenantId string, opts ...service.Options) error {
+	ops := newOptions(opts...)
+	return r.dao.DeleteAll(ctx, tenantId, ops...)
 }
 
-func (r *SaleBillViewRepositoryImpl) DeleteByFilter(ctx context.Context, tenantId, filter string, opt repository.Options) error {
-	return r.dao.DeleteByFilter(ctx, tenantId, filter)
+func (r *SaleBillViewRepositoryImpl) DeleteByFilter(ctx context.Context, tenantId, filter string, opts ...service.Options) error {
+	ops := newOptions(opts...)
+	return r.dao.DeleteByFilter(ctx, tenantId, filter, ops...)
 }
 
-func (r *SaleBillViewRepositoryImpl) FindById(ctx context.Context, tenantId string, id string, opt repository.Options) (*view.SaleBillView, bool, error) {
-	return r.dao.FindById(ctx, tenantId, id)
+func (r *SaleBillViewRepositoryImpl) FindById(ctx context.Context, tenantId string, id string, opts ...service.Options) (*view.SaleBillView, bool, error) {
+	ops := newOptions(opts...)
+	return r.dao.FindById(ctx, tenantId, id, ops...)
 }
 
-func (r *SaleBillViewRepositoryImpl) FindByIds(ctx context.Context, tenantId string, ids []string, opt repository.Options) ([]*view.SaleBillView, bool, error) {
-	return r.dao.FindByIds(ctx, tenantId, ids)
+func (r *SaleBillViewRepositoryImpl) FindByIds(ctx context.Context, tenantId string, ids []string, opts ...service.Options) ([]*view.SaleBillView, bool, error) {
+	ops := newOptions(opts...)
+	return r.dao.FindByIds(ctx, tenantId, ids, ops...)
 }
 
-func (r *SaleBillViewRepositoryImpl) FindAll(ctx context.Context, tenantId string, opt repository.Options) ([]*view.SaleBillView, bool, error) {
-	return r.dao.FindAll(ctx, tenantId).Result()
+func (r *SaleBillViewRepositoryImpl) FindAll(ctx context.Context, tenantId string, opts ...service.Options) ([]*view.SaleBillView, bool, error) {
+	ops := newOptions(opts...)
+	return r.dao.FindAll(ctx, tenantId, ops...).Result()
 }
 
-func (r *SaleBillViewRepositoryImpl) FindPaging(ctx context.Context, query ddd_repository.FindPagingQuery, opt repository.Options) (*ddd_repository.FindPagingResult[*view.SaleBillView], bool, error) {
-	return r.dao.FindPaging(ctx, query).Result()
+func (r *SaleBillViewRepositoryImpl) FindPaging(ctx context.Context, query ddd_repository.FindPagingQuery, opts ...service.Options) (*ddd_repository.FindPagingResult[*view.SaleBillView], bool, error) {
+	ops := newOptions(opts...)
+	return r.dao.FindPaging(ctx, query, ops...).Result()
+}
+
+func newOptions(opts ...service.Options) []ddd_repository.Options {
+	var options []ddd_repository.Options
+	for _, o := range options {
+		options = append(options, o)
+	}
+	return options
 }

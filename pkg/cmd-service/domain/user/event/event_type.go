@@ -7,9 +7,9 @@ import (
 type UserEventType uint32
 
 const (
-	UserUpdateEventType UserEventType = iota
+	UserCreateEventType UserEventType = iota
+	UserUpdateEventType
 	UserDeleteEventType
-	UserCreateEventType
 )
 
 //
@@ -18,12 +18,12 @@ const (
 //
 func (p UserEventType) String() string {
 	switch p {
+	case UserCreateEventType:
+		return "dapr-ddd-demo.UserCreateEvent"
 	case UserUpdateEventType:
 		return "dapr-ddd-demo.UserUpdateEvent"
 	case UserDeleteEventType:
 		return "dapr-ddd-demo.UserDeleteEvent"
-	case UserCreateEventType:
-		return "dapr-ddd-demo.UserCreateEvent"
 	default:
 		return "UNKNOWN"
 	}

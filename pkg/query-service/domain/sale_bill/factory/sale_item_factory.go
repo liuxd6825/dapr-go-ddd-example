@@ -22,8 +22,9 @@ func (f *saleItemViewFactory) NewBySaleItemDeleteEvent(ctx context.Context, e *e
 	for _, item := range e.Data.Items {
 		v := &view.SaleItemView{}
 		v.Id = item.Id
-		v.TenantId = e.GetTenantId()
-		v.SaleBillId = e.Data.SaleBillId
+		v.Remarks = item.Remarks
+		v.SaleBillId = item.SaleBillId
+		v.TenantId = item.TenantId
 		/*
 		   if err := utils.Mapper(item, v); err != nil {
 		       return nil, err
@@ -51,7 +52,8 @@ func (f *saleItemViewFactory) NewBySaleItemCreateEvent(ctx context.Context, e *e
 		v.Money = item.Money
 		v.Quantity = item.Quantity
 		v.Remarks = item.Remarks
-		v.TenantId = e.GetTenantId()
+		v.SaleBillId = item.SaleBillId
+		v.TenantId = item.TenantId
 		/*
 		   if err := utils.Mapper(item, v); err != nil {
 		       return nil, err
@@ -79,8 +81,8 @@ func (f *saleItemViewFactory) NewBySaleItemUpdateEvent(ctx context.Context, e *e
 		v.Money = item.Money
 		v.Quantity = item.Quantity
 		v.Remarks = item.Remarks
-		v.TenantId = e.GetTenantId()
-		v.SaleBillId = e.Data.SaleBillId
+		v.SaleBillId = item.SaleBillId
+		v.TenantId = item.TenantId
 		/*
 		   if err := utils.Mapper(item, v); err != nil {
 		       return nil, err

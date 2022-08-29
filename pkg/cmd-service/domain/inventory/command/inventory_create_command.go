@@ -47,7 +47,12 @@ func (c *InventoryCreateCommand) GetIsValidOnly() bool {
 	return c.IsValidOnly
 }
 
+//
+// IsAggregateCreateCommand
+// @Description: 标识此命令为是聚合根创建命令，DDD框架层使用。
+//
 func (c *InventoryCreateCommand) IsAggregateCreateCommand() {
+
 }
 
 //

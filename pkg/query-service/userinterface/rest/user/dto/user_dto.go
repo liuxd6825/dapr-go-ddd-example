@@ -1,6 +1,8 @@
 package dto
 
-import base "gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/infrastructure/base/userinterface/rest/dto"
+import (
+	base "gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/infrastructure/base/userinterface/rest/dto"
+)
 
 // 按ID查询
 

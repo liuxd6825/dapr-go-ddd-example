@@ -22,11 +22,11 @@ envs:
         pwd: 123456
         maxPoolSize: 20
     neo4j:
-      #default:
-      #  host: <no value>
-      #  port: <no value>
-      #  user: <no value>
-      #  pwd: <no value>
+      default:
+        host: <no value>
+        port: <no value>
+        user: <no value>
+        pwd: <no value>
   test:
     app:
       id: dapr-ddd-demo-query-service

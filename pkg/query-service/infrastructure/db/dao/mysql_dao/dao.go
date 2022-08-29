@@ -44,20 +44,20 @@ func NewDao[T ddd.Entity](db *gorm.DB, newFunc func() T, newListFunc func() []T)
 	return &dao
 }
 
-func (d *Dao[T]) Insert(ctx context.Context, v T, opts ...*ddd_repository.SetOptions) error {
+func (d *Dao[T]) Insert(ctx context.Context, v T, opts ...ddd_repository.Options) error {
 	return d.getDB(ctx).Model(v).Create(v).Error
 }
 
-func (d *Dao[T]) InsertMany(ctx context.Context, vList []T, opts ...*ddd_repository.SetOptions) error {
+func (d *Dao[T]) InsertMany(ctx context.Context, vList []T, opts ...ddd_repository.Options) error {
 	v := d.NewEntity()
 	return d.getDB(ctx).Model(v).CreateInBatches(vList, len(vList)).Error
 }
 
-func (d *Dao[T]) Update(ctx context.Context, v T, opts ...*ddd_repository.SetOptions) error {
+func (d *Dao[T]) Update(ctx context.Context, v T, opts ...ddd_repository.Options) error {
 	return d.getDB(ctx).Where(WhereTenantIdAndId, v.GetTenantId(), v.GetId()).Updates(v).Error
 }
 
-func (d *Dao[T]) UpdateMany(ctx context.Context, vList []T, opts ...*ddd_repository.SetOptions) error {
+func (d *Dao[T]) UpdateMany(ctx context.Context, vList []T, opts ...ddd_repository.Options) error {
 	getDB := d.getDB(ctx)
 	var model T
 	for _, item := range vList {
@@ -72,7 +72,7 @@ func (d *Dao[T]) UpdateMany(ctx context.Context, vList []T, opts ...*ddd_reposit
 	return nil
 }
 
-func (d *Dao[T]) UpdateManyByFilter(ctx context.Context, tenantId, filter string, data interface{}, opts ...*ddd_repository.SetOptions) error {
+func (d *Dao[T]) UpdateManyByFilter(ctx context.Context, tenantId, filter string, data interface{}, opts ...ddd_repository.Options) error {
 	where, err := getSqlWhere(tenantId, filter)
 	if err != nil {
 		return err
@@ -81,30 +81,30 @@ func (d *Dao[T]) UpdateManyByFilter(ctx context.Context, tenantId, filter string
 }
 
 func (d *Dao[T]) UpdateByMap(ctx context.Context, tenantId, id string, data map[string]interface{}, opts ...*Options) error {
-	var v T = d.NewEntity()
+	var v = d.NewEntity()
 	return d.getDB(ctx).Model(v).Where(WhereTenantIdAndId, tenantId, id).Updates(data).Error
 }
 
-func (d *Dao[T]) DeleteById(ctx context.Context, tenantId string, id string, opts ...*ddd_repository.SetOptions) error {
+func (d *Dao[T]) DeleteById(ctx context.Context, tenantId string, id string, opts ...ddd_repository.Options) error {
 	var model T
 	model.SetId(id)
 	model.SetTenantId(tenantId)
 	return d.getDB(ctx).Delete(&model).Error
 }
 
-func (d *Dao[T]) DeleteByIds(ctx context.Context, tenantId string, ids []string, opts ...*ddd_repository.SetOptions) error {
+func (d *Dao[T]) DeleteByIds(ctx context.Context, tenantId string, ids []string, opts ...ddd_repository.Options) error {
 	var models []T
 	models = d.NewEntities()
 	return d.getDB(ctx).Where(WhereTenantId, tenantId).Delete(&models, ids).Error
 }
 
-func (d *Dao[T]) DeleteAll(ctx context.Context, tenantId string, opts ...*ddd_repository.SetOptions) error {
+func (d *Dao[T]) DeleteAll(ctx context.Context, tenantId string, opts ...ddd_repository.Options) error {
 	var model T
 	model = d.NewEntity()
 	return d.getDB(ctx).Where(WhereTenantId, tenantId).Delete(&model).Error
 }
 
-func (d *Dao[T]) DeleteByFilter(ctx context.Context, tenantId string, filter string, opts ...*ddd_repository.SetOptions) error {
+func (d *Dao[T]) DeleteByFilter(ctx context.Context, tenantId string, filter string, opts ...ddd_repository.Options) error {
 	var model T
 	model = d.NewEntity()
 	where, err := getSqlWhere(tenantId, filter)
@@ -114,7 +114,7 @@ func (d *Dao[T]) DeleteByFilter(ctx context.Context, tenantId string, filter str
 	return d.getDB(ctx).Where(where).Delete(&model).Error
 }
 
-func (d *Dao[T]) FindById(ctx context.Context, tenantId string, id string, opts ...*ddd_repository.FindOptions) (T, bool, error) {
+func (d *Dao[T]) FindById(ctx context.Context, tenantId string, id string, opts ...ddd_repository.Options) (T, bool, error) {
 	var model T
 	model = d.NewEntity()
 	tx := d.getDB(ctx).Where(WhereTenantIdAndId, tenantId, id).Find(&model)
@@ -138,7 +138,7 @@ func (d *Dao[T]) FindByIds(ctx context.Context, tenantId string, ids []string) (
 	return vList, len(vList) > 0, tx.Error
 }
 
-func (d *Dao[T]) FindAll(ctx context.Context, tenantId string, opts ...*ddd_repository.FindOptions) *ddd_repository.FindListResult[T] {
+func (d *Dao[T]) FindAll(ctx context.Context, tenantId string, opts ...ddd_repository.Options) *ddd_repository.FindListResult[T] {
 	var vList []T
 	vList = d.NewEntities()
 	tx := d.getDB(ctx).Where(WhereTenantId, tenantId).Find(&vList)
@@ -150,7 +150,7 @@ func (d *Dao[T]) FindAll(ctx context.Context, tenantId string, opts ...*ddd_repo
 	return ddd_repository.NewFindListResult(vList, len(vList) > 0, nil)
 }
 
-func (d *Dao[T]) FindListByMap(ctx context.Context, tenantId string, filterMap map[string]interface{}, opts ...*ddd_repository.FindOptions) *ddd_repository.FindListResult[T] {
+func (d *Dao[T]) FindListByMap(ctx context.Context, tenantId string, filterMap map[string]interface{}, opts ...ddd_repository.Options) *ddd_repository.FindListResult[T] {
 	var vList []T
 	vList = d.NewEntities()
 	tx := d.getDB(ctx).Where(filterMap).Find(&vList)
@@ -162,13 +162,13 @@ func (d *Dao[T]) FindListByMap(ctx context.Context, tenantId string, filterMap m
 	return ddd_repository.NewFindListResult(vList, len(vList) > 0, nil)
 }
 
-func (d *Dao[T]) FindPaging(ctx context.Context, query ddd_repository.FindPagingQuery, opts ...*ddd_repository.FindOptions) *ddd_repository.FindPagingResult[T] {
+func (d *Dao[T]) FindPaging(ctx context.Context, query ddd_repository.FindPagingQuery, opts ...ddd_repository.Options) *ddd_repository.FindPagingResult[T] {
 	return d.findPaging(ctx, query)
 }
 
 func (d *Dao[T]) findPaging(ctx context.Context, query ddd_repository.FindPagingQuery) *ddd_repository.FindPagingResult[T] {
 	return d.DoFilter(query.GetTenantId(), query.GetFilter(), func(sqlWhere string) (*ddd_repository.FindPagingResult[T], bool, error) {
-		var data []T = d.NewEntities()
+		var data = d.NewEntities()
 
 		tx := d.getDB(ctx)
 
@@ -218,7 +218,7 @@ func (d *Dao[T]) findList(ctx context.Context, tenantId string, where string, li
 	tx := d.getDB(ctx)
 	var err error
 	if limit != nil {
-		var l int = 0
+		var l = 0
 		l = int(*limit)
 		tx = tx.Limit(l)
 	}

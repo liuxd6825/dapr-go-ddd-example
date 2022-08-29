@@ -51,7 +51,7 @@ func NewSaleBillQueryHandler() ddd.QueryEventHandler {
 // @return error 错误
 //
 func (h *SaleBillQueryHandler) OnSaleBillConfirmEventV1s0(ctx context.Context, event *event.SaleBillConfirmEvent) error {
-	logs.DebugEvent(event, "OnSaleBillConfirmEventV1s0")
+	logs.DebugEvent(event, "OnOnSaleBillConfirmEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.SaleBillView.NewBySaleBillConfirmEvent(ctx, event)
 		if err != nil {
@@ -70,7 +70,7 @@ func (h *SaleBillQueryHandler) OnSaleBillConfirmEventV1s0(ctx context.Context, e
 // @return error 错误
 //
 func (h *SaleBillQueryHandler) OnSaleBillCreateEventV1s0(ctx context.Context, event *event.SaleBillCreateEvent) error {
-	logs.DebugEvent(event, "OnSaleBillCreateEventV1s0")
+	logs.DebugEvent(event, "OnOnSaleBillCreateEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.SaleBillView.NewBySaleBillCreateEvent(ctx, event)
 		if err != nil {
@@ -89,7 +89,7 @@ func (h *SaleBillQueryHandler) OnSaleBillCreateEventV1s0(ctx context.Context, ev
 // @return error 错误
 //
 func (h *SaleBillQueryHandler) OnSaleBillDeleteEventV1s0(ctx context.Context, event *event.SaleBillDeleteEvent) error {
-	logs.DebugEvent(event, "OnSaleBillDeleteEventV1s0")
+	logs.DebugEvent(event, "OnOnSaleBillDeleteEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		return h.service.DeleteById(ctx, event.GetTenantId(), event.Data.Id)
 	})
@@ -104,7 +104,7 @@ func (h *SaleBillQueryHandler) OnSaleBillDeleteEventV1s0(ctx context.Context, ev
 // @return error 错误
 //
 func (h *SaleBillQueryHandler) OnSaleBillUpdateEventV1s0(ctx context.Context, event *event.SaleBillUpdateEvent) error {
-	logs.DebugEvent(event, "OnSaleBillUpdateEventV1s0")
+	logs.DebugEvent(event, "OnOnSaleBillUpdateEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
 		v, err := factory.SaleBillView.NewBySaleBillUpdateEvent(ctx, event)
 		if err != nil {

@@ -7,8 +7,8 @@ import (
 type InventoryEventType uint32
 
 const (
-	InventoryCreateEventType InventoryEventType = iota
-	InventoryUpdateEventType
+	InventoryUpdateEventType InventoryEventType = iota
+	InventoryCreateEventType
 )
 
 //
@@ -17,10 +17,10 @@ const (
 //
 func (p InventoryEventType) String() string {
 	switch p {
-	case InventoryCreateEventType:
-		return "dapr-ddd-demo.InventoryCreateEvent"
 	case InventoryUpdateEventType:
 		return "dapr-ddd-demo.InventoryUpdateEvent"
+	case InventoryCreateEventType:
+		return "dapr-ddd-demo.InventoryCreateEvent"
 	default:
 		return "UNKNOWN"
 	}

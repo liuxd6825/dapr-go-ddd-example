@@ -1,8 +1,6 @@
 package dto
 
-import (
-	"github.com/liuxd6825/dapr-go-ddd-sdk/types"
-)
+import "time"
 
 type FindByIdRequest struct {
 	TenantId string
@@ -71,17 +69,17 @@ func (r *FindPagingResponse[T]) InitData() {
 }
 
 type BaseDto struct {
-	CreatedTime *types.JSONTime `json:"createdTime,omitempty"` // 创建时间
-	CreatorId   string          `json:"creatorId,omitempty"`   // 创建人ID
-	CreatorName string          `json:"creatorName,omitempty"` // 创建人名称
-	DeletedTime *types.JSONTime `json:"deletedTime,omitempty"` // 删除时间
-	DeleterId   string          `json:"deleterId,omitempty"`   // 删除人ID
-	DeleterName string          `json:"deleterName,omitempty"` // 删除人名称
-	Id          string          `json:"id,omitempty"`          // 主键
-	IsDeleted   bool            `json:"isDeleted,omitempty"`   // 是否删除
-	Remarks     string          `json:"remarks,omitempty"`     // 备注
-	TenantId    string          `json:"tenantId,omitempty"`    // 租户ID
-	UpdatedTime *types.JSONTime `json:"updatedTime,omitempty"` // 修改时间
-	UpdaterId   string          `json:"updaterId,omitempty"`   // 修改人ID
-	UpdaterName string          `json:"updaterName,omitempty"` // 修改人名称
+	CreatedTime *time.Time `json:"createdTime,omitempty"` // 创建时间
+	CreatorId   string     `json:"creatorId,omitempty"`   // 创建人ID
+	CreatorName string     `json:"creatorName,omitempty"` // 创建人名称
+	DeletedTime *time.Time `json:"deletedTime,omitempty"` // 删除时间
+	DeleterId   string     `json:"deleterId,omitempty"`   // 删除人ID
+	DeleterName string     `json:"deleterName,omitempty"` // 删除人名称
+	Id          string     `json:"id,omitempty"`          // 主键
+	IsDeleted   bool       `json:"isDeleted,omitempty"`   // 是否删除
+	Remarks     string     `json:"remarks,omitempty"`     // 备注
+	TenantId    string     `json:"tenantId,omitempty"`    // 租户ID
+	UpdatedTime *time.Time `json:"updatedTime,omitempty"` // 修改时间
+	UpdaterId   string     `json:"updaterId,omitempty"`   // 修改人ID
+	UpdaterName string     `json:"updaterName,omitempty"` // 修改人名称
 }
