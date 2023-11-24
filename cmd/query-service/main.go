@@ -1,22 +1,19 @@
 package main
 
 import (
-	"flag"
 	"gitee.com/liuxu6825/dapr-ddd-demo/pkg/query-service/infrastructure/register"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
+	"github.com/liuxd6825/dapr-go-sdk/actor"
 )
 
 func main() {
-	help := flag.Bool("help", false, "参数提示。")
-	env := flag.String("env", "", "替换配置文件中的env值。")
-	config := flag.String("config", "./config/query-config.yaml", "配置文件。")
-	flag.Parse()
-
-	if *help {
+	flag := restapp.NewRunFlag("./config/query-config.yaml")
+	if flag.Help {
 		return
 	}
 
-	if _, err := restapp.RunWithConfig(*env, *config, subscribes, controllers, events, restapp.Actors); err != nil {
+	opts := restapp.NewRunOptions().SetFlag(flag)
+	if _, err := restapp.RunWithConfig(flag.Env, flag.Config, subscribes, controllers, events, actors, opts); err != nil {
 		panic(err)
 	}
 }
@@ -34,4 +31,8 @@ func controllers() []restapp.Controller {
 // 注册领域事件
 func events() []restapp.RegisterEventType {
 	return register.GetRegisterEventType()
+}
+
+func actors() []actor.Factory {
+	return register.GetActors()
 }

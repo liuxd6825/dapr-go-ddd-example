@@ -1,35 +1,34 @@
 env: dev
 envs:
+
   dev:
     app:
-      id: dapr-ddd-demo-query-service
+      id: example-query-service
       httpPort: 9017
       rootUrl: /api/v1.0
     dapr:
       host: localhost
       httpPort: 9018
       grpcPort: 9019
-      pubsubs:
-        - "pubsub"
+      eventStores:
+        eventstore1:
+          pubsub: pubsub1
+        eventstore2:
+          pubsub: pubsub2
     log:
       level: debug
     mongo:
       default:
-        host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
+        host: 192.168.65.3:27018,192.168.65.3:27019,192.168.65.3:27020
         replicaSet: mongors
-        dbname: query-example
-        user: query-example
+        dbname: dev_query_example
+        user: example
         pwd: 123456
         maxPoolSize: 20
-    neo4j:
-      default:
-        host: <no value>
-        port: <no value>
-        user: <no value>
-        pwd: <no value>
+
   test:
     app:
-      id: dapr-ddd-demo-query-service
+      id: example-query-service
       httpPort: 8080
       rootUrl: /api/v1.0
     dapr:
@@ -44,19 +43,15 @@ envs:
       default:
         host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
         replicaSet: mongors
-        dbname: dapr-ddd-demo-test
+        dbname: test_query_example
         user: ddd
         pwd: 123456
         maxPoolSize: 20
-    neo4j:
-      default:
-        host: <no value>
-        port: <no value>
-        user: <no value>
-        pwd: <no value>
+
+
   prod:
     app:
-      id: dapr-ddd-demo-query-service
+      id: example-query-service
       httpPort: 8080
       rootUrl: /api/v1.0
     dapr:
@@ -69,7 +64,7 @@ envs:
       default:
         host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
         replicaSet: mongors
-        dbname: dapr-ddd-demo-prod
+        dbname: prod_query_example
         user: ddd
         pwd: 123456
         maxPoolSize: 20

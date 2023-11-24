@@ -44,8 +44,8 @@ func NewSaleBillFindPagingAppQuery() *SaleBillFindPagingAppQuery {
 
 type SaleBillFindPagingResult struct {
 	Data       []*view.SaleBillView `json:"data"`
-	TotalRows  int64                `json:"totalRows"`
-	TotalPages int64                `json:"totalPages"`
+	TotalRows  *int64               `json:"totalRows"`
+	TotalPages *int64               `json:"totalPages"`
 	PageNum    int64                `json:"pageNum"`
 	PageSize   int64                `json:"pageSize"`
 	Filter     string               `json:"filter"`

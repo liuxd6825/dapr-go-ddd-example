@@ -44,8 +44,8 @@ func NewInventoryFindPagingAppQuery() *InventoryFindPagingAppQuery {
 
 type InventoryFindPagingResult struct {
 	Data       []*view.InventoryView `json:"data"`
-	TotalRows  int64                 `json:"totalRows"`
-	TotalPages int64                 `json:"totalPages"`
+	TotalRows  *int64                `json:"totalRows"`
+	TotalPages *int64                `json:"totalPages"`
 	PageNum    int64                 `json:"pageNum"`
 	PageSize   int64                 `json:"pageSize"`
 	Filter     string                `json:"filter"`

@@ -38,9 +38,7 @@ func (s *BaseQueryAppService) QueryByIds(ctx context.Context, tenantId string, i
 
 func (s *BaseQueryAppService) QueryData(ctx context.Context, tenantId, methodName string, req interface{}, resData interface{}) (isFound bool, err error) {
 	defer func() {
-		if e := errors.GetRecoverError(recover()); e != nil {
-			err = e
-		}
+		err = errors.GetRecoverError(err, recover())
 	}()
 	methodNameUrl := fmt.Sprintf("/api/%s/tenants/%s/%s%s", s.ApiVersion, tenantId, s.ResourceName, methodName)
 	_, err = daprclient.GetDaprDDDClient().InvokeService(ctx, s.QueryAppId, methodNameUrl, "get", nil, resData)

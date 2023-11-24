@@ -8,29 +8,23 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-sdk/errors"
 )
 
-//
 // SaleBillConfirmCommandExecutor
 // @Description: 下单确认命令 命令执行器接口
-//
 type SaleBillConfirmCommandExecutor interface {
 	Execute(context.Context, *appcmd.SaleBillConfirmAppCmd) error
 }
 
-//
 // saleBillConfirmCommandCommandExecutor
 // @Description: 下单确认命令 命令执行器实现类
-//
 type saleBillConfirmCommandExecutor struct {
 	domainService *domain_service.SaleBillCommandDomainService
 }
 
-//
 // Execute
 // @Description: 执行命令
 // @param ctx 上下文
 // @param appCmd 命令
 // @return error 错误
-//
 func (e *saleBillConfirmCommandExecutor) Execute(ctx context.Context, appCmd *appcmd.SaleBillConfirmAppCmd) error {
 	if err := e.Validate(appCmd); err != nil {
 		return err
@@ -45,12 +39,10 @@ func (e *saleBillConfirmCommandExecutor) Execute(ctx context.Context, appCmd *ap
 	return err
 }
 
-//
 // Validate
 // @Description: 命令验证
 // @param appCmd 应用层命令
 // @return error 错误
-//
 func (e *saleBillConfirmCommandExecutor) Validate(appCmd *appcmd.SaleBillConfirmAppCmd) error {
 	if appCmd == nil {
 		return errors.New("appCmd is nil")
@@ -58,13 +50,11 @@ func (e *saleBillConfirmCommandExecutor) Validate(appCmd *appcmd.SaleBillConfirm
 	return nil
 }
 
-//
 // NewSaleBillConfirmCommandExecutor
 // @Description: 新建命令执行器
 // @return service.SaleBillConfirmCommandExecutor
-//
 func newSaleBillConfirmCommandExecutor() *saleBillConfirmCommandExecutor {
 	return &saleBillConfirmCommandExecutor{
-		domainService: domain_service.GetSaleBillCommandDomainService(),
+		domainService: domain_service.NewSaleBillCommandDomainService(),
 	}
 }

@@ -1,40 +1,51 @@
+#当前使用配置
 env: dev
+
+#所有配置
 envs:
   dev:
+    # 应用配置信息
     app:
-      id: dapr-ddd-demo-command-service
+      # 应用服务名称
+      id: example-cmd-service
       httpPort: 9010
       rootUrl: /api/v1.0
+    # Dapr配置信息
     dapr:
       host: localhost
       httpPort: 9011
       grpcPort: 9012
-      pubsubs:
-        - "pubsub"
+      eventStores:
+        eventstore:       # Dapr 中定义的 EventStore Name
+          pubsub: pubsub  # Dapr 中定义的 Pubsub Name
+        eventstore2:
+          pubsub: pubsub2
     log:
       level: debug
+
   test:
     app:
-      id: dapr-ddd-demo-command-service
+      id: example-cmd-service
       httpPort: 8080
       rootUrl: /api/v1.0
     dapr:
       host: localhost
-      #httpPort: 3500
-      #grpc-port: 50001
+      httpPort: 3500
+      grpc-port: 50001
       pubsubs:
         - "pubsub"
     log:
       level: debug
+
   prod:
     app:
-      id: dapr-ddd-demo-command-service
+      id: example-cmd-service
       httpPort: 8080
       rootUrl: /api/v1.0
     dapr:
       host: localhost
-      #httpPort: 3500
-      #grpc-port: 50001
+      httpPort: 3500
+      grpc-port: 50001
       pubsubs:
         - "pubsub"
     log:

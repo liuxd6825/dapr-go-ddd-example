@@ -96,8 +96,8 @@ func NewSaleItemFindBySaleBillIdQuery(tenantId string, saleBillId string) *SaleI
 
 type SaleItemFindPagingResult struct {
 	Data       []*view.SaleItemView `json:"data"`
-	TotalRows  int64                `json:"totalRows"`
-	TotalPages int64                `json:"totalPages"`
+	TotalRows  *int64               `json:"totalRows"`
+	TotalPages *int64               `json:"totalPages"`
 	PageNum    int64                `json:"pageNum"`
 	PageSize   int64                `json:"pageSize"`
 	Filter     string               `json:"filter"`

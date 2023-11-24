@@ -6,6 +6,7 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_repository"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_repository/ddd_mongodb"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/restapp"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type Dao[T ddd.Entity] struct {
@@ -17,7 +18,9 @@ func NewDao[T ddd.Entity](collectionName string, opts ...*RepositoryOptions) *Da
 	options.Merge(opts...)
 	coll := options.mongoDB.GetCollection(collectionName)
 	return &Dao[T]{
-		dao: ddd_mongodb.NewDao[T](options.mongoDB, coll),
+		dao: ddd_mongodb.NewDao[T](func(ctx context.Context) (mongodb *ddd_mongodb.MongoDB, collection *mongo.Collection) {
+			return options.mongoDB, coll
+		}),
 	}
 }
 

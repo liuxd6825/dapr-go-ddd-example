@@ -7,20 +7,16 @@ import (
 	"github.com/liuxd6825/dapr-go-ddd-sdk/errors"
 )
 
-//
 // eventFactory
 // @Description: 销售订单事件工厂
-//
 type eventFactory struct {
 }
 
 var Event = eventFactory{}
 
-//
 // NewSaleBillConfirmEvent
 // @Description: 创建领域事件
-//
-func (e eventFactory) NewSaleBillConfirmEvent(ctx context.Context, cmd *command.SaleBillConfirmCommand, metadata *map[string]string) (*event.SaleBillConfirmEvent, error) {
+func (e eventFactory) NewSaleBillConfirmEvent(ctx context.Context, cmd *command.SaleBillConfirmCommand, metadata map[string]string) (*event.SaleBillConfirmEvent, error) {
 	err := e.checkNewEventParas("eventFactory.NewSaleBillConfirmEvent", ctx, cmd, metadata)
 	if err != nil {
 		return nil, err
@@ -30,11 +26,9 @@ func (e eventFactory) NewSaleBillConfirmEvent(ctx context.Context, cmd *command.
 	return v, nil
 }
 
-//
 // NewSaleBillCreateEvent
 // @Description: 创建领域事件
-//
-func (e eventFactory) NewSaleBillCreateEvent(ctx context.Context, cmd *command.SaleBillCreateCommand, metadata *map[string]string) (*event.SaleBillCreateEvent, error) {
+func (e eventFactory) NewSaleBillCreateEvent(ctx context.Context, cmd *command.SaleBillCreateCommand, metadata map[string]string) (*event.SaleBillCreateEvent, error) {
 	err := e.checkNewEventParas("eventFactory.NewSaleBillCreateEvent", ctx, cmd, metadata)
 	if err != nil {
 		return nil, err
@@ -44,11 +38,9 @@ func (e eventFactory) NewSaleBillCreateEvent(ctx context.Context, cmd *command.S
 	return v, nil
 }
 
-//
 // NewSaleBillDeleteEvent
 // @Description: 创建领域事件
-//
-func (e eventFactory) NewSaleBillDeleteEvent(ctx context.Context, cmd *command.SaleBillDeleteCommand, metadata *map[string]string) (*event.SaleBillDeleteEvent, error) {
+func (e eventFactory) NewSaleBillDeleteEvent(ctx context.Context, cmd *command.SaleBillDeleteCommand, metadata map[string]string) (*event.SaleBillDeleteEvent, error) {
 	err := e.checkNewEventParas("eventFactory.NewSaleBillDeleteEvent", ctx, cmd, metadata)
 	if err != nil {
 		return nil, err
@@ -58,11 +50,9 @@ func (e eventFactory) NewSaleBillDeleteEvent(ctx context.Context, cmd *command.S
 	return v, nil
 }
 
-//
 // NewSaleBillUpdateEvent
 // @Description: 创建领域事件
-//
-func (e eventFactory) NewSaleBillUpdateEvent(ctx context.Context, cmd *command.SaleBillUpdateCommand, metadata *map[string]string) (*event.SaleBillUpdateEvent, error) {
+func (e eventFactory) NewSaleBillUpdateEvent(ctx context.Context, cmd *command.SaleBillUpdateCommand, metadata map[string]string) (*event.SaleBillUpdateEvent, error) {
 	err := e.checkNewEventParas("eventFactory.NewSaleBillUpdateEvent", ctx, cmd, metadata)
 	if err != nil {
 		return nil, err
@@ -72,11 +62,9 @@ func (e eventFactory) NewSaleBillUpdateEvent(ctx context.Context, cmd *command.S
 	return v, nil
 }
 
-//
 // NewSaleItemCreateEvent
 // @Description: 创建领域事件
-//
-func (e eventFactory) NewSaleItemCreateEvent(ctx context.Context, cmd *command.SaleItemCreateCommand, metadata *map[string]string) (*event.SaleItemCreateEvent, error) {
+func (e eventFactory) NewSaleItemCreateEvent(ctx context.Context, cmd *command.SaleItemCreateCommand, metadata map[string]string) (*event.SaleItemCreateEvent, error) {
 	err := e.checkNewEventParas("eventFactory.NewSaleItemCreateEvent", ctx, cmd, metadata)
 	if err != nil {
 		return nil, err
@@ -86,11 +74,9 @@ func (e eventFactory) NewSaleItemCreateEvent(ctx context.Context, cmd *command.S
 	return v, nil
 }
 
-//
 // NewSaleItemDeleteEvent
 // @Description: 创建领域事件
-//
-func (e eventFactory) NewSaleItemDeleteEvent(ctx context.Context, cmd *command.SaleItemDeleteCommand, metadata *map[string]string) (*event.SaleItemDeleteEvent, error) {
+func (e eventFactory) NewSaleItemDeleteEvent(ctx context.Context, cmd *command.SaleItemDeleteCommand, metadata map[string]string) (*event.SaleItemDeleteEvent, error) {
 	err := e.checkNewEventParas("eventFactory.NewSaleItemDeleteEvent", ctx, cmd, metadata)
 	if err != nil {
 		return nil, err
@@ -100,11 +86,9 @@ func (e eventFactory) NewSaleItemDeleteEvent(ctx context.Context, cmd *command.S
 	return v, nil
 }
 
-//
 // NewSaleItemUpdateEvent
 // @Description: 创建领域事件
-//
-func (e eventFactory) NewSaleItemUpdateEvent(ctx context.Context, cmd *command.SaleItemUpdateCommand, metadata *map[string]string) (*event.SaleItemUpdateEvent, error) {
+func (e eventFactory) NewSaleItemUpdateEvent(ctx context.Context, cmd *command.SaleItemUpdateCommand, metadata map[string]string) (*event.SaleItemUpdateEvent, error) {
 	err := e.checkNewEventParas("eventFactory.NewSaleItemUpdateEvent", ctx, cmd, metadata)
 	if err != nil {
 		return nil, err
@@ -114,11 +98,9 @@ func (e eventFactory) NewSaleItemUpdateEvent(ctx context.Context, cmd *command.S
 	return v, nil
 }
 
-//
 // checkNewEventParas
 // @Description: 检查参数是否正确
-//
-func (e eventFactory) checkNewEventParas(funcName string, ctx context.Context, cmd interface{}, metadata *map[string]string) error {
+func (e eventFactory) checkNewEventParas(funcName string, ctx context.Context, cmd interface{}, metadata map[string]string) error {
 	if ctx == nil {
 		return errors.ErrorOf("%s(ctx, cmd, metadata) error: ctx is nil", funcName)
 	}

@@ -16,11 +16,9 @@ type UserQueryHandler struct {
 	handler.BaseQueryHandler
 }
 
-//
 // NewUserSubscribe
 // @Description: 创建dapr消息订阅器，用于接受领域事件
 // @return restapp.RegisterSubscribe  消息注册器
-//
 func NewUserSubscribe() restapp.RegisterSubscribe {
 	subscribes := &[]ddd.Subscribe{
 		{PubsubName: "pubsub", Topic: event.UserCreateEventType.String(), Route: "/dapr-ddd-demo/domain-event/user/user_create_event"},
@@ -30,25 +28,21 @@ func NewUserSubscribe() restapp.RegisterSubscribe {
 	return restapp.NewRegisterSubscribe(subscribes, NewUserQueryHandler())
 }
 
-//
 // NewUserQueryHandler
 // @Description: 创建<no value>领域事件处理器
 // @return ddd.QueryEventHandler 领域事件处理器
-//
 func NewUserQueryHandler() ddd.QueryEventHandler {
 	return &UserQueryHandler{
 		service: service.GetUserQueryAppService(),
 	}
 }
 
-//
 // OnUserCreateEventV1s0
 // @Description: UserCreateEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event UserCreateEvent 领域事件
 // @return error 错误
-//
 func (h *UserQueryHandler) OnUserCreateEventV1s0(ctx context.Context, event *event.UserCreateEvent) error {
 	logs.DebugEvent(event, "OnOnUserCreateEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
@@ -60,14 +54,12 @@ func (h *UserQueryHandler) OnUserCreateEventV1s0(ctx context.Context, event *eve
 	})
 }
 
-//
 // OnUserDeleteEventV1s0
 // @Description: UserDeleteEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event UserDeleteEvent 领域事件
 // @return error 错误
-//
 func (h *UserQueryHandler) OnUserDeleteEventV1s0(ctx context.Context, event *event.UserDeleteEvent) error {
 	logs.DebugEvent(event, "OnOnUserDeleteEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
@@ -75,14 +67,12 @@ func (h *UserQueryHandler) OnUserDeleteEventV1s0(ctx context.Context, event *eve
 	})
 }
 
-//
 // OnUserUpdateEventV1s0
 // @Description: UserUpdateEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event UserUpdateEvent 领域事件
 // @return error 错误
-//
 func (h *UserQueryHandler) OnUserUpdateEventV1s0(ctx context.Context, event *event.UserUpdateEvent) error {
 	logs.DebugEvent(event, "OnOnUserUpdateEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {

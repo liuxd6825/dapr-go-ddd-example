@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/liuxd6825/components-contrib/liuxd/eventstorage/impl/gorm_impl/db"
+	"github.com/liuxd6825/dapr-components-contrib/liuxd/eventstorage/impl/gorm_impl/db"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_repository"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/rsql"
@@ -116,12 +116,13 @@ func (d *Dao[T]) DeleteByFilter(ctx context.Context, tenantId string, filter str
 
 func (d *Dao[T]) FindById(ctx context.Context, tenantId string, id string, opts ...ddd_repository.Options) (T, bool, error) {
 	var model T
+	var null T
 	model = d.NewEntity()
 	tx := d.getDB(ctx).Where(WhereTenantIdAndId, tenantId, id).Find(&model)
 	if tx.Error == gorm.ErrRecordNotFound {
-		return nil, false, nil
+		return null, false, nil
 	} else if tx.Error != nil {
-		return nil, false, tx.Error
+		return null, false, tx.Error
 	}
 	return model, true, nil
 }
@@ -204,7 +205,7 @@ func (d *Dao[T]) findPaging(ctx context.Context, query ddd_repository.FindPaging
 			}
 		}
 
-		findData := ddd_repository.NewFindPagingResult[T](data, totalRows, query, err)
+		findData := ddd_repository.NewFindPagingResult[T](data, &totalRows, query, err)
 		return findData, true, err
 	})
 
