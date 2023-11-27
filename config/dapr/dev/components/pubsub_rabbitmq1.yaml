@@ -10,9 +10,9 @@ spec:
     - name: host
       value: "amqp://rabbitmq:rabbitmq_15672@192.168.65.3:5672"
     - name: consumerID
-      value: "duxm-graph"
+      value: "ddd-example"
     - name: durable
-      value: "false"
+      value: "true"
     - name: deletedWhenUnused
       value: "false"
     - name: autoAck
