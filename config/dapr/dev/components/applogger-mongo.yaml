@@ -8,12 +8,12 @@ spec:
   version: v1
   metadata:
     - name: host
-      value: 192.168.65.3:27018,192.168.65.3:27019,192.168.65.3:27020
+      value: 192.168.65.5:27018,192.168.65.5:27019,192.168.65.5:27020
     - name: replica-set
       value: mongors
     - name: databaseName
-      value: "dapr_applog"
+      value: "example_dapr"
     - name: username
-      value: "dapr"
+      value: "example"
     - name: password
       value: "123456"

@@ -1,18 +1,18 @@
 apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
-  name: pubsub2
+  name: pubsub
   namespace:
 spec:
   type: pubsub.rabbitmq
   version: v1
   metadata:
     - name: host
-      value: "amqp://rabbitmq:rabbitmq_15672@192.168.65.3:5672"
+      value: "amqp://rabbitmq:rabbitmq_15672@192.168.65.5:5672"
     - name: consumerID
-      value: "duxm-graph"
+      value: "ddd-example"
     - name: durable
-      value: "false"
+      value: "true"
     - name: deletedWhenUnused
       value: "false"
     - name: autoAck

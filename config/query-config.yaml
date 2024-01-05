@@ -4,27 +4,30 @@ envs:
   dev:
     app:
       id: example-query-service
-      httpPort: 9017
+      httpPort: 39017
       rootUrl: /api/v1.0
       cpu: 2
       memory: 10G
       authToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJEdXhtLUp3dC1Ub2tlbiIsImV4cCI6MTcwMzc1Mjk3NCwidXNlciI6eyJ0ZW5hbnROYW1lIjoidGVzdCIsIm5hbWUiOiJ0ZXN0IiwidGVuYW50SWQiOiJ0ZXN0IiwidGVuYW50QWNjb3VudCI6InRlc3QiLCJpZCI6IjE3MjY0Nzk0NDEyNTUwNTEyNjQiLCJ1c2VyVHlwZSI6IlRFTkFOVF9BRE1JTiIsImFjY291bnQiOiJ0ZXN0Iiwic3RhdHVzIjoiVVNFSU5HIn0sImNsaWVudF9pZCI6IjA5OGY2YmNkNDYyMWQzNzNjYWRlNGU4MzI2MjdiNGY2In0.s_kHa3pKt6XehbsL7E9PJqywM_pxbbq6V2zHyZCJmDk"
     dapr:
       host: localhost
-      httpPort: 9018
-      grpcPort: 9019
+      httpPort: 39018
+      grpcPort: 39019
+      actor:
+        actorIdleTimeout: 1h
+        actorScanInterval: 30s
+        drainOngoingCallTimeout: 30m
+        drainRebalancedActors: false
       eventStores:
-        eventstore1:
-          pubsub: pubsub1
-        eventstore2:
-          pubsub: pubsub2
+        eventstore:
+          pubsub: pubsub
     log:
       level: debug
     mongo:
       default:
-        host: 192.168.65.3:27018,192.168.65.3:27019,192.168.65.3:27020
+        host: 192.168.65.5:27018,192.168.65.5:27019,192.168.65.5:27020
         replicaSet: mongors
-        dbname: dev_query_example
+        dbname: example_query
         user: example
         pwd: 123456
         maxPoolSize: 20
@@ -32,43 +35,62 @@ envs:
   test:
     app:
       id: example-query-service
-      httpPort: 8080
+      httpPort: 39017
       rootUrl: /api/v1.0
+      cpu: 2
+      memory: 10G
     dapr:
       host: localhost
-      #httpPort: 3500
-      #grpc-port: 50001
-      pubsubs:
-        - "pubsub"
+      httpPort: 39018
+      grpcPort: 39019
+      maxCallRecvMsgSize: 10
+      actor:
+        actorIdleTimeout: 1h
+        actorScanInterval: 30s
+        drainOngoingCallTimeout: 30m
+        drainRebalancedActors: false
+      eventStores:
+        eventstore:
+          pubsub: pubsub
     log:
       level: debug
     mongo:
       default:
-        host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
+        host: 192.168.65.5:27018, 192.168.65.5:27019, 192.168.65.5:27020
         replicaSet: mongors
-        dbname: test_query_example
-        user: ddd
+        dbname: example_query
+        user: example
         pwd: 123456
         maxPoolSize: 20
-
 
   prod:
     app:
       id: example-query-service
-      httpPort: 8080
+      httpPort: 39017
       rootUrl: /api/v1.0
+      cpu: 2
+      memory: 10G
     dapr:
       host: localhost
-      pubsubs:
-      - "pubsub"
+      httpPort: 39018
+      grpcPort: 39019
+      maxCallRecvMsgSize: 10
+      actor:
+        actorIdleTimeout: 1h
+        actorScanInterval: 30s
+        drainOngoingCallTimeout: 30m
+        drainRebalancedActors: false
+      eventStores:
+        eventstore:
+          pubsub: pubsub
     log:
       level: debug
     mongo:
       default:
-        host: 192.168.64.8:27018, 192.168.64.8:27019, 192.168.64.8:27020
+        host: 192.168.65.5:27018, 192.168.65.5:27019, 192.168.65.5:27020
         replicaSet: mongors
-        dbname: prod_query_example
-        user: ddd
+        dbname: example_query
+        user: example
         pwd: 123456
         maxPoolSize: 20
     neo4j:

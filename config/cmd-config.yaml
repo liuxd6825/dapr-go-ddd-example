@@ -8,7 +8,7 @@ envs:
     app:
       # 应用服务名称
       id: example-cmd-service
-      httpPort: 9010
+      httpPort: 39010
       rootUrl: /api/v1.0
       cpu: 2
       memory: 10G
@@ -16,40 +16,58 @@ envs:
     # Dapr配置信息
     dapr:
       host: localhost
-      httpPort: 9011
-      grpcPort: 9012
+      httpPort: 39011
+      grpcPort: 39012
+      maxCallRecvMsgSize: 10
+      actor:
+        actorIdleTimeout: 1h
+        actorScanInterval: 30s
+        drainOngoingCallTimeout: 30m
+        drainRebalancedActors: false
       eventStores:
-        eventstore:       # Dapr 中定义的 EventStore Name
-          pubsub: pubsub  # Dapr 中定义的 Pubsub Name
-        eventstore2:
-          pubsub: pubsub2
+        eventstore:
+          pubsub: pubsub
     log:
       level: debug
 
   test:
     app:
       id: example-cmd-service
-      httpPort: 8080
+      httpPort: 39010
       rootUrl: /api/v1.0
     dapr:
       host: localhost
-      httpPort: 3500
-      grpc-port: 50001
-      pubsubs:
-        - "pubsub"
+      httpPort: 39011
+      grpc-port: 39012
+      maxCallRecvMsgSize: 10
+      actor:
+        actorIdleTimeout: 1h
+        actorScanInterval: 30s
+        drainOngoingCallTimeout: 30m
+        drainRebalancedActors: false
+      eventStores:
+        eventstore:
+          pubsub: pubsub
     log:
       level: debug
 
   prod:
     app:
       id: example-cmd-service
-      httpPort: 8080
+      httpPort: 39010
       rootUrl: /api/v1.0
     dapr:
       host: localhost
-      httpPort: 3500
-      grpc-port: 50001
-      pubsubs:
-        - "pubsub"
+      httpPort: 39011
+      grpc-port: 39012
+      maxCallRecvMsgSize: 10
+      actor:
+        actorIdleTimeout: 1h
+        actorScanInterval: 30s
+        drainOngoingCallTimeout: 30m
+        drainRebalancedActors: false
+      eventStores:
+        eventstore:
+          pubsub: pubsub
     log:
       level: debug

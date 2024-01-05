@@ -1,9 +1,9 @@
 daprd \
 -log-level=info  \
--app-port=9017 \
--dapr-http-port=9018 \
--dapr-grpc-port=9019 \
--app-id=example-query-service \
+-app-port=39010 \
+-dapr-http-port=39011 \
+-dapr-grpc-port=39012 \
+-app-id=example-cmd-service \
 -enable-metrics=false \
 -config=../../config/dapr/dev/config.yaml \
 -components-path=../../config/dapr/dev/components \

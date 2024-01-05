@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/liuxd6825/dapr-components-contrib/liuxd/eventstorage/impl/gorm_impl/db"
+	"github.com/liuxd6825/dapr-components-contrib/liuxd/eventstore/impl/gorm_impl/db"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/ddd/ddd_repository"
 	"github.com/liuxd6825/dapr-go-ddd-sdk/rsql"

@@ -17,11 +17,9 @@ type UserCommandAppService struct {
 	findAggregateByIdExecutor executor.FindAggregateByIdExecutor
 }
 
-//
 // NewUserCommandAppService
 // @Description:  <no value>
 // @return *UserCommandAppService
-//
 func NewUserCommandAppService() *UserCommandAppService {
 	res := &UserCommandAppService{
 		userCreateCommandExecutor: executor.GetUserCreateCommandExecutor(),
@@ -29,47 +27,40 @@ func NewUserCommandAppService() *UserCommandAppService {
 		userUpdateCommandExecutor: executor.GetUserUpdateCommandExecutor(),
 		findAggregateByIdExecutor: executor.GetFindAggregateByIdExecutor(),
 	}
-	res.Init("dapr-ddd-demo-query-service", "users", "v1.0")
+	res.Init("example-query-service", "users", "v1.0")
 	return res
 }
 
-//
 // UserCreate
 // @Description: 创建用户
 // @receiver s
 // @param ctx 上下文
 // @param cmd 创建用户命令DTO对象
 // @return error
-//
 func (s *UserCommandAppService) UserCreate(ctx context.Context, appCmd *appcmd.UserCreateAppCmd) error {
 	return s.userCreateCommandExecutor.Execute(ctx, appCmd)
 }
 
-//
 // UserDelete
 // @Description: 删除用户
 // @receiver s
 // @param ctx 上下文
 // @param cmd 删除用户命令DTO对象
 // @return error
-//
 func (s *UserCommandAppService) UserDelete(ctx context.Context, appCmd *appcmd.UserDeleteAppCmd) error {
 	return s.userDeleteCommandExecutor.Execute(ctx, appCmd)
 }
 
-//
 // UserUpdate
 // @Description: 更新用户
 // @receiver s
 // @param ctx 上下文
 // @param cmd 更新用户命令DTO对象
 // @return error
-//
 func (s *UserCommandAppService) UserUpdate(ctx context.Context, appCmd *appcmd.UserUpdateAppCmd) error {
 	return s.userUpdateCommandExecutor.Execute(ctx, appCmd)
 }
 
-//
 // FindAggregateById
 // @Description:
 // @receiver s
@@ -77,12 +68,10 @@ func (s *UserCommandAppService) UserUpdate(ctx context.Context, appCmd *appcmd.U
 // @param tenantId 租户Id
 // @param id 聚合根Id
 // @return error
-//
 func (s *UserCommandAppService) FindAggregateById(ctx context.Context, tenantId string, id string) (*model.UserAggregate, bool, error) {
 	return s.findAggregateByIdExecutor.Execute(ctx, tenantId, id)
 }
 
-//
 // QueryById
 // @Description: 按id获取<no value>投影类
 // @receiver s queryAppService
@@ -92,7 +81,6 @@ func (s *UserCommandAppService) FindAggregateById(ctx context.Context, tenantId 
 // @return data <no value> 信息
 // @return isFound 是否找到
 // @return err 错误信息
-//
 func (s *UserCommandAppService) QueryById(ctx context.Context, tenantId string, id string) (*query_dto.UserFindByIdResponse, bool, error) {
 	var resp query_dto.UserFindByIdResponse
 	isFound, err := s.BaseQueryAppService.QueryById(ctx, tenantId, id, &resp)
@@ -102,7 +90,6 @@ func (s *UserCommandAppService) QueryById(ctx context.Context, tenantId string, 
 	return &resp, isFound, nil
 }
 
-//
 // QueryByIds
 // @Description: 按ids获取<no value>投影类
 // @receiver s queryAppService
@@ -112,7 +99,6 @@ func (s *UserCommandAppService) QueryById(ctx context.Context, tenantId string, 
 // @return data <no value> 信息
 // @return isFound 是否找到
 // @return err 错误信息
-//
 func (s *UserCommandAppService) QueryByIds(ctx context.Context, tenantId string, ids []string) (*query_dto.UserFindByIdsResponse, bool, error) {
 	var resp query_dto.UserFindByIdsResponse
 	isFound, err := s.BaseQueryAppService.QueryByIds(ctx, tenantId, ids, &resp)
