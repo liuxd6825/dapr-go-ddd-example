@@ -33,6 +33,6 @@ func events() []restapp.RegisterEventType {
 	return register.GetRegisterEventType()
 }
 
-func actors() []actor.Factory {
+func actors() []actor.FactoryContext {
 	return register.GetActors()
 }

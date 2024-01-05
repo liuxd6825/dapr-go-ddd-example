@@ -17,7 +17,7 @@ type SaleItemQueryHandler struct {
 }
 
 func NewSaleItemSubscribe() restapp.RegisterSubscribe {
-	subscribes := &[]ddd.Subscribe{
+	subscribes := []*ddd.Subscribe{
 		{PubsubName: "pubsub", Topic: event.SaleItemDeleteEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_item_delete_event"},
 		{PubsubName: "pubsub", Topic: event.SaleItemCreateEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_item_create_event"},
 		{PubsubName: "pubsub", Topic: event.SaleItemUpdateEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_item_update_event"},
@@ -31,14 +31,12 @@ func NewSaleItemQueryHandler() ddd.QueryEventHandler {
 	}
 }
 
-//
 // OnSaleItemDeleteEventV1s0
 // @Description: SaleItemDeleteEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event SaleItemDeleteEvent 领域事件
 // @return error 错误
-//
 func (h *SaleItemQueryHandler) OnSaleItemDeleteEventV1s0(ctx context.Context, event *event.SaleItemDeleteEvent) error {
 	logs.DebugEvent(event, "OnOnSaleItemDeleteEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
@@ -50,14 +48,12 @@ func (h *SaleItemQueryHandler) OnSaleItemDeleteEventV1s0(ctx context.Context, ev
 	})
 }
 
-//
 // OnSaleItemCreateEventV1s0
 // @Description: SaleItemCreateEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event SaleItemCreateEvent 领域事件
 // @return error 错误
-//
 func (h *SaleItemQueryHandler) OnSaleItemCreateEventV1s0(ctx context.Context, event *event.SaleItemCreateEvent) error {
 	logs.DebugEvent(event, "OnOnSaleItemCreateEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
@@ -69,14 +65,12 @@ func (h *SaleItemQueryHandler) OnSaleItemCreateEventV1s0(ctx context.Context, ev
 	})
 }
 
-//
 // OnSaleItemUpdateEventV1s0
 // @Description: SaleItemUpdateEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event SaleItemUpdateEvent 领域事件
 // @return error 错误
-//
 func (h *SaleItemQueryHandler) OnSaleItemUpdateEventV1s0(ctx context.Context, event *event.SaleItemUpdateEvent) error {
 	logs.DebugEvent(event, "OnOnSaleItemUpdateEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {

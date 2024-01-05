@@ -18,12 +18,10 @@ func NewSaleItemCommandApi() *SaleItemCommandApi {
 	}
 }
 
-//
 // BeforeActivation
 // @Description: 注册http
 // @receiver c
 // @param ctx
-//
 func (c *SaleItemCommandApi) BeforeActivation(b mvc.BeforeActivation) {
 	b.Handle("DELETE", "/tenants/{tenantId}/sale-bills/sale-items", "SaleItemDelete")
 	b.Handle("POST", "/tenants/{tenantId}/sale-bills/sale-items", "SaleItemCreate")
@@ -32,14 +30,12 @@ func (c *SaleItemCommandApi) BeforeActivation(b mvc.BeforeActivation) {
 	b.Handle("PATCH", "/tenants/{tenantId}/sale-bills/sale-items:get", "SaleItemUpdateAndGet")
 }
 
-//
 // SaleItemDelete
 // @Description: 删除销售明细项
 // @receiver c
 // @param ctx
-//
-func (c *SaleItemCommandApi) SaleItemDelete(ictx iris.Context) {
-	_ = restapp.DoCmd(ictx, func(ctx context.Context) error {
+func (c *SaleItemCommandApi) SaleItemDelete(ictx iris.Context, tenantId string) {
+	_ = restapp.DoCmd(ictx, tenantId, func(ctx context.Context) error {
 		cmd, err := saleBillAssembler.AssSaleItemDeleteAppCmd(ictx)
 		if err != nil {
 			return err
@@ -48,14 +44,12 @@ func (c *SaleItemCommandApi) SaleItemDelete(ictx iris.Context) {
 	})
 }
 
-//
 // SaleItemCreate
 // @Description: 添加明细
 // @receiver c
 // @param ctx
-//
-func (c *SaleItemCommandApi) SaleItemCreate(ictx iris.Context) {
-	_ = restapp.DoCmd(ictx, func(ctx context.Context) error {
+func (c *SaleItemCommandApi) SaleItemCreate(ictx iris.Context, tenantId string) {
+	_ = restapp.DoCmd(ictx, tenantId, func(ctx context.Context) error {
 		cmd, err := saleBillAssembler.AssSaleItemCreateAppCmd(ictx)
 		if err != nil {
 			return err
@@ -64,20 +58,18 @@ func (c *SaleItemCommandApi) SaleItemCreate(ictx iris.Context) {
 	})
 }
 
-//
 // SaleItemCreateAndGet
 // @Description: 添加明细
 // @receiver c
 // @param ctx
-//
-func (c *SaleItemCommandApi) SaleItemCreateAndGet(ictx iris.Context) {
-	_ = restapp.Do(ictx, func() error {
+func (c *SaleItemCommandApi) SaleItemCreateAndGet(ictx iris.Context, tenantId string) {
+	_ = restapp.Do(ictx, tenantId, func(ctx context.Context) error {
 		appCmd, err := saleBillAssembler.AssSaleItemCreateAppCmd(ictx)
 		if err != nil {
 			return err
 		}
 
-		_, _, err = restapp.DoCmdAndQueryOne(ictx, c.service.QueryAppId, appCmd, func(ctx context.Context) error {
+		_, _, err = restapp.DoCmdAndQueryOne(ictx, tenantId, c.service.QueryAppId, appCmd, func(ctx context.Context) error {
 			return c.service.SaleItemCreate(ctx, appCmd)
 		}, func(ctx context.Context) (interface{}, bool, error) {
 			return c.service.QueryByIds(ctx, appCmd.GetTenantId(), appCmd.Data.GetIds())
@@ -87,14 +79,12 @@ func (c *SaleItemCommandApi) SaleItemCreateAndGet(ictx iris.Context) {
 	})
 }
 
-//
 // SaleItemUpdate
 // @Description: 更新明细
 // @receiver c
 // @param ctx
-//
-func (c *SaleItemCommandApi) SaleItemUpdate(ictx iris.Context) {
-	_ = restapp.DoCmd(ictx, func(ctx context.Context) error {
+func (c *SaleItemCommandApi) SaleItemUpdate(ictx iris.Context, tenantId string) {
+	_ = restapp.DoCmd(ictx, tenantId, func(ctx context.Context) error {
 		cmd, err := saleBillAssembler.AssSaleItemUpdateAppCmd(ictx)
 		if err != nil {
 			return err
@@ -103,20 +93,18 @@ func (c *SaleItemCommandApi) SaleItemUpdate(ictx iris.Context) {
 	})
 }
 
-//
 // SaleItemUpdateAndGet
 // @Description: 更新明细
 // @receiver c
 // @param ctx
-//
-func (c *SaleItemCommandApi) SaleItemUpdateAndGet(ictx iris.Context) {
-	_ = restapp.Do(ictx, func() error {
+func (c *SaleItemCommandApi) SaleItemUpdateAndGet(ictx iris.Context, tenantId string) {
+	_ = restapp.Do(ictx, tenantId, func(ctx context.Context) error {
 		appCmd, err := saleBillAssembler.AssSaleItemUpdateAppCmd(ictx)
 		if err != nil {
 			return err
 		}
 
-		_, _, err = restapp.DoCmdAndQueryOne(ictx, c.service.QueryAppId, appCmd, func(ctx context.Context) error {
+		_, _, err = restapp.DoCmdAndQueryOne(ictx, tenantId, c.service.QueryAppId, appCmd, func(ctx context.Context) error {
 			return c.service.SaleItemUpdate(ctx, appCmd)
 		}, func(ctx context.Context) (interface{}, bool, error) {
 			return c.service.QueryByIds(ctx, appCmd.GetTenantId(), appCmd.Data.GetIds())

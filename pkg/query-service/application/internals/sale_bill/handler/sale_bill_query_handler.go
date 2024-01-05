@@ -16,13 +16,11 @@ type SaleBillQueryHandler struct {
 	handler.BaseQueryHandler
 }
 
-//
 // NewSaleBillSubscribe
 // @Description: 创建dapr消息订阅器，用于接受领域事件
 // @return restapp.RegisterSubscribe  消息注册器
-//
 func NewSaleBillSubscribe() restapp.RegisterSubscribe {
-	subscribes := &[]ddd.Subscribe{
+	subscribes := []*ddd.Subscribe{
 		{PubsubName: "pubsub", Topic: event.SaleBillConfirmEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_bill_confirm_event"},
 		{PubsubName: "pubsub", Topic: event.SaleBillCreateEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_bill_create_event"},
 		{PubsubName: "pubsub", Topic: event.SaleBillDeleteEventType.String(), Route: "/dapr-ddd-demo/domain-event/sale_bill/sale_bill_delete_event"},
@@ -31,25 +29,21 @@ func NewSaleBillSubscribe() restapp.RegisterSubscribe {
 	return restapp.NewRegisterSubscribe(subscribes, NewSaleBillQueryHandler())
 }
 
-//
 // NewSaleBillQueryHandler
 // @Description: 创建<no value>领域事件处理器
 // @return ddd.QueryEventHandler 领域事件处理器
-//
 func NewSaleBillQueryHandler() ddd.QueryEventHandler {
 	return &SaleBillQueryHandler{
 		service: service.GetSaleBillQueryAppService(),
 	}
 }
 
-//
 // OnSaleBillConfirmEventV1s0
 // @Description: SaleBillConfirmEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event SaleBillConfirmEvent 领域事件
 // @return error 错误
-//
 func (h *SaleBillQueryHandler) OnSaleBillConfirmEventV1s0(ctx context.Context, event *event.SaleBillConfirmEvent) error {
 	logs.DebugEvent(event, "OnOnSaleBillConfirmEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
@@ -61,14 +55,12 @@ func (h *SaleBillQueryHandler) OnSaleBillConfirmEventV1s0(ctx context.Context, e
 	})
 }
 
-//
 // OnSaleBillCreateEventV1s0
 // @Description: SaleBillCreateEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event SaleBillCreateEvent 领域事件
 // @return error 错误
-//
 func (h *SaleBillQueryHandler) OnSaleBillCreateEventV1s0(ctx context.Context, event *event.SaleBillCreateEvent) error {
 	logs.DebugEvent(event, "OnOnSaleBillCreateEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
@@ -80,14 +72,12 @@ func (h *SaleBillQueryHandler) OnSaleBillCreateEventV1s0(ctx context.Context, ev
 	})
 }
 
-//
 // OnSaleBillDeleteEventV1s0
 // @Description: SaleBillDeleteEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event SaleBillDeleteEvent 领域事件
 // @return error 错误
-//
 func (h *SaleBillQueryHandler) OnSaleBillDeleteEventV1s0(ctx context.Context, event *event.SaleBillDeleteEvent) error {
 	logs.DebugEvent(event, "OnOnSaleBillDeleteEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {
@@ -95,14 +85,12 @@ func (h *SaleBillQueryHandler) OnSaleBillDeleteEventV1s0(ctx context.Context, ev
 	})
 }
 
-//
 // OnSaleBillUpdateEventV1s0
 // @Description: SaleBillUpdateEvent事件处理器
 // @receiver h
 // @param ctx 上下文
 // @param event SaleBillUpdateEvent 领域事件
 // @return error 错误
-//
 func (h *SaleBillQueryHandler) OnSaleBillUpdateEventV1s0(ctx context.Context, event *event.SaleBillUpdateEvent) error {
 	logs.DebugEvent(event, "OnOnSaleBillUpdateEventV1s0")
 	return h.DoSession(ctx, h, event, func(ctx context.Context) error {

@@ -31,7 +31,6 @@ func (c *SaleBillCommandApi) BeforeActivation(b mvc.BeforeActivation) {
 	b.Handle("PATCH", "/tenants/{tenantId}/sale-bills:get", "SaleBillUpdateAndGet")
 }
 
-//
 // FindAggregateById godoc
 // @Summary      按聚合根ID查找聚合对象
 // @Description  按聚合根ID查找聚合对象
@@ -43,14 +42,12 @@ func (c *SaleBillCommandApi) BeforeActivation(b mvc.BeforeActivation) {
 // @Success      200        {object}    any
 // @Failure      500        {object}    string      "应用错误"
 // @Router       /tenants/{tenantId}/sale-bills/aggregate/{id} [get]
-//
 func (c *SaleBillCommandApi) FindAggregateById(ictx iris.Context, tenantId string, id string) {
-	_, _, _ = restapp.DoQueryOne(ictx, func(ctx context.Context) (interface{}, bool, error) {
+	_, _, _ = restapp.DoQueryOne(ictx, tenantId, func(ctx context.Context) (interface{}, bool, error) {
 		return c.service.FindAggregateById(ctx, tenantId, id)
 	})
 }
 
-//
 // SaleBillConfirm godoc
 // @Summary      下单确认命令
 // @Description  下单确认命令
@@ -62,9 +59,8 @@ func (c *SaleBillCommandApi) FindAggregateById(ictx iris.Context, tenantId strin
 // @Success      200        {object}    any
 // @Failure      500        {object}    string      "应用错误"
 // @Router       /tenants/{tenantId}/sale-bills [PATCH]
-//
-func (c *SaleBillCommandApi) SaleBillConfirm(ictx iris.Context) {
-	_ = restapp.DoCmd(ictx, func(ctx context.Context) error {
+func (c *SaleBillCommandApi) SaleBillConfirm(ictx iris.Context, tenantId string) {
+	_ = restapp.DoCmd(ictx, tenantId, func(ctx context.Context) error {
 		appCmd, err := saleBillAssembler.AssSaleBillConfirmAppCmd(ictx)
 		if err != nil {
 			return err
@@ -73,7 +69,6 @@ func (c *SaleBillCommandApi) SaleBillConfirm(ictx iris.Context) {
 	})
 }
 
-//
 // SaleBillConfirmAndGet godoc
 // @Summary      下单确认命令
 // @Description  下单确认命令
@@ -85,15 +80,14 @@ func (c *SaleBillCommandApi) SaleBillConfirm(ictx iris.Context) {
 // @Success      200        {object}    any
 // @Failure      500        {object}    string      "应用错误"
 // @Router       /tenants/{tenantId}/sale-bills:get [PATCH]
-//
-func (c *SaleBillCommandApi) SaleBillConfirmAndGet(ictx iris.Context) {
-	_ = restapp.Do(ictx, func() error {
+func (c *SaleBillCommandApi) SaleBillConfirmAndGet(ictx iris.Context, tenantId string) {
+	_ = restapp.Do(ictx, tenantId, func(ctx context.Context) error {
 		appCmd, err := saleBillAssembler.AssSaleBillConfirmAppCmd(ictx)
 		if err != nil {
 			return err
 		}
 
-		_, _, err = restapp.DoCmdAndQueryOne(ictx, c.service.QueryAppId, appCmd, func(ctx context.Context) error {
+		_, _, err = restapp.DoCmdAndQueryOne(ictx, tenantId, c.service.QueryAppId, appCmd, func(ctx context.Context) error {
 			return c.service.SaleBillConfirm(ctx, appCmd)
 		}, func(ctx context.Context) (interface{}, bool, error) {
 			return c.service.QueryById(ctx, appCmd.GetTenantId(), appCmd.Data.Id)
@@ -102,7 +96,6 @@ func (c *SaleBillCommandApi) SaleBillConfirmAndGet(ictx iris.Context) {
 	})
 }
 
-//
 // SaleBillCreate godoc
 // @Summary      创建销售订单
 // @Description  创建销售订单
@@ -114,9 +107,8 @@ func (c *SaleBillCommandApi) SaleBillConfirmAndGet(ictx iris.Context) {
 // @Success      200        {object}    any
 // @Failure      500        {object}    string      "应用错误"
 // @Router       /tenants/{tenantId}/sale-bills [POST]
-//
-func (c *SaleBillCommandApi) SaleBillCreate(ictx iris.Context) {
-	_ = restapp.DoCmd(ictx, func(ctx context.Context) error {
+func (c *SaleBillCommandApi) SaleBillCreate(ictx iris.Context, tenantId string) {
+	_ = restapp.DoCmd(ictx, tenantId, func(ctx context.Context) error {
 		appCmd, err := saleBillAssembler.AssSaleBillCreateAppCmd(ictx)
 		if err != nil {
 			return err
@@ -125,7 +117,6 @@ func (c *SaleBillCommandApi) SaleBillCreate(ictx iris.Context) {
 	})
 }
 
-//
 // SaleBillCreateAndGet godoc
 // @Summary      创建销售订单
 // @Description  创建销售订单
@@ -137,15 +128,14 @@ func (c *SaleBillCommandApi) SaleBillCreate(ictx iris.Context) {
 // @Success      200        {object}    any
 // @Failure      500        {object}    string      "应用错误"
 // @Router       /tenants/{tenantId}/sale-bills:get [POST]
-//
-func (c *SaleBillCommandApi) SaleBillCreateAndGet(ictx iris.Context) {
-	_ = restapp.Do(ictx, func() error {
+func (c *SaleBillCommandApi) SaleBillCreateAndGet(ictx iris.Context, tenantId string) {
+	_ = restapp.Do(ictx, tenantId, func(ctx context.Context) error {
 		appCmd, err := saleBillAssembler.AssSaleBillCreateAppCmd(ictx)
 		if err != nil {
 			return err
 		}
 
-		_, _, err = restapp.DoCmdAndQueryOne(ictx, c.service.QueryAppId, appCmd, func(ctx context.Context) error {
+		_, _, err = restapp.DoCmdAndQueryOne(ictx, tenantId, c.service.QueryAppId, appCmd, func(ctx context.Context) error {
 			return c.service.SaleBillCreate(ctx, appCmd)
 		}, func(ctx context.Context) (interface{}, bool, error) {
 			return c.service.QueryById(ctx, appCmd.GetTenantId(), appCmd.Data.Id)
@@ -154,7 +144,6 @@ func (c *SaleBillCommandApi) SaleBillCreateAndGet(ictx iris.Context) {
 	})
 }
 
-//
 // SaleBillDelete godoc
 // @Summary      删除销售订单
 // @Description  删除销售订单
@@ -166,9 +155,8 @@ func (c *SaleBillCommandApi) SaleBillCreateAndGet(ictx iris.Context) {
 // @Success      200        {object}    any
 // @Failure      500        {object}    string      "应用错误"
 // @Router       /tenants/{tenantId}/sale-bills [DELETE]
-//
-func (c *SaleBillCommandApi) SaleBillDelete(ictx iris.Context) {
-	_ = restapp.DoCmd(ictx, func(ctx context.Context) error {
+func (c *SaleBillCommandApi) SaleBillDelete(ictx iris.Context, tenantId string) {
+	_ = restapp.DoCmd(ictx, tenantId, func(ctx context.Context) error {
 		appCmd, err := saleBillAssembler.AssSaleBillDeleteAppCmd(ictx)
 		if err != nil {
 			return err
@@ -177,7 +165,6 @@ func (c *SaleBillCommandApi) SaleBillDelete(ictx iris.Context) {
 	})
 }
 
-//
 // SaleBillUpdate godoc
 // @Summary      更新销售订单
 // @Description  更新销售订单
@@ -189,9 +176,8 @@ func (c *SaleBillCommandApi) SaleBillDelete(ictx iris.Context) {
 // @Success      200        {object}    any
 // @Failure      500        {object}    string      "应用错误"
 // @Router       /tenants/{tenantId}/sale-bills [PATCH]
-//
-func (c *SaleBillCommandApi) SaleBillUpdate(ictx iris.Context) {
-	_ = restapp.DoCmd(ictx, func(ctx context.Context) error {
+func (c *SaleBillCommandApi) SaleBillUpdate(ictx iris.Context, tenantId string) {
+	_ = restapp.DoCmd(ictx, tenantId, func(ctx context.Context) error {
 		appCmd, err := saleBillAssembler.AssSaleBillUpdateAppCmd(ictx)
 		if err != nil {
 			return err
@@ -200,7 +186,6 @@ func (c *SaleBillCommandApi) SaleBillUpdate(ictx iris.Context) {
 	})
 }
 
-//
 // SaleBillUpdateAndGet godoc
 // @Summary      更新销售订单
 // @Description  更新销售订单
@@ -212,15 +197,14 @@ func (c *SaleBillCommandApi) SaleBillUpdate(ictx iris.Context) {
 // @Success      200        {object}    any
 // @Failure      500        {object}    string      "应用错误"
 // @Router       /tenants/{tenantId}/sale-bills:get [PATCH]
-//
-func (c *SaleBillCommandApi) SaleBillUpdateAndGet(ictx iris.Context) {
-	_ = restapp.Do(ictx, func() error {
+func (c *SaleBillCommandApi) SaleBillUpdateAndGet(ictx iris.Context, tenantId string) {
+	_ = restapp.Do(ictx, tenantId, func(ctx context.Context) error {
 		appCmd, err := saleBillAssembler.AssSaleBillUpdateAppCmd(ictx)
 		if err != nil {
 			return err
 		}
 
-		_, _, err = restapp.DoCmdAndQueryOne(ictx, c.service.QueryAppId, appCmd, func(ctx context.Context) error {
+		_, _, err = restapp.DoCmdAndQueryOne(ictx, tenantId, c.service.QueryAppId, appCmd, func(ctx context.Context) error {
 			return c.service.SaleBillUpdate(ctx, appCmd)
 		}, func(ctx context.Context) (interface{}, bool, error) {
 			return c.service.QueryById(ctx, appCmd.GetTenantId(), appCmd.Data.Id)

@@ -20,7 +20,7 @@ type UserQueryHandler struct {
 // @Description: 创建dapr消息订阅器，用于接受领域事件
 // @return restapp.RegisterSubscribe  消息注册器
 func NewUserSubscribe() restapp.RegisterSubscribe {
-	subscribes := &[]ddd.Subscribe{
+	subscribes := []*ddd.Subscribe{
 		{PubsubName: "pubsub", Topic: event.UserCreateEventType.String(), Route: "/dapr-ddd-demo/domain-event/user/user_create_event"},
 		{PubsubName: "pubsub", Topic: event.UserDeleteEventType.String(), Route: "/dapr-ddd-demo/domain-event/user/user_delete_event"},
 		{PubsubName: "pubsub", Topic: event.UserUpdateEventType.String(), Route: "/dapr-ddd-demo/domain-event/user/user_update_event"},

@@ -40,8 +40,8 @@ func (a *SaleBillQueryApi) BeforeActivation(b mvc.BeforeActivation) {
 // @Failure      404        {object}   string        "按ID找到数据"
 // @Failure      500        {object}   string        "应用错误"
 // @Router       /tenants/{tenantId}/sale-bills/{id} [get]
-func (a *SaleBillQueryApi) FindById(ictx iris.Context) {
-	_, _, _ = restapp.DoQueryOne(ictx, func(ctx context.Context) (interface{}, bool, error) {
+func (a *SaleBillQueryApi) FindById(ictx iris.Context, tenantId string) {
+	_, _, _ = restapp.DoQueryOne(ictx, tenantId, func(ctx context.Context) (interface{}, bool, error) {
 		req, err := SaleBillAssembler.AssFindByIdRequest(ictx)
 		if err != nil {
 			return nil, false, err
@@ -63,7 +63,7 @@ func (a *SaleBillQueryApi) FindById(ictx iris.Context) {
 // @Failure      500       {object}  string          "应用错误"
 // @Router       /tenants/{tenantId}/sale-bills:ids [get]
 func (a *SaleBillQueryApi) FindByIds(ictx iris.Context, tenantId string) {
-	_, _, _ = restapp.DoQuery(ictx, func(ctx context.Context) (interface{}, bool, error) {
+	_, _, _ = restapp.DoQuery(ictx, tenantId, func(ctx context.Context) (interface{}, bool, error) {
 		req, err := SaleBillAssembler.AssFindByIdsRequest(ictx)
 		if err != nil {
 			return nil, false, err
@@ -84,7 +84,7 @@ func (a *SaleBillQueryApi) FindByIds(ictx iris.Context, tenantId string) {
 // @Failure      500       {object}  string          "应用错误"
 // @Router       /tenants/{tenantId}/sale-bills:all [get]
 func (a *SaleBillQueryApi) FindAll(ictx iris.Context, tenantId string) {
-	_, _, _ = restapp.DoQuery(ictx, func(ctx context.Context) (interface{}, bool, error) {
+	_, _, _ = restapp.DoQuery(ictx, tenantId, func(ctx context.Context) (interface{}, bool, error) {
 		req, err := SaleBillAssembler.AssFindAllRequest(ictx)
 		if err != nil {
 			return nil, false, err
@@ -105,7 +105,7 @@ func (a *SaleBillQueryApi) FindAll(ictx iris.Context, tenantId string) {
 // @Failure      500        {object}    string      "应用错误"
 // @Router       /tenants/{tenantId}/sale-bills [get]
 func (a *SaleBillQueryApi) FindPaging(ictx iris.Context, tenantId string) {
-	_, _, _ = restapp.DoQuery(ictx, func(ctx context.Context) (interface{}, bool, error) {
+	_, _, _ = restapp.DoQuery(ictx, tenantId, func(ctx context.Context) (interface{}, bool, error) {
 		req, err := SaleBillAssembler.AssFindPagingRequest(ictx)
 		if err != nil {
 			return nil, false, err

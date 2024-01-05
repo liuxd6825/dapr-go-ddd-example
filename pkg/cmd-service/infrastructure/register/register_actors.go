@@ -5,6 +5,6 @@ import (
 	"github.com/liuxd6825/dapr-go-sdk/actor"
 )
 
-func GetActors() []actor.Factory {
+func GetActors() []actor.FactoryContext {
 	return restapp.GetActors()
 }

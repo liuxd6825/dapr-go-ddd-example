@@ -41,8 +41,8 @@ func (a *SaleItemQueryApi) BeforeActivation(b mvc.BeforeActivation) {
 // @Failure      404        {object}   string        "按ID找到数据"
 // @Failure      500        {object}   string        "应用错误"
 // @Router       /tenants/{tenantId}/sale-bills/{id} [get]
-func (a *SaleItemQueryApi) FindById(ictx iris.Context) {
-	_, _, _ = restapp.DoQueryOne(ictx, func(ctx context.Context) (interface{}, bool, error) {
+func (a *SaleItemQueryApi) FindById(ictx iris.Context, tenantId string) {
+	_, _, _ = restapp.DoQueryOne(ictx, tenantId, func(ctx context.Context) (interface{}, bool, error) {
 		req, err := SaleItemAssembler.AssFindByIdRequest(ictx)
 		if err != nil {
 			return nil, false, err
@@ -65,7 +65,7 @@ func (a *SaleItemQueryApi) FindById(ictx iris.Context) {
 // @Failure      500        {object}   string        "应用错误"
 // @Router       /tenants/{tenantId}/sale-items:sale-bill-id/saleBillId [get]
 func (a *SaleItemQueryApi) FindBySaleBillId(ictx iris.Context, tenantId, saleBillId string) {
-	_, _, _ = restapp.DoQuery(ictx, func(ctx context.Context) (interface{}, bool, error) {
+	_, _, _ = restapp.DoQuery(ictx, tenantId, func(ctx context.Context) (interface{}, bool, error) {
 		req, err := SaleItemAssembler.AssFindBySaleBillIdRequest(ictx)
 		if err != nil {
 			return nil, false, err
@@ -86,7 +86,7 @@ func (a *SaleItemQueryApi) FindBySaleBillId(ictx iris.Context, tenantId, saleBil
 // @Failure      500       {object}  string          "应用错误"
 // @Router       /tenants/{tenantId}/sale-bills:all [get]
 func (a *SaleItemQueryApi) FindAll(ictx iris.Context, tenantId string) {
-	_, _, _ = restapp.DoQuery(ictx, func(ctx context.Context) (interface{}, bool, error) {
+	_, _, _ = restapp.DoQuery(ictx, tenantId, func(ctx context.Context) (interface{}, bool, error) {
 		req, err := SaleItemAssembler.AssFindAllRequest(ictx)
 		if err != nil {
 			return nil, false, err
@@ -107,7 +107,7 @@ func (a *SaleItemQueryApi) FindAll(ictx iris.Context, tenantId string) {
 // @Failure      500        {object}    string      "应用错误"
 // @Router       /tenants/{tenantId}/sale-bills [get]
 func (a *SaleItemQueryApi) FindPaging(ictx iris.Context, tenantId string) {
-	_, _, _ = restapp.DoQuery(ictx, func(ctx context.Context) (interface{}, bool, error) {
+	_, _, _ = restapp.DoQuery(ictx, tenantId, func(ctx context.Context) (interface{}, bool, error) {
 		req, err := SaleItemAssembler.AssFindPagingRequest(ictx)
 		if err != nil {
 			return nil, false, err
