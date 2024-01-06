@@ -2,12 +2,10 @@ module gitee.com/liuxu6825/dapr-ddd-demo
 
 go 1.21
 
-require (
-	github.com/kataras/iris/v12 v12.2.0
-	github.com/liuxd6825/dapr-go-ddd-sdk v1.12.0
-)
+require github.com/liuxd6825/dapr-go-ddd-sdk v1.12.0
 
 require (
+	github.com/kataras/iris/v12 v12.2.0
 	github.com/liuxd6825/dapr-components-contrib v1.12.0
 	github.com/liuxd6825/dapr-go-sdk v1.9.0
 	github.com/sirupsen/logrus v1.9.3
@@ -119,6 +117,7 @@ require (
 	github.com/sanity-io/litter v1.5.5 // indirect
 	github.com/schollz/closestmatch v2.1.0+incompatible // indirect
 	github.com/sergi/go-diff v1.2.0 // indirect
+	github.com/snownd/cake v0.6.0 // indirect
 	github.com/sony/gobreaker v0.5.0 // indirect
 	github.com/spf13/cast v1.5.1 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
